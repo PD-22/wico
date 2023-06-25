@@ -42,41 +42,33 @@ function mergeCircuitSoundCombs(circuitCombinations, soundCombinations) {
 function circuitSoundCombToString(comb) {
     let result = "";
 
-    result += "circuit:\n";
+    result += "    circuit:\n";
     for (const [key, value] of Object.entries(comb.circuit)) {
-        result += `  ${key} - ${value}\n`;
+        result += `      ${key} - ${value}\n`;
     }
 
-    result += "sound:\n";
+    result += "    sound:\n";
     for (const [key, value] of Object.entries(comb.sound)) {
-        result += `  ${key} - ${value}\n`;
+        result += `      ${key} - ${value}\n`;
     }
 
     return result;
 }
 
-function countCircuitSoundCombSwitches(combinations) {
-    let totalSwitches = [];
+function circuitSoundCombDiff(a, b) {
+    let result = 0;
 
-    for (let i = 0; i < combinations.length - 1; i++) {
-        const currentCombination = combinations[i];
-        const nextCombination = combinations[i + 1];
+    Object.keys(a).forEach(key => {
+        const currentWires = a[key];
+        const nextWires = b[key];
 
-        totalSwitches[i] = 0;
+        result += Object
+            .keys(currentWires)
+            .filter(wireKey => currentWires[wireKey] !== nextWires[wireKey])
+            .length;
+    });
 
-        Object.keys(currentCombination).forEach(key => {
-            const currentWires = currentCombination[key];
-            const nextWires = nextCombination[key];
-
-            Object.keys(currentWires).forEach(wireKey => {
-                if (currentWires[wireKey] !== nextWires[wireKey]) {
-                    totalSwitches[i]++;
-                }
-            });
-        });
-    }
-
-    return totalSwitches;
+    return result
 }
 
 function generatePermutations(arr) {
@@ -114,7 +106,19 @@ const soundCombinations = keyValuesCombs(soundKeys, soundValues);
 
 const combinations = mergeCircuitSoundCombs(circuitCombinations, soundCombinations);
 
-console.log(combinations.map((comb, i) => `${i + 1})\n` + circuitSoundCombToString(comb)).join('\n'));
-const switches = countCircuitSoundCombSwitches(combinations);
-const switchSum = switches.reduce((a, b) => a + b);
-console.log(switches, switchSum);
+console.log(
+    "all combinations:\n",
+    combinations.map((comb, i) => {
+        let result = `  ${i + 1}:\n`;
+        const nextComb = combinations[i + 1];
+        const diff = nextComb ? circuitSoundCombDiff(comb, nextComb) : 0;
+        result += `    diff: ${diff}\n`;
+        result += circuitSoundCombToString(comb);
+        return result;
+    }).join('')
+);
+
+console.log(
+    "total switches:",
+    countCircuitSoundCombSwitches(combinations).reduce((a, b) => a + b)
+);
