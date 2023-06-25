@@ -43,13 +43,13 @@ function circuitSoundCombToString(comb) {
     let result = "";
 
     result += "circuit:\n";
-    for (const key in comb.circuit) {
-        result += `  ${key} - ${comb.circuit[key]}\n`;
+    for (const [key, value] of Object.entries(comb.circuit)) {
+        result += `  ${key} - ${value}\n`;
     }
 
     result += "sound:\n";
-    for (const key in comb.sound) {
-        result += `  ${key} - ${comb.sound[key]}\n`;
+    for (const [key, value] of Object.entries(comb.sound)) {
+        result += `  ${key} - ${value}\n`;
     }
 
     return result;
