@@ -90,4 +90,6 @@ const soundCombinations = keyValuesCombs(soundKeys, soundValues);
 const combinations = mergeCircuitSoundCombs(circuitCombinations, soundCombinations);
 
 console.log(combinations.map((comb, i) => `${i + 1})\n` + circuitSoundCombToString(comb)).join('\n'));
-console.log(countSwitches(combinations));
+const switches = countCircuitSoundCombSwitches(combinations);
+const switchSum = switches.reduce((a, b) => a + b);
+console.log(switches, switchSum);
