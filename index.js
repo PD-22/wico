@@ -1,31 +1,3 @@
-const circuitKeys = "blue red green copper".split(" ");
-const circuitValues = "gmrl".split("");
-const circuitCombinations = keyValuesCombs(circuitKeys, circuitValues);
-
-const soundKeys = "red copper green".split(" ");
-const soundValues = "rgl".split("");
-const soundCombinations = keyValuesCombs(soundKeys, soundValues);
-
-const combinations = mergeCircuitSoundCombs(circuitCombinations, soundCombinations);
-
-console.log(combinations.map((comb, i) => `${i})\n` + combToString(comb)).join('\n'));
-
-function combToString(comb) {
-    let result = "";
-
-    result += "circuit:\n";
-    for (const key in comb.circuit) {
-        result += `  ${key} - ${comb.circuit[key]}\n`;
-    }
-
-    result += "sound:\n";
-    for (const key in comb.sound) {
-        result += `  ${key} - ${comb.sound[key]}\n`;
-    }
-
-    return result;
-}
-
 function keyValuesCombs(keys, values) {
     if (keys.length !== values.length) {
         throw new Error("Keys and values must have the same length");
@@ -66,3 +38,31 @@ function mergeCircuitSoundCombs(circuitCombinations, soundCombinations) {
 
     return mergedCombinations;
 }
+
+function circuitSoundCombToString(comb) {
+    let result = "";
+
+    result += "circuit:\n";
+    for (const key in comb.circuit) {
+        result += `  ${key} - ${comb.circuit[key]}\n`;
+    }
+
+    result += "sound:\n";
+    for (const key in comb.sound) {
+        result += `  ${key} - ${comb.sound[key]}\n`;
+    }
+
+    return result;
+}
+
+const circuitKeys = "blue red green copper".split(" ");
+const circuitValues = "gmrl".split("");
+const circuitCombinations = keyValuesCombs(circuitKeys, circuitValues);
+
+const soundKeys = "red copper green".split(" ");
+const soundValues = "rgl".split("");
+const soundCombinations = keyValuesCombs(soundKeys, soundValues);
+
+const combinations = mergeCircuitSoundCombs(circuitCombinations, soundCombinations);
+
+console.log(combinations.map((comb, i) => `${i + 1})\n` + circuitSoundCombToString(comb)).join('\n'));
