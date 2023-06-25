@@ -1,16 +1,32 @@
-const circuitKeys = "Blue Red Green Copper".split(" ");
-const circuitValues = "GMRL".split("");
-const circuitCombinations = keyValuesCombinations(circuitKeys, circuitValues);
+const circuitKeys = "blue red green copper".split(" ");
+const circuitValues = "gmrl".split("");
+const circuitCombinations = keyValuesCombs(circuitKeys, circuitValues);
 
-const soundKeys = "Red Copper Green".split(" ");
-const soundValues = "RGL".split("");
-const soundCombinations = keyValuesCombinations(soundKeys, soundValues);
+const soundKeys = "red copper green".split(" ");
+const soundValues = "rgl".split("");
+const soundCombinations = keyValuesCombs(soundKeys, soundValues);
 
-const combinations = mergeCircuitSoundCombinations(circuitCombinations, soundCombinations);
+const combinations = mergeCircuitSoundCombs(circuitCombinations, soundCombinations);
 
-console.log(combinations);
+console.log(combinations.map((comb, i) => `${i})\n` + combToString(comb)).join('\n'));
 
-function keyValuesCombinations(keys, values) {
+function combToString(comb) {
+    let result = "";
+
+    result += "circuit:\n";
+    for (const key in comb.circuit) {
+        result += `  ${key} - ${comb.circuit[key]}\n`;
+    }
+
+    result += "sound:\n";
+    for (const key in comb.sound) {
+        result += `  ${key} - ${comb.sound[key]}\n`;
+    }
+
+    return result;
+}
+
+function keyValuesCombs(keys, values) {
     if (keys.length !== values.length) {
         throw new Error("Keys and values must have the same length");
     }
@@ -39,12 +55,12 @@ function keyValuesCombinations(keys, values) {
     return combinations;
 }
 
-function mergeCircuitSoundCombinations(circuitCombinations, soundCombinations) {
+function mergeCircuitSoundCombs(circuitCombinations, soundCombinations) {
     const mergedCombinations = [];
 
     for (const circuitCombo of circuitCombinations) {
         for (const soundCombo of soundCombinations) {
-            mergedCombinations.push({ Circuit: circuitCombo, Sound: soundCombo });
+            mergedCombinations.push({ circuit: circuitCombo, sound: soundCombo });
         }
     }
 
