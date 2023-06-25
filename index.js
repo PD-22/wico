@@ -39,17 +39,17 @@ function mergeCircuitSoundCombs(circuitCombinations, soundCombinations) {
     return mergedCombinations;
 }
 
-function circuitSoundCombToString(comb) {
+function circuitSoundCombToString(comb, padding = '') {
     let result = "";
 
-    result += "    circuit:\n";
+    result += `${padding}  circuit:\n`;
     for (const [key, value] of Object.entries(comb.circuit)) {
-        result += `      ${key} - ${value}\n`;
+        result += `        ${key} - ${value}\n`;
     }
 
-    result += "    sound:\n";
+    result += `${padding}  sound:\n`;
     for (const [key, value] of Object.entries(comb.sound)) {
-        result += `      ${key} - ${value}\n`;
+        result += `        ${key} - ${value}\n`;
     }
 
     return result;
@@ -106,19 +106,28 @@ const soundCombinations = keyValuesCombs(soundKeys, soundValues);
 
 const combinations = mergeCircuitSoundCombs(circuitCombinations, soundCombinations);
 
+const logData = combinations.map((comb, i) => {
+    const result = { comb };
+
+    const nextComb = combinations[i + 1];
+    result.diff = nextComb ? circuitSoundCombDiff(comb, nextComb) : 0;
+
+    return result;
+})
+
 console.log(
-    "all combinations:\n",
-    combinations.map((comb, i) => {
-        let result = `  ${i + 1}:\n`;
-        const nextComb = combinations[i + 1];
-        const diff = nextComb ? circuitSoundCombDiff(comb, nextComb) : 0;
-        result += `    diff: ${diff}\n`;
-        result += circuitSoundCombToString(comb);
-        return result;
-    }).join('')
+    `all combinations:\n${logData.map(
+        ({ comb, diff }, i) => {
+            let result = '';
+            result += `  ${i + 1}:\n`;
+            result += `    diff: ${diff}\n`;
+            result += circuitSoundCombToString(comb, '    ');
+            return result;
+        }
+    ).join('')}`
 );
 
 console.log(
     "total switches:",
-    countCircuitSoundCombSwitches(combinations).reduce((a, b) => a + b)
+    logData.map(x => x.diff).reduce((a, b) => a + b)
 );
