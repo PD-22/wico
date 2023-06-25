@@ -79,6 +79,31 @@ function countCircuitSoundCombSwitches(combinations) {
     return totalSwitches;
 }
 
+function generatePermutations(arr) {
+    const permutations = [];
+
+    function swap(arr, i, j) {
+        const temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+
+    function permute(arr, start, end) {
+        if (start === end) {
+            permutations.push([...arr]);
+        } else {
+            for (let i = start; i <= end; i++) {
+                swap(arr, start, i);
+                permute(arr, start + 1, end);
+                swap(arr, start, i);
+            }
+        }
+    }
+
+    permute(arr, 0, arr.length - 1);
+    return permutations;
+}
+
 const circuitKeys = "blue red green copper".split(" ");
 const circuitValues = "gmrl".split("");
 const circuitCombinations = keyValuesCombs(circuitKeys, circuitValues);
