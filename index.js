@@ -42,14 +42,18 @@ function mergeCircuitSoundCombs(circuitCombinations, soundCombinations) {
 function circuitSoundCombToString(comb, padding = '') {
     let result = "";
 
-    result += `${padding}  circuit:\n`;
-    for (const [key, value] of Object.entries(comb.circuit)) {
-        result += `        ${key} - ${value}\n`;
+    result += `${padding}circuit:\n`;
+    for (const [key, { color, next, nextNumber }] of Object.entries(comb.circuit)) {
+        result += `${padding}  ${key} - ${color}`;
+        if (next) result += ` -> ${next} (${nextNumber})`;
+        result += "\n";
     }
 
-    result += `${padding}  sound:\n`;
-    for (const [key, value] of Object.entries(comb.sound)) {
-        result += `        ${key} - ${value}\n`;
+    result += `${padding}sound:\n`;
+    for (const [key, { color, next, nextNumber }] of Object.entries(comb.sound)) {
+        result += `${padding}  ${key} - ${color}`;
+        if (next) result += ` -> ${next} (${nextNumber})`;
+        result += "\n";
     }
 
     return result;
@@ -106,21 +110,41 @@ const soundCombinations = keyValuesCombs(soundKeys, soundValues);
 
 const combinations = mergeCircuitSoundCombs(circuitCombinations, soundCombinations);
 
-const logData = combinations.map((comb, i) => {
-    const result = { comb };
+const enrichedCombinations = combinations.map((comb, i) => {
+    const result = {};
 
     const nextComb = combinations[i + 1];
+
+    let nextNumberCounter = 0;
+    result.comb = Object.fromEntries(Object.entries(comb).map(([type, wires]) => {
+        const nextWires = nextComb && nextComb[type];
+        const newWires = Object.fromEntries(Object.entries(wires).map(([label, color]) => {
+            let next = null;
+            let nextNumber = null;
+            const nextColor = nextWires && nextWires[label];
+            const colorChanged = nextColor && color !== nextColor;
+            if (colorChanged) {
+                next = nextColor;
+                nextNumber = ++nextNumberCounter;
+            }
+            const newColor = { color, next, nextNumber };
+            return [label, newColor];
+        }));
+        return [type, newWires];
+    }));
+
     result.diff = nextComb ? circuitSoundCombDiff(comb, nextComb) : 0;
 
     return result;
-})
+});
+
+// return for each and total diff counter as well
 
 console.log(
-    `all combinations:\n${logData.map(
+    `all combinations:\n${enrichedCombinations.map(
         ({ comb, diff }, i) => {
             let result = '';
-            result += `  ${i + 1}:\n`;
-            result += `    diff: ${diff}\n`;
+            result += `  #${i + 1} (${diff}):\n`;
             result += circuitSoundCombToString(comb, '    ');
             return result;
         }
@@ -129,5 +153,5 @@ console.log(
 
 console.log(
     "total switches:",
-    logData.map(x => x.diff).reduce((a, b) => a + b)
+    enrichedCombinations.map(x => x.diff).reduce((a, b) => a + b)
 );
