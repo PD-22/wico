@@ -55,6 +55,30 @@ function circuitSoundCombToString(comb) {
     return result;
 }
 
+function countCircuitSoundCombSwitches(combinations) {
+    let totalSwitches = [];
+
+    for (let i = 0; i < combinations.length - 1; i++) {
+        const currentCombination = combinations[i];
+        const nextCombination = combinations[i + 1];
+
+        totalSwitches[i] = 0;
+
+        Object.keys(currentCombination).forEach(key => {
+            const currentWires = currentCombination[key];
+            const nextWires = nextCombination[key];
+
+            Object.keys(currentWires).forEach(wireKey => {
+                if (currentWires[wireKey] !== nextWires[wireKey]) {
+                    totalSwitches[i]++;
+                }
+            });
+        });
+    }
+
+    return totalSwitches;
+}
+
 const circuitKeys = "blue red green copper".split(" ");
 const circuitValues = "gmrl".split("");
 const circuitCombinations = keyValuesCombs(circuitKeys, circuitValues);
@@ -66,3 +90,4 @@ const soundCombinations = keyValuesCombs(soundKeys, soundValues);
 const combinations = mergeCircuitSoundCombs(circuitCombinations, soundCombinations);
 
 console.log(combinations.map((comb, i) => `${i + 1})\n` + circuitSoundCombToString(comb)).join('\n'));
+console.log(countSwitches(combinations));
