@@ -104,12 +104,12 @@ function generatePermutations(arr) {
     return permutations;
 }
 
-const circuitKeys = "blue red green copper".split(" ");
-const circuitValues = "gmrl".split("");
+const circuitKeys = "mrlg".split("");
+const circuitValues = "blue red green copper".split(" ");
 const circuitCombinations = keyValuesCombs(circuitKeys, circuitValues);
 
-const soundKeys = "red copper green".split(" ");
-const soundValues = "rgl".split("");
+const soundKeys = "rgl".split("");
+const soundValues = "red copper green".split(" ");
 const soundCombinations = keyValuesCombs(soundKeys, soundValues);
 
 const combinations = mergeCircuitSoundCombs(circuitCombinations, soundCombinations);
