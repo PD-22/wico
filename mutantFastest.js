@@ -46,6 +46,5 @@ function mutantFastest(wiring) {
 }
 
 const wiring = ['copper', 'red', 'green'];
-const fastestWays = mutantFastest(allPossibleWirings);
-
-console.log(mutantFastest);
+const fastestWays = mutantFastest(wiring);
+console.log(fastestWays);
