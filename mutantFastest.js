@@ -6,14 +6,6 @@ function calcListDiff(arr1, arr2) {
     return count;
 }
 
-function calcAdjDiff(arr) {
-    let result = 0;
-    for (let i = 0; i < arr.length - 1; i++) {
-        result += calcListDiff(arr[i], arr[i + 1]);
-    }
-    return result;
-}
-
 function generatePermutations(arr) {
     const permutations = [];
 
@@ -40,11 +32,35 @@ function generatePermutations(arr) {
 }
 
 function mutantFastest(wiring) {
-    return generatePermutations(generatePermutations(wiring))
-        .map(permutation => ({ permutation, adjDiff: calcAdjDiff(permutation) }))
-        .sort((a, b) => a.adjDiff - b.adjDiff);
+    const normalWiringOrder = generatePermutations(wiring);
+    const allWiringOrders = generatePermutations(normalWiringOrder)
+
+    const allWiringOrdersWithDiff = allWiringOrders.map((wiringOrder, i) => {
+        return wiringOrder.map(enrichWiringOrder);
+
+        function enrichWiringOrder(wiring, j) {
+            const nextWiring = wiringOrder[j + 1];
+            const diff = nextWiring ? calcListDiff(wiring, nextWiring) : 0;
+            return { wiring, diff };
+        }
+    });
+
+    const allWiringOrdersEnriched = allWiringOrdersWithDiff.map((wiringOrder) => {
+        const diffSum = wiringOrder.map(x => x.diff).reduce((a, b) => a + b);
+        return { wiringOrder, diffSum };
+    });
+
+    return allWiringOrdersEnriched.sort((a, b) => a.diffSum - b.diffSum)
+}
+
+function formatMutantFastest(fastestWays) {
+    return fastestWays.map(
+        ({ diffSum, wiringOrder }, i) => `${i}: (${diffSum})\n${wiringOrder.map(
+            ({ diff, wiring }, i) => `    ${i}: ${wiring.join(' ')} ${diff ? `(${diff})` : ''}`
+        ).join('\n')}`
+    ).join('\n')
 }
 
 const wiring = ['copper', 'red', 'green'];
 const fastestWays = mutantFastest(wiring);
-console.log(fastestWays);
+console.log(formatMutantFastest(fastestWays));
