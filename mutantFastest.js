@@ -6,29 +6,27 @@ function calcListDiff(arr1, arr2) {
     return count;
 }
 
-function generatePermutations(arr) {
-    const permutations = [];
+function generatePermutations(input) {
+    const result = [];
 
-    function swap(arr, i, j) {
-        const temp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = temp;
-    }
+    function recursion(accumulator, variants) {
+        if (variants.length <= 1) {
+            const newResultItem = [...accumulator, ...variants];
+            result.push(newResultItem);
+            return;
+        }
 
-    function permute(arr, start, end) {
-        if (start === end) {
-            permutations.push([...arr]);
-        } else {
-            for (let i = start; i <= end; i++) {
-                swap(arr, start, i);
-                permute(arr, start + 1, end);
-                swap(arr, start, i);
-            }
+        for (let i = 0; i < variants.length; i++) {
+            const variantChosen = variants[i];
+            const nextAccumulator = [...accumulator, variantChosen];
+            const variantsRest = [...variants.slice(0, i), ...variants.slice(i + 1)];
+            recursion(nextAccumulator, variantsRest);
         }
     }
 
-    permute(arr, 0, arr.length - 1);
-    return permutations;
+    recursion([], input);
+
+    return result;
 }
 
 function mutantFastest(wiring) {
