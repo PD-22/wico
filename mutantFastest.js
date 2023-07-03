@@ -21,6 +21,51 @@ function generatePermutations(input) {
     return result;
 }
 
+function checkPermutWaysDiff(arr) {
+    if (!allItemsAreUniqueByJSON(arr)) throw new Error(`arr items not unique`);
+
+    const list = arr.map((v, i) => {
+        const v2 = arr[i + 1];
+        const d = v2 ? calcListDiff(v, v2) : 0;
+        return { v, d };
+
+        function calcListDiff(arr1, arr2) {
+            let count = 0;
+            for (let i = 0; i < arr1.length; i++) {
+                if (arr1[i] !== arr2[i]) count++;
+            }
+            return count;
+        }
+    });
+
+    const diff = list.map(x => x.d).reduce((a, b) => a + b);
+    const minDiff = getMinDiff(arr[0].length);
+    const success = diff === minDiff;
+
+    return { success, list, diff, minDiff };
+
+    function getMinDiff(length) {
+        return 2 * (factorial(length) - 1);
+
+        function factorial(num) {
+            if (num < 0)
+                return -1;
+            else if (num == 0)
+                return 1;
+            else
+                return (num * factorial(num - 1));
+        }
+    }
+
+    function allItemsAreUniqueByJSON(arr) {
+        return arr.every(
+            (v, i) => !arr
+                .filter((_, i2) => i !== i2)
+                .some(v2 => JSON.stringify(v) === JSON.stringify(v2))
+        )
+    }
+}
+
 // all permutations of a set using a single switch of pair items
 function mutantFastest(wiring) {
     const permutations = generatePermutations(wiring);
@@ -80,6 +125,7 @@ function mutantFastest(wiring) {
     }
 }
 
-const wiring = Array.from("ABC");
+const wiring = Array.from("ABCD");
 const fastestWay = mutantFastest(wiring);
-console.log(fastestWay);
+const result = checkPermutWaysDiff(fastestWay);
+console.log(result);
