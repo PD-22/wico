@@ -1,11 +1,3 @@
-function calcListDiff(arr1, arr2) {
-    let count = 0;
-    for (let i = 0; i < arr1.length; i++) {
-        if (arr1[i] !== arr2[i]) count++;
-    }
-    return count;
-}
-
 function generatePermutations(input) {
     const result = [];
 
@@ -29,36 +21,65 @@ function generatePermutations(input) {
     return result;
 }
 
+// all permutations of a set using a single switch of pair items
 function mutantFastest(wiring) {
-    const normalWiringOrder = generatePermutations(wiring);
-    const allWiringOrders = generatePermutations(normalWiringOrder)
+    const permutations = generatePermutations(wiring);
+    const groupTree = prepareAllTheGroupings(permutations);
 
-    const allWiringOrdersWithDiff = allWiringOrders.map((wiringOrder, i) => {
-        return wiringOrder.map(enrichWiringOrder);
+    return recursion(groupTree, wiring.length - 2);
 
-        function enrichWiringOrder(wiring, j) {
-            const nextWiring = wiringOrder[j + 1];
-            const diff = nextWiring ? calcListDiff(wiring, nextWiring) : 0;
-            return { wiring, diff };
+    function recursion(group, depth) {
+        if (depth <= 0) return group;
+        return group.flatMap((childGroup, groupIndex) => {
+            const result = recursion(childGroup, depth - 1);
+            return groupIndex % 2 ? result.toReversed() : result;
+        });
+    }
+
+    function prepareAllTheGroupings(wordPerms) {
+        return recursion(wordPerms, 1);
+
+        function recursion(currentGroup, index) {
+            if (currentGroup.length <= 2) return currentGroup;
+
+            const groups = groupPermutationsStartingWith(currentGroup, index);
+
+            return groups.map(group => recursion(group, index + 1));
         }
-    });
 
-    const allWiringOrdersEnriched = allWiringOrdersWithDiff.map((wiringOrder) => {
-        const diffSum = wiringOrder.map(x => x.diff).reduce((a, b) => a + b);
-        return { wiringOrder, diffSum };
-    });
+        function groupPermutationsStartingWith(permList, depth = 1) {
+            const groups = [];
 
-    return allWiringOrdersEnriched.sort((a, b) => a.diffSum - b.diffSum)
+            const segment = x => x.slice(0, depth);
+
+            const segmentChanged = i => {
+                const perm = permList[i];
+                const prevPerm = permList[i - 1];
+                return !compareArrays(segment(perm), segment(prevPerm));
+
+                function compareArrays(arr1, arr2) {
+                    const str1 = JSON.stringify(arr1);
+                    const str2 = JSON.stringify(arr2);
+
+                    return str1 === str2;
+                }
+            };
+
+            for (let i = 0; i < permList.length; i++) {
+                const perm = permList[i];
+                if (i === 0 || segmentChanged(i)) groups.push([]);
+                last(groups).push(perm);
+
+                function last(arr) {
+                    return arr[arr.length - 1];
+                }
+            }
+
+            return groups;
+        }
+    }
 }
 
-function formatMutantFastest(fastestWays) {
-    return fastestWays.map(
-        ({ diffSum, wiringOrder }, i) => `${i}: (${diffSum})\n${wiringOrder.map(
-            ({ diff, wiring }, i) => `    ${i}: ${wiring.join(' ')} ${diff ? `(${diff})` : ''}`
-        ).join('\n')}`
-    ).join('\n')
-}
-
-const wiring = ['copper', 'red', 'green'];
-const fastestWays = mutantFastest(wiring);
-console.log(formatMutantFastest(fastestWays));
+const wiring = Array.from("ABC");
+const fastestWay = mutantFastest(wiring);
+console.log(fastestWay);
