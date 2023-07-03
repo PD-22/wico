@@ -22,12 +22,9 @@ function generatePermutations(input) {
 }
 
 function checkPermutWaysDiff(arr) {
-    if (!allItemsAreUniqueByJSON(arr)) throw new Error(`arr items not unique`);
-
     const list = arr.map((v, i) => {
         const v2 = arr[i + 1];
-        const d = v2 ? calcListDiff(v, v2) : 0;
-        return { v, d };
+        return v2 ? calcListDiff(v, v2) : 0;
 
         function calcListDiff(arr1, arr2) {
             let count = 0;
@@ -38,11 +35,9 @@ function checkPermutWaysDiff(arr) {
         }
     });
 
-    const diff = list.map(x => x.d).reduce((a, b) => a + b);
+    const diff = list.reduce((a, b) => a + b);
     const minDiff = getMinDiff(arr[0].length);
-    const success = diff === minDiff;
-
-    return { success, list, diff, minDiff };
+    return diff === minDiff;
 
     function getMinDiff(length) {
         return 2 * (factorial(length) - 1);
@@ -56,21 +51,17 @@ function checkPermutWaysDiff(arr) {
                 return (num * factorial(num - 1));
         }
     }
-
-    function allItemsAreUniqueByJSON(arr) {
-        return arr.every(
-            (v, i) => !arr
-                .filter((_, i2) => i !== i2)
-                .some(v2 => JSON.stringify(v) === JSON.stringify(v2))
-        )
-    }
 }
 
 // all permutations of a set using a single switch of pair items
 function mutantFastest(wiring) {
+    console.log('generate permutations...');
     const permutations = generatePermutations(wiring);
+
+    console.log('prepare group tree...');
     const groupTree = prepareAllTheGroupings(permutations);
 
+    console.log('optimize permutations...');
     return recursion(groupTree, wiring.length - 2);
 
     function recursion(group, depth) {
@@ -125,7 +116,9 @@ function mutantFastest(wiring) {
     }
 }
 
-const wiring = Array.from("ABCD");
+const startTime = performance.now();
+const wiring = Array.from("ABCDEFGH");
 const fastestWay = mutantFastest(wiring);
 const result = checkPermutWaysDiff(fastestWay);
-console.log(result);
+console.log(`time spent: ${Math.floor(performance.now() - startTime)} ms`);
+console.log(`success: ${result}`);
