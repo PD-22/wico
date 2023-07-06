@@ -56,65 +56,43 @@ function checkPermutWaysDiff(arr) {
 // all permutations of a set using a single switch of pair items
 function mutantFastest(wiring) {
     console.log('generate permutations...');
-    const permutations = generatePermutations(wiring);
-
-    console.log('prepare group tree...');
-    const groupTree = prepareAllTheGroupings(permutations);
+    const result = generatePermutations(wiring);
 
     console.log('optimize permutations...');
-    return recursion(groupTree, wiring.length - 2);
+    recurse(0, factorial(wiring.length - 1), wiring.length);
 
-    function recursion(group, depth) {
-        if (depth <= 0) return group;
-        return group.flatMap((childGroup, groupIndex) => {
-            const result = recursion(childGroup, depth - 1);
-            return groupIndex % 2 ? result.toReversed() : result;
-        });
-    }
+    return result;
 
-    function prepareAllTheGroupings(wordPerms) {
-        return recursion(wordPerms, 1);
-
-        function recursion(currentGroup, index) {
-            if (currentGroup.length <= 2) return currentGroup;
-
-            const groups = groupPermutationsStartingWith(currentGroup, index);
-
-            return groups.map(group => recursion(group, index + 1));
-        }
-
-        function groupPermutationsStartingWith(permList, depth = 1) {
-            const groups = [];
-
-            const segment = x => x.slice(0, depth);
-
-            const segmentChanged = i => {
-                const perm = permList[i];
-                const prevPerm = permList[i - 1];
-                return !compareArrays(segment(perm), segment(prevPerm));
-
-                function compareArrays(arr1, arr2) {
-                    const str1 = JSON.stringify(arr1);
-                    const str2 = JSON.stringify(arr2);
-
-                    return str1 === str2;
-                }
-            };
-
-            for (let i = 0; i < permList.length; i++) {
-                const perm = permList[i];
-                if (i === 0 || segmentChanged(i)) groups.push([]);
-                last(groups).push(perm);
-
-                function last(arr) {
-                    return arr[arr.length - 1];
-                }
-            }
-
-            return groups;
+    function recurse(startOffset, size, amount) {
+        if (amount <= 2) return;
+        for (let i = 0; i < amount; i++) {
+            const start = startOffset + (size * i);
+            const end = start + size;
+            const newAmount = amount - 1;
+            recurse(start, size / newAmount, newAmount);
+            if (i % 2) reverseRange(result, start, end);
         }
     }
-}
+
+    function reverseRange(arr, start, end) {
+        while (start < end - 1) {
+            const temp = arr[start];
+            arr[start] = arr[end - 1];
+            arr[end - 1] = temp;
+            start++;
+            end--;
+        }
+    }
+
+    function factorial(num) {
+        if (num < 0)
+            return -1;
+        else if (num == 0)
+            return 1;
+        else
+            return (num * factorial(num - 1));
+    }
+};
 
 const startTime = performance.now();
 const wiring = Array.from("ABCDEFGH");
