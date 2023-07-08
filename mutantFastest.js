@@ -1,24 +1,20 @@
 function generatePermutations(input) {
-    const result = [];
+    const result = [];    
+    recursion([], input);
+    return result;
 
     function recursion(accumulator, variants) {
-        if (variants.length <= 1) {
-            const newResultItem = [...accumulator, ...variants];
-            result.push(newResultItem);
+        if (!variants.length) {
+            result.push(accumulator);
             return;
         }
 
-        for (let i = 0; i < variants.length; i++) {
-            const variantChosen = variants[i];
-            const nextAccumulator = [...accumulator, variantChosen];
-            const variantsRest = [...variants.slice(0, i), ...variants.slice(i + 1)];
-            recursion(nextAccumulator, variantsRest);
-        }
+        variants.forEach((target, index) => {
+            const next = [...accumulator, target];
+            const rest = variants.filter((_, i) => i !== index);
+            recursion(next, rest);
+        })
     }
-
-    recursion([], input);
-
-    return result;
 }
 
 function checkPermutWaysDiff(arr) {
