@@ -4,7 +4,7 @@ function generatePermutations(set) {
 
     workList.push([[], set]);
     while (workList.length) recursion(...workList.pop());
-    return result;
+    return result.toReversed();
 
     function recursion(accumulator, variants) {
         if (!variants.length) {
