@@ -1,5 +1,5 @@
 function generatePermutations(input) {
-    const result = [];    
+    const result = [];
     recursion([], input);
     return result;
 
@@ -18,20 +18,7 @@ function generatePermutations(input) {
 }
 
 function checkPermutWaysDiff(arr) {
-    const list = arr.map((v, i) => {
-        const v2 = arr[i + 1];
-        return v2 ? calcListDiff(v, v2) : 0;
-
-        function calcListDiff(arr1, arr2) {
-            let count = 0;
-            for (let i = 0; i < arr1.length; i++) {
-                if (arr1[i] !== arr2[i]) count++;
-            }
-            return count;
-        }
-    });
-
-    const diff = list.reduce((a, b) => a + b);
+    const diff = listDiffSum(arr);
     const minDiff = getMinDiff(arr[0].length);
     return diff === minDiff;
 
@@ -46,6 +33,22 @@ function checkPermutWaysDiff(arr) {
             else
                 return (num * factorial(num - 1));
         }
+    }
+
+    function calcListDiff(arr1, arr2) {
+        let count = 0;
+        for (let i = 0; i < arr1.length; i++) {
+            if (arr1[i] !== arr2[i]) count++;
+        }
+        return count;
+    }
+
+    function listDiffSum(list) {
+        return list.reduce((acc, curr, index, arr) => {
+            const next = arr[index + 1];
+            const diff = next ? calcListDiff(curr, next) : 0;
+            return acc + diff;
+        }, 0)
     }
 }
 
