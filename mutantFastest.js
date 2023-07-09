@@ -1,6 +1,9 @@
-function generatePermutations(input) {
+function generatePermutations(set) {
+    const workList = [];
     const result = [];
-    recursion([], input);
+
+    workList.push([[], set]);
+    while (workList.length) recursion(...workList.pop());
     return result;
 
     function recursion(accumulator, variants) {
@@ -12,7 +15,7 @@ function generatePermutations(input) {
         variants.forEach((target, index) => {
             const next = [...accumulator, target];
             const rest = variants.filter((_, i) => i !== index);
-            recursion(next, rest);
+            workList.push([next, rest]);
         })
     }
 }
