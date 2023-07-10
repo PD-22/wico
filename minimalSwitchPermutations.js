@@ -2,24 +2,24 @@ function generatePermutations(set) {
     return Array(factorial(set.length)).fill().map(
         (_, i) => getItemFromOrderedPermutations(set, i)
     );
+}
 
-    function getItemFromOrderedPermutations(set, index) {
-        if (index < 0 || index >= factorial(set.length)) throw new RangeError();
-    
-        let remainingSet = set.slice();
-        let result = [];
-    
-        for (let i = set.length - 1; i >= 0; i--) {
-            const quotient = Math.floor(index / factorial(i));
-    
-            result.push(remainingSet[quotient]);
-            remainingSet.splice(quotient, 1);
-    
-            index %= factorial(i);
-        }
-    
-        return result;
+function getItemFromOrderedPermutations(set, index) {
+    if (index < 0 || index >= factorial(set.length)) throw new RangeError();
+
+    let remainingSet = set.slice();
+    let result = [];
+
+    for (let i = set.length - 1; i >= 0; i--) {
+        const quotient = Math.floor(index / factorial(i));
+
+        result.push(remainingSet[quotient]);
+        remainingSet.splice(quotient, 1);
+
+        index %= factorial(i);
     }
+
+    return result;
 }
 
 function factorial(n) {
