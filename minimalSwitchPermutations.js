@@ -1,22 +1,24 @@
 function generatePermutations(set) {
-    const workList = [];
-    const result = [];
+    return Array(factorial(set.length)).fill().map(
+        (_, i) => getItemFromOrderedPermutations(set, i)
+    );
 
-    workList.push([[], set]);
-    while (workList.length) recursion(...workList.pop());
-    return result.toReversed();
-
-    function recursion(accumulator, variants) {
-        if (!variants.length) {
-            result.push(accumulator);
-            return;
+    function getItemFromOrderedPermutations(set, index) {
+        if (index < 0 || index >= factorial(set.length)) throw new RangeError();
+    
+        let remainingSet = set.slice();
+        let result = [];
+    
+        for (let i = set.length - 1; i >= 0; i--) {
+            const quotient = Math.floor(index / factorial(i));
+    
+            result.push(remainingSet[quotient]);
+            remainingSet.splice(quotient, 1);
+    
+            index %= factorial(i);
         }
-
-        variants.forEach((target, index) => {
-            const next = [...accumulator, target];
-            const rest = variants.filter((_, i) => i !== index);
-            workList.push([next, rest]);
-        })
+    
+        return result;
     }
 }
 
