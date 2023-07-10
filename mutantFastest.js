@@ -20,6 +20,12 @@ function generatePermutations(set) {
     }
 }
 
+function factorial(n) {
+    let result = 1;
+    for (let i = 2; i <= n; i++) result *= i;
+    return result;
+}
+
 function checkPermutWaysDiff(arr) {
     const diff = listDiffSum(arr);
     const minDiff = getMinDiff(arr[0].length);
@@ -27,15 +33,6 @@ function checkPermutWaysDiff(arr) {
 
     function getMinDiff(length) {
         return 2 * (factorial(length) - 1);
-
-        function factorial(num) {
-            if (num < 0)
-                return -1;
-            else if (num == 0)
-                return 1;
-            else
-                return (num * factorial(num - 1));
-        }
     }
 
     function calcListDiff(arr1, arr2) {
@@ -85,20 +82,12 @@ function mutantFastest(wiring) {
             end--;
         }
     }
-
-    function factorial(num) {
-        if (num < 0)
-            return -1;
-        else if (num == 0)
-            return 1;
-        else
-            return (num * factorial(num - 1));
-    }
 };
 
 const startTime = performance.now();
-const wiring = Array.from("ABCDEFGH");
+const wiring = Array.from("ABCDEFGHIJ");
 const fastestWay = mutantFastest(wiring);
 const result = checkPermutWaysDiff(fastestWay);
-console.log(`time spent: ${Math.floor(performance.now() - startTime)} ms`);
+const deltaTime = performance.now() - startTime;
+console.log(`time spent: ${Math.floor(deltaTime)} ms`);
 console.log(`success: ${result}`);
