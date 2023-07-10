@@ -1,4 +1,59 @@
-function getItemFromOrderedPermutations(set, index) {
+const wiring = Array.from("ABCDEFGHIJ");
+const permutationsList = logDeltaTime(minimalSwitchPermutations)(wiring);
+const testResult = logDeltaTime(checkMinimalSwitchPermutations)(permutationsList);
+console.log(testResult);
+
+function logDeltaTime(callback) {
+    return (...args) => {
+        console.log(`${callback.name}...`);
+        const [result, deltaTime] = getDeltaTime(() => callback(...args));
+        console.log(`${callback.name}(${deltaTime.toFixed()} ms)`);
+        return result;
+    };
+}
+
+function getDeltaTime(callback) {
+    const startTime = performance.now();
+    const result = callback();
+    const endTime = performance.now();
+    const deltaTime = endTime - startTime;
+    return [result, deltaTime];
+}
+
+function minimalSwitchPermutations(set) {
+    return Array(factorial(set.length)).fill().map((_, i) => minimalSwitchPermutationItem(set, i));
+}
+
+function factorial(n) {
+    let result = 1;
+    for (let i = 2; i <= n; i++) result *= i;
+    return result;
+}
+
+function minimalSwitchPermutationItem(set, index) {
+    const permutationItemIndex = minimalSwitchPermutationItemIndex(set.length, index);
+    return permutationItem(set, permutationItemIndex);
+}
+
+function minimalSwitchPermutationItemIndex(width, index) {
+    if (index < 0 || index >= factorial(width)) throw new RangeError();
+
+    let height = factorial(width) / width--;
+    let offset = 0;
+
+    while (width > 1) {
+        const leftover = Math.floor(index / height);
+        const odd = leftover % 2 === 1;
+        offset += leftover * height;
+        index %= height;
+        if (odd) index = height - index - 1;
+        height /= width--;
+    }
+
+    return index + offset;
+}
+
+function permutationItem(set, index) {
     if (index < 0 || index >= factorial(set.length)) throw new RangeError();
 
     let remainingSet = set.slice();
@@ -16,13 +71,7 @@ function getItemFromOrderedPermutations(set, index) {
     return result;
 }
 
-function factorial(n) {
-    let result = 1;
-    for (let i = 2; i <= n; i++) result *= i;
-    return result;
-}
-
-function checkPermutWaysDiff(arr) {
+function checkMinimalSwitchPermutations(arr) {
     const diff = listDiffSum(arr);
     const minDiff = getMinDiff(arr[0].length);
     return diff === minDiff;
@@ -47,51 +96,3 @@ function checkPermutWaysDiff(arr) {
         }, 0)
     }
 }
-
-function minimalSwitchPermutations(set) {
-    return Array(factorial(set.length)).fill().map(
-        (_, i) => getItemFromOrderedPermutations(
-            set, getPermutationSwitchIndex(set.length, i)
-        )
-    );
-}
-
-function getPermutationSwitchIndex(width, index) {
-    if (index < 0 || index >= factorial(width)) throw new RangeError();
-
-    let height = factorial(width) / width--;
-    let offset = 0;
-
-    while (width > 1) {
-        const leftover = Math.floor(index / height);
-        const odd = leftover % 2 === 1;
-        offset += leftover * height;
-        index %= height;
-        if (odd) index = height - index - 1;
-        height /= width--;
-    }
-
-    return index + offset;
-}
-
-function measure(callback) {
-    return (...args) => {
-        console.log(`${callback.name}...`);
-        const [result, deltaTime] = stopwatch(() => callback(...args));
-        console.log(`${callback.name}(${deltaTime.toFixed()} ms)`);
-        return result;
-    };
-
-    function stopwatch(callback) {
-        const startTime = performance.now();
-        const result = callback();
-        const endTime = performance.now();
-        const deltaTime = endTime - startTime;
-        return [result, deltaTime];
-    }
-}
-
-const wiring = Array.from("ABCDEFGHIJ");
-const fastestWay = measure(minimalSwitchPermutations)(wiring);
-const result = measure(checkPermutWaysDiff)(fastestWay);
-console.log(result);
