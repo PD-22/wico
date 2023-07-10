@@ -54,22 +54,18 @@ function checkPermutWaysDiff(arr) {
 
 // all permutations of a set using a single switch of pair items
 function mutantFastest(wiring) {
-    console.log('generate permutations...');
-    const result = generatePermutations(wiring);
+    const permutations = measure(generatePermutations)(wiring);
+    measure(optimizePermutations)(0, factorial(wiring.length - 1), wiring.length);
+    return permutations;
 
-    console.log('optimize permutations...');
-    recurse(0, factorial(wiring.length - 1), wiring.length);
-
-    return result;
-
-    function recurse(startOffset, size, amount) {
+    function optimizePermutations(startOffset, size, amount) {
         if (amount <= 2) return;
         for (let i = 0; i < amount; i++) {
             const start = startOffset + (size * i);
             const end = start + size;
             const newAmount = amount - 1;
-            recurse(start, size / newAmount, newAmount);
-            if (i % 2) reverseRange(result, start, end);
+            optimizePermutations(start, size / newAmount, newAmount);
+            if (i % 2) reverseRange(permutations, start, end);
         }
     }
 
@@ -84,10 +80,24 @@ function mutantFastest(wiring) {
     }
 };
 
-const startTime = performance.now();
+function measure(callback) {
+    return (...args) => {
+        console.log(`${callback.name}...`);
+        const [result, deltaTime] = stopwatch(() => callback(...args));
+        console.log(`${callback.name}(${deltaTime.toFixed()} ms)`);
+        return result;
+    };
+
+    function stopwatch(callback) {
+        const startTime = performance.now();
+        const result = callback();
+        const endTime = performance.now();
+        const deltaTime = endTime - startTime;
+        return [result, deltaTime];
+    }
+}
+
 const wiring = Array.from("ABCDEFGHIJ");
-const fastestWay = mutantFastest(wiring);
-const result = checkPermutWaysDiff(fastestWay);
-const deltaTime = performance.now() - startTime;
-console.log(`time spent: ${Math.floor(deltaTime)} ms`);
-console.log(`success: ${result}`);
+const fastestWay = measure(mutantFastest)(wiring);
+const result = measure(checkPermutWaysDiff)(fastestWay);
+console.log(result);
