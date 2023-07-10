@@ -75,31 +75,6 @@ function circuitSoundCombDiff(a, b) {
     return result
 }
 
-function generatePermutations(arr) {
-    const permutations = [];
-
-    function swap(arr, i, j) {
-        const temp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = temp;
-    }
-
-    function permute(arr, start, end) {
-        if (start === end) {
-            permutations.push([...arr]);
-        } else {
-            for (let i = start; i <= end; i++) {
-                swap(arr, start, i);
-                permute(arr, start + 1, end);
-                swap(arr, start, i);
-            }
-        }
-    }
-
-    permute(arr, 0, arr.length - 1);
-    return permutations;
-}
-
 const circuitKeys = "mrlg".split("");
 const circuitValues = "blue red green copper".split(" ");
 const circuitCombinations = keyValuesCombs(circuitKeys, circuitValues);
@@ -137,8 +112,6 @@ const enrichedCombinations = combinations.map((comb, i) => {
 
     return result;
 });
-
-// return for each and total diff counter as well
 
 console.log(
     `all combinations:\n${enrichedCombinations.map(
