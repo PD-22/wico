@@ -1,9 +1,3 @@
-function generatePermutations(set) {
-    return Array(factorial(set.length)).fill().map(
-        (_, i) => getItemFromOrderedPermutations(set, i)
-    );
-}
-
 function getItemFromOrderedPermutations(set, index) {
     if (index < 0 || index >= factorial(set.length)) throw new RangeError();
 
@@ -54,32 +48,31 @@ function checkPermutWaysDiff(arr) {
     }
 }
 
-function minimalSwitchPermutations(wiring) {
-    const permutations = measure(generatePermutations)(wiring);
-    measure(optimizePermutations)(0, factorial(wiring.length - 1), wiring.length);
-    return permutations;
+function minimalSwitchPermutations(set) {
+    return Array(factorial(set.length)).fill().map(
+        (_, i) => getItemFromOrderedPermutations(
+            set, getPermutationSwitchIndex(set.length, i)
+        )
+    );
+}
 
-    function optimizePermutations(startOffset, size, amount) {
-        if (amount <= 2) return;
-        for (let i = 0; i < amount; i++) {
-            const start = startOffset + (size * i);
-            const end = start + size;
-            const newAmount = amount - 1;
-            optimizePermutations(start, size / newAmount, newAmount);
-            if (i % 2) reverseRange(permutations, start, end);
-        }
+function getPermutationSwitchIndex(width, index) {
+    if (index < 0 || index >= factorial(width)) throw new RangeError();
+
+    let height = factorial(width) / width--;
+    let offset = 0;
+
+    while (width > 1) {
+        const leftover = Math.floor(index / height);
+        const odd = leftover % 2 === 1;
+        offset += leftover * height;
+        index %= height;
+        if (odd) index = height - index - 1;
+        height /= width--;
     }
 
-    function reverseRange(arr, start, end) {
-        while (start < end - 1) {
-            const temp = arr[start];
-            arr[start] = arr[end - 1];
-            arr[end - 1] = temp;
-            start++;
-            end--;
-        }
-    }
-};
+    return index + offset;
+}
 
 function measure(callback) {
     return (...args) => {
