@@ -1,7 +1,16 @@
-const wiring = Array.from("ABCDEFGHIJ");
+const wiring = lettersArray(10);
+console.log(`wiring: ${wiring.join('')}`);
 const permutationsList = logDeltaTime(minimalSwitchPermutations)(wiring);
-const testResult = logDeltaTime(checkMinimalSwitchPermutations)(permutationsList);
-console.log(testResult);
+const success = logDeltaTime(checkMinimalSwitchPermutations)(permutationsList);
+console.log(`success: ${success}`);
+
+function lettersArray(num) {
+    const minCharCode = 'A'.charCodeAt(0);
+    const maxCharCode = 'Z'.charCodeAt(0)
+    const maxNum = maxCharCode - minCharCode;
+    if (!(0 <= num && num <= maxNum + 1)) throw new RangeError();
+    return Array(num).fill().map((_, i) => String.fromCharCode(minCharCode + i));
+}
 
 function logDeltaTime(callback) {
     return (...args) => {
