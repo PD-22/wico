@@ -1,6 +1,6 @@
-const wiring = lettersArray(10);
-console.log(`wiring: ${wiring.join('')}`);
-const permutationsList = logDeltaTime(minimalSwitchPermutations)(wiring);
+const input = lettersArray(10);
+console.log(`input: ${input.join('')}`);
+const permutationsList = logDeltaTime(minimalSwitchPermutations)(input);
 const success = logDeltaTime(checkMinimalSwitchPermutations)(permutationsList);
 console.log(`success: ${success}`);
 
@@ -30,7 +30,12 @@ function getDeltaTime(callback) {
 }
 
 function minimalSwitchPermutations(set) {
-    return Array(factorial(set.length)).fill().map((_, i) => minimalSwitchPermutationItem(set, i));
+    return Array.from(minimalSwitchPermutationsGenerator(set));
+}
+
+function* minimalSwitchPermutationsGenerator(set) {
+    for (let index = 0; index < factorial(set.length); index++)
+        yield minimalSwitchPermutationItem(set, index);
 }
 
 function factorial(n) {
