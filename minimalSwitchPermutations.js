@@ -52,8 +52,7 @@ function checkPermutWaysDiff(arr) {
     }
 }
 
-// all permutations of a set using a single switch of pair items
-function mutantFastest(wiring) {
+function minimalSwitchPermutations(wiring) {
     const permutations = measure(generatePermutations)(wiring);
     measure(optimizePermutations)(0, factorial(wiring.length - 1), wiring.length);
     return permutations;
@@ -98,6 +97,6 @@ function measure(callback) {
 }
 
 const wiring = Array.from("ABCDEFGHIJ");
-const fastestWay = measure(mutantFastest)(wiring);
+const fastestWay = measure(minimalSwitchPermutations)(wiring);
 const result = measure(checkPermutWaysDiff)(fastestWay);
 console.log(result);
