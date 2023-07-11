@@ -1,10 +1,39 @@
-testPermutations(lettersArray(10));
+const fs = require('fs');
+const { Readable } = require('stream');
+
+// testPermutations(lettersArray(9));
+writePermutations(lettersArray(9), 'output.txt', x => x.join('') + '\n');
 
 function testPermutations(input) {
     console.log(`input: ${JSON.stringify(input)}`); ``
     const permutationsList = logDeltaTime(minimalSwitchPermutations)(input);
     const success = logDeltaTime(checkMinimalSwitchPermutations)(permutationsList);
     console.log(`success: ${success}`);
+}
+
+async function writePermutations(set, outputFile, modifier = x => JSON.stringify(x) + '\n') {
+    console.log(`Generating optimized permutations of ${JSON.stringify(set)}`);
+    try {
+        const startTime = performance.now();
+        await writeGenerator(outputFile, minimalSwitchPermutationsGenerator(set, modifier));
+        const deltaTimeMs = Math.floor(performance.now() - startTime);
+        console.log(`Done in ${deltaTimeMs} ms`);
+        console.log(`Output written to "${outputFile}"`);
+    } catch (error) {
+        console.error(`An error occurred while writing to ${outputFile}: ${error}`);
+    }
+}
+
+async function writeGenerator(outputFile, generator) {
+    const writeStream = fs.createWriteStream(outputFile);
+    const readable = Readable.from(generator);
+
+    return new Promise((resolve, reject) => {
+        readable.pipe(writeStream);
+
+        writeStream.on('finish', resolve);
+        writeStream.on('error', reject);
+    });
 }
 
 function lettersArray(num) {
@@ -36,9 +65,9 @@ function minimalSwitchPermutations(set) {
     return Array.from(minimalSwitchPermutationsGenerator(set));
 }
 
-function* minimalSwitchPermutationsGenerator(set) {
+function* minimalSwitchPermutationsGenerator(set, modifier = x => x) {
     for (let index = 0; index < factorial(set.length); index++)
-        yield minimalSwitchPermutationItem(set, index);
+        yield modifier(minimalSwitchPermutationItem(set, index));
 }
 
 function factorial(n) {
