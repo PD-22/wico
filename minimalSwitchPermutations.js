@@ -1,8 +1,11 @@
-const input = lettersArray(10);
-console.log(`input: ${input.join('')}`);
-const permutationsList = logDeltaTime(minimalSwitchPermutations)(input);
-const success = logDeltaTime(checkMinimalSwitchPermutations)(permutationsList);
-console.log(`success: ${success}`);
+testPermutations(lettersArray(10));
+
+function testPermutations(input) {
+    console.log(`input: ${JSON.stringify(input)}`); ``
+    const permutationsList = logDeltaTime(minimalSwitchPermutations)(input);
+    const success = logDeltaTime(checkMinimalSwitchPermutations)(permutationsList);
+    console.log(`success: ${success}`);
+}
 
 function lettersArray(num) {
     const minCharCode = 'A'.charCodeAt(0);
