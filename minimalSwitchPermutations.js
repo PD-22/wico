@@ -8,17 +8,15 @@ function testPermutations(input) {
     console.log(`input: ${JSON.stringify(input)}`); ``
     const permutationsList = logDeltaTime(minimalSwitchPermutations)(input);
     const success = logDeltaTime(checkMinimalSwitchPermutations)(permutationsList);
-    console.log(`success: ${success}`);
+    console.log(`result: ${success}`);
 }
 
 async function writePermutations(set, outputFile, modifier = x => JSON.stringify(x) + '\n') {
-    console.log(`Generating optimized permutations of ${JSON.stringify(set)}`);
+    console.log(`input: ${JSON.stringify(set)}`);
+    const generator = minimalSwitchPermutationsGenerator(set, modifier);
     try {
-        const startTime = performance.now();
-        await writeGenerator(outputFile, minimalSwitchPermutationsGenerator(set, modifier));
-        const deltaTimeMs = Math.floor(performance.now() - startTime);
-        console.log(`Done in ${deltaTimeMs} ms`);
-        console.log(`Output written to "${outputFile}"`);
+        await logDeltaTimeAsync(writeGenerator)(outputFile, generator);
+        console.log(`result: ${outputFile}`);
     } catch (error) {
         console.error(`An error occurred while writing to ${outputFile}: ${error}`);
     }
@@ -47,7 +45,7 @@ function lettersArray(num) {
 function logDeltaTime(callback) {
     return (...args) => {
         console.log(`${callback.name}...`);
-        const [result, deltaTime] = getDeltaTime(() => callback(...args));
+        const [deltaTime, result] = getDeltaTime(() => callback(...args));
         console.log(`${callback.name}(${deltaTime.toFixed()} ms)`);
         return result;
     };
@@ -58,7 +56,24 @@ function getDeltaTime(callback) {
     const result = callback();
     const endTime = performance.now();
     const deltaTime = endTime - startTime;
-    return [result, deltaTime];
+    return [deltaTime, result];
+}
+
+function logDeltaTimeAsync(asyncCallback) {
+    return async (...args) => {
+        console.log(`${asyncCallback.name}...`);
+        const [deltaTime, result] = await getDeltaTimeAsync(async () => await asyncCallback(...args));
+        console.log(`${asyncCallback.name}(${deltaTime.toFixed()} ms)`);
+        return result;
+    };
+}
+
+async function getDeltaTimeAsync(asyncCallback) {
+    const startTime = performance.now();
+    const result = await asyncCallback();
+    const endTime = performance.now();
+    const deltaTime = endTime - startTime;
+    return [deltaTime, result];
 }
 
 function minimalSwitchPermutations(set) {
