@@ -7,7 +7,7 @@ writePermutations(lettersArray(9), 'output.txt', x => x.join('') + '\n');
 function testPermutations(input) {
     console.log(`input: ${JSON.stringify(input)}`); ``
     const permutationsList = logDeltaTime(minSwitchPermutations)(input);
-    const success = logDeltaTime(checkMinSwitchPermutations)(permutationsList);
+    const success = logDeltaTime(checkMinDiffPermutations)(permutationsList);
     console.log(`result: ${success}`);
 }
 
@@ -140,28 +140,20 @@ function permutationItem(set, index) {
     return result;
 }
 
-function checkMinSwitchPermutations(arr) {
-    const diff = listDiffSum(arr);
-    const minDiff = getMinDiff(arr[0].length);
-    return diff === minDiff;
+function checkMinDiffPermutations(permutationsList) {
+    return permutationsList.every(minAdjacencyDiff);
 
-    function getMinDiff(length) {
-        return 2 * (factorial(length) - 1);
+    function minAdjacencyDiff(permutation, index) {
+        const nextPermutation = permutationsList[index + 1];
+        if (!nextPermutation) return true;
+        return calcListDiff(permutation, nextPermutation) === 2;
     }
 
     function calcListDiff(arr1, arr2) {
         let count = 0;
-        for (let i = 0; i < arr1.length; i++) {
+        const maxLength = Math.max(arr1.length, arr2.length);
+        for (let i = 0; i < maxLength; i++)
             if (arr1[i] !== arr2[i]) count++;
-        }
         return count;
-    }
-
-    function listDiffSum(list) {
-        return list.reduce((acc, curr, index, arr) => {
-            const next = arr[index + 1];
-            const diff = next ? calcListDiff(curr, next) : 0;
-            return acc + diff;
-        }, 0)
     }
 }
