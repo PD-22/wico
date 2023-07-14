@@ -6,14 +6,14 @@ writePermutations(lettersArray(9), 'output.txt', x => x.join('') + '\n');
 
 function testPermutations(input) {
     console.log(`input: ${JSON.stringify(input)}`); ``
-    const permutationsList = logDeltaTime(minimalSwitchPermutations)(input);
-    const success = logDeltaTime(checkMinimalSwitchPermutations)(permutationsList);
+    const permutationsList = logDeltaTime(minSwitchPermutations)(input);
+    const success = logDeltaTime(checkMinSwitchPermutations)(permutationsList);
     console.log(`result: ${success}`);
 }
 
 async function writePermutations(set, outputFile, modifier = x => JSON.stringify(x) + '\n') {
     console.log(`input: ${JSON.stringify(set)}`);
-    const generator = minimalSwitchPermutationsGenerator(set, modifier);
+    const generator = minSwitchPermutationsGenerator(set, modifier);
     try {
         await logDeltaTimeAsync(writeGenerator)(outputFile, generator);
         console.log(`result: ${outputFile}`);
@@ -74,13 +74,13 @@ async function getDeltaTimeAsync(asyncCallback) {
     return [deltaTime, result];
 }
 
-function minimalSwitchPermutations(set) {
-    return Array.from(minimalSwitchPermutationsGenerator(set));
+function minSwitchPermutations(set) {
+    return Array.from(minSwitchPermutationsGenerator(set));
 }
 
-function* minimalSwitchPermutationsGenerator(set, modifier = x => x) {
+function* minSwitchPermutationsGenerator(set, modifier = x => x) {
     for (let index = 0; index < factorial(set.length); index++)
-        yield modifier(minimalSwitchPermutationItem(set, index));
+        yield modifier(minSwitchPermutationItem(set, index));
 }
 
 function factorial(n) {
@@ -89,12 +89,12 @@ function factorial(n) {
     return result;
 }
 
-function minimalSwitchPermutationItem(set, index) {
-    const permutationItemIndex = minimalSwitchPermutationItemIndex(set.length, index);
+function minSwitchPermutationItem(set, index) {
+    const permutationItemIndex = minSwitchPermutationItemIndex(set.length, index);
     return permutationItem(set, permutationItemIndex);
 }
 
-function minimalSwitchPermutationItemIndex(width, index) {
+function minSwitchPermutationItemIndex(width, index) {
     if (index < 0 || index >= factorial(width)) throw new RangeError();
 
     let height = factorial(width) / width--;
@@ -130,7 +130,7 @@ function permutationItem(set, index) {
     return result;
 }
 
-function checkMinimalSwitchPermutations(arr) {
+function checkMinSwitchPermutations(arr) {
     const diff = listDiffSum(arr);
     const minDiff = getMinDiff(arr[0].length);
     return diff === minDiff;
