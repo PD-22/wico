@@ -11,16 +11,26 @@ function testPermutations(input) {
     console.log(`result: ${success}`);
 }
 
-async function writePermutations(set, outputFile, modifier = x => JSON.stringify(x) + '\n') {
+async function writePermutations(set, outputFile, printModifier) {
     console.log(`input: ${JSON.stringify(set)}`);
-    const generator = minSwitchPermutationsGenerator(set, modifier);
+    const generator = minSwitchPermutationsGenerator(set);
+    const printGenerator = mapGenerator(generator, printModifier || defaultPrintModifier);
+
     try {
-        await logDeltaTimeAsync(writeGenerator)(outputFile, generator);
+        await logDeltaTimeAsync(writeGenerator)(outputFile, printGenerator);
         console.log(`result: ${outputFile}`);
     } catch (error) {
         console.error(`An error occurred while writing to ${outputFile}: ${error}`);
     }
+
+    function defaultPrintModifier(value) {
+        return value.join(' ') + '\n';
+    }
 }
+
+function* mapGenerator(generator, callbackfn) {
+    for (const value of generator) yield callbackfn(value);
+};
 
 async function writeGenerator(outputFile, generator) {
     const writeStream = fs.createWriteStream(outputFile);
@@ -78,9 +88,9 @@ function minSwitchPermutations(set) {
     return Array.from(minSwitchPermutationsGenerator(set));
 }
 
-function* minSwitchPermutationsGenerator(set, modifier = x => x) {
-    for (let index = 0; index < factorial(set.length); index++)
-        yield modifier(minSwitchPermutationItem(set, index));
+function* minSwitchPermutationsGenerator(set) {
+    for (let i = 0; i < factorial(set.length); i++)
+        yield minSwitchPermutationItem(set, i);
 }
 
 function factorial(n) {
