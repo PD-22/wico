@@ -1,20 +1,24 @@
 const fs = require('fs');
 const { Readable } = require('stream');
 
-// testPermutations(lettersArray(9));
-writePermutations(lettersArray(9), 'output.txt', x => x.join('') + '\n');
+const letters = generateCharSequence('A', 9);
+testPermutations(letters);
+writePermutations(letters, 'output.txt', x => x.join('') + '\n');
 
 function testPermutations(input) {
-    console.log(`input: ${JSON.stringify(input)}`); ``
-    const permutationsList = logDeltaTime(minSwitchPermutations)(input);
+    console.log(`input: ${JSON.stringify(input)}`);
+
+    const permutationsList = logDeltaTime(getMinDiffPermutations)(input);
     const success = logDeltaTime(checkMinDiffPermutations)(permutationsList);
+
     console.log(`result: ${success}`);
 }
 
 async function writePermutations(set, outputFile, printModifier) {
     console.log(`input: ${JSON.stringify(set)}`);
-    const generator = minSwitchPermutationsGenerator(set);
-    const printGenerator = mapGenerator(generator, printModifier || defaultPrintModifier);
+
+    const permutationGenerator = getMinDiffPermutationsGenerator(set);
+    const printGenerator = mapGenerator(permutationGenerator, printModifier || defaultPrintModifier);
 
     try {
         await logDeltaTimeAsync(writeGenerator)(outputFile, printGenerator);
@@ -33,8 +37,8 @@ function* mapGenerator(generator, callbackfn) {
 };
 
 async function writeGenerator(outputFile, generator) {
-    const writeStream = fs.createWriteStream(outputFile);
     const readable = Readable.from(generator);
+    const writeStream = fs.createWriteStream(outputFile);
 
     return new Promise((resolve, reject) => {
         readable.pipe(writeStream);
@@ -44,12 +48,9 @@ async function writeGenerator(outputFile, generator) {
     });
 }
 
-function lettersArray(num) {
-    const minCharCode = 'A'.charCodeAt(0);
-    const maxCharCode = 'Z'.charCodeAt(0)
-    const maxNum = maxCharCode - minCharCode;
-    if (!(0 <= num && num <= maxNum + 1)) throw new RangeError();
-    return Array(num).fill().map((_, i) => String.fromCharCode(minCharCode + i));
+function generateCharSequence(startChar, length) {
+    const startCharCode = startChar.charCodeAt(0);
+    return Array.from({ length }, (_, i) => String.fromCharCode(startCharCode + i));
 }
 
 function logDeltaTime(callback) {
@@ -84,13 +85,13 @@ async function getDeltaTimeAsync(asyncCallback) {
     return [deltaTime, result];
 }
 
-function minSwitchPermutations(set) {
-    return Array.from(minSwitchPermutationsGenerator(set));
+function getMinDiffPermutations(set) {
+    return Array.from(getMinDiffPermutationsGenerator(set));
 }
 
-function* minSwitchPermutationsGenerator(set) {
+function* getMinDiffPermutationsGenerator(set) {
     for (let i = 0; i < factorial(set.length); i++)
-        yield minSwitchPermutationItem(set, i);
+        yield getMinDiffPermutationAtIndex(set, i);
 }
 
 function factorial(n) {
@@ -99,30 +100,30 @@ function factorial(n) {
     return result;
 }
 
-function minSwitchPermutationItem(set, index) {
-    const permutationItemIndex = minSwitchPermutationItemIndex(set.length, index);
-    return permutationItem(set, permutationItemIndex);
+function getMinDiffPermutationAtIndex(set, index) {
+    const minDiffPermutationSwapIndex = getMinDiffPermutationSwapIndex(set.length, index);
+    return getPermutationAtIndex(set, minDiffPermutationSwapIndex);
 }
 
-function minSwitchPermutationItemIndex(width, index) {
-    if (index < 0 || index >= factorial(width)) throw new RangeError();
+function getMinDiffPermutationSwapIndex(length, index) {
+    if (index < 0 || index >= factorial(length)) throw new RangeError();
 
-    let height = factorial(width) / width--;
+    let height = factorial(length) / length--;
     let offset = 0;
 
-    while (width > 1) {
+    while (length > 1) {
         const leftover = Math.floor(index / height);
-        const odd = leftover % 2 === 1;
+        const isOdd = leftover % 2 === 1;
         offset += leftover * height;
         index %= height;
-        if (odd) index = height - index - 1;
-        height /= width--;
+        if (isOdd) index = height - index - 1;
+        height /= length--;
     }
 
     return index + offset;
 }
 
-function permutationItem(set, index) {
+function getPermutationAtIndex(set, index) {
     if (index < 0 || index >= factorial(set.length)) throw new RangeError();
 
     let remainingSet = set.slice();
