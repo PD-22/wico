@@ -1,8 +1,9 @@
 const fs = require('fs');
 const { Readable } = require('stream');
+const readline = require('readline');
 
 const letters = generateCharSequence('A', 9);
-testPermutations(letters);
+// testPermutations(letters);
 writePermutations(letters, 'output.txt', x => x.join('') + '\n');
 
 function testPermutations(input) {
@@ -21,7 +22,7 @@ async function writePermutations(set, outputFile, printModifier) {
     const printGenerator = mapGenerator(permutationGenerator, printModifier || defaultPrintModifier);
 
     try {
-        await logDeltaTimeAsync(writeGenerator)(outputFile, printGenerator);
+        await logDeltaTimeAsync(writeGeneratorWithPermutationTest)(outputFile, printGenerator);
         console.log(`result: ${outputFile}`);
     } catch (error) {
         console.error(`An error occurred while writing to ${outputFile}: ${error}`);
@@ -36,15 +37,34 @@ function* mapGenerator(generator, callbackfn) {
     for (const value of generator) yield callbackfn(value);
 };
 
-async function writeGenerator(outputFile, generator) {
+async function writeGeneratorWithPermutationTest(outputFile, generator) {
     const readable = Readable.from(generator);
     const writeStream = fs.createWriteStream(outputFile);
 
-    return new Promise((resolve, reject) => {
-        readable.pipe(writeStream);
+    const rl = readline.createInterface({ input: readable, output: writeStream });
 
-        writeStream.on('finish', resolve);
-        writeStream.on('error', reject);
+    return new Promise((resolve, reject) => {
+        let prevLine = undefined;
+        rl.on('line', (line) => {
+            const isValidLine = !prevLine || calcListDiff(prevLine, line) === 2;
+            prevLine = line;
+
+            if (!isValidLine) {
+                rl.close();
+                const error = new Error('Invalid line encountered');
+                reject(error);
+                throw error;
+            }
+
+            writeStream.write(line + '\n');
+        });
+
+        rl.on('close', () => {
+            writeStream.end();
+            resolve();
+        });
+
+        rl.once('error', reject);
     });
 }
 
@@ -142,19 +162,19 @@ function getPermutationAtIndex(set, index) {
 }
 
 function checkMinDiffPermutations(permutationsList) {
-    return permutationsList.every(minAdjacencyDiff);
+    return permutationsList.every(hasMinAdjacencyDiff);
 
-    function minAdjacencyDiff(permutation, index) {
+    function hasMinAdjacencyDiff(permutation, index) {
         const nextPermutation = permutationsList[index + 1];
         if (!nextPermutation) return true;
         return calcListDiff(permutation, nextPermutation) === 2;
     }
+}
 
-    function calcListDiff(arr1, arr2) {
-        let count = 0;
-        const maxLength = Math.max(arr1.length, arr2.length);
-        for (let i = 0; i < maxLength; i++)
-            if (arr1[i] !== arr2[i]) count++;
-        return count;
-    }
+function calcListDiff(arr1, arr2) {
+    let count = 0;
+    const maxLength = Math.max(arr1.length, arr2.length);
+    for (let i = 0; i < maxLength; i++)
+        if (arr1[i] !== arr2[i]) count++;
+    return count;
 }
