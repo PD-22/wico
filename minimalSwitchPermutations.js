@@ -1,6 +1,5 @@
 const fs = require('fs');
 const { Readable } = require('stream');
-const readline = require('readline');
 
 const letters = generateCharSequence('A', 9);
 // testPermutations(letters);
@@ -19,10 +18,11 @@ async function writePermutations(set, outputFile, printModifier) {
     console.log(`input: ${JSON.stringify(set)}`);
 
     const permutationGenerator = getMinDiffPermutationsGenerator(set);
-    const printGenerator = mapGenerator(permutationGenerator, printModifier || defaultPrintModifier);
+    const testGenerator = mapGenerator(permutationGenerator, createCheckMinDiffPermutations());
+    const printGenerator = mapGenerator(testGenerator, printModifier || defaultPrintModifier);
 
     try {
-        await logDeltaTimeAsync(writeGeneratorWithPermutationTest)(outputFile, printGenerator);
+        await logDeltaTimeAsync(writeGenerator)(outputFile, printGenerator);
         console.log(`result: ${outputFile}`);
     } catch (error) {
         console.error(`An error occurred while writing to ${outputFile}: ${error}`);
@@ -31,40 +31,31 @@ async function writePermutations(set, outputFile, printModifier) {
     function defaultPrintModifier(value) {
         return value.join(' ') + '\n';
     }
+
+    function createCheckMinDiffPermutations() {
+        let prevValue = null;
+        return value => {
+            const isInvalid = prevValue && calcListDiff(prevValue, value) !== 2;
+            if (isInvalid) throw new Error('Invalid adjacent permutations encountered');
+            prevValue = value;
+            return value;
+        }
+    }
 }
 
 function* mapGenerator(generator, callbackfn) {
     for (const value of generator) yield callbackfn(value);
 };
 
-async function writeGeneratorWithPermutationTest(outputFile, generator) {
+async function writeGenerator(outputFile, generator) {
     const readable = Readable.from(generator);
     const writeStream = fs.createWriteStream(outputFile);
 
-    const rl = readline.createInterface({ input: readable, output: writeStream });
-
     return new Promise((resolve, reject) => {
-        let prevLine = undefined;
-        rl.on('line', (line) => {
-            const isValidLine = !prevLine || calcListDiff(prevLine, line) === 2;
-            prevLine = line;
+        readable.pipe(writeStream);
 
-            if (!isValidLine) {
-                rl.close();
-                const error = new Error('Invalid line encountered');
-                reject(error);
-                throw error;
-            }
-
-            writeStream.write(line + '\n');
-        });
-
-        rl.on('close', () => {
-            writeStream.end();
-            resolve();
-        });
-
-        rl.once('error', reject);
+        writeStream.on('finish', resolve);
+        writeStream.on('error', reject);
     });
 }
 
