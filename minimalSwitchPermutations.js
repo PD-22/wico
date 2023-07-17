@@ -11,7 +11,7 @@ async function writePermutations(set, outputFile, printModifier) {
     console.log(`input: ${JSON.stringify(set)}`);
 
     const permutationGenerator = getMinDiffPermutationsGenerator(set);
-    const testGenerator = mapGenerator(permutationGenerator, createCheckMinDiffPermutations());
+    const testGenerator = forEachGenerator(permutationGenerator, createCheckMinDiffPermutations());
     const printGenerator = mapGenerator(testGenerator, printModifier || defaultPrintModifier);
 
     try {
@@ -35,6 +35,13 @@ async function writePermutations(set, outputFile, printModifier) {
         }
     }
 }
+
+function* forEachGenerator(generator, callbackfn) {
+    for (const value of generator) {
+        callbackfn(value);
+        yield value;
+    }
+};
 
 function* mapGenerator(generator, callbackfn) {
     for (const value of generator) yield callbackfn(value);
