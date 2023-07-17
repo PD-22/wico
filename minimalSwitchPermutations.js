@@ -1,18 +1,11 @@
 const fs = require('fs');
 const { Readable } = require('stream');
 
-const letters = generateCharSequence('A', 9);
-// testPermutations(letters);
-writePermutations(letters, 'output.txt', x => x.join('') + '\n');
-
-function testPermutations(input) {
-    console.log(`input: ${JSON.stringify(input)}`);
-
-    const permutationsList = logDeltaTime(getMinDiffPermutations)(input);
-    const success = logDeltaTime(checkMinDiffPermutations)(permutationsList);
-
-    console.log(`result: ${success}`);
-}
+writePermutations(
+    generateCharSequence('A', 9),
+    'output.txt',
+    x => x.join('') + '\n'
+);
 
 async function writePermutations(set, outputFile, printModifier) {
     console.log(`input: ${JSON.stringify(set)}`);
@@ -150,16 +143,6 @@ function getPermutationAtIndex(set, index) {
     }
 
     return result;
-}
-
-function checkMinDiffPermutations(permutationsList) {
-    return permutationsList.every(hasMinAdjacencyDiff);
-
-    function hasMinAdjacencyDiff(permutation, index) {
-        const nextPermutation = permutationsList[index + 1];
-        if (!nextPermutation) return true;
-        return calcListDiff(permutation, nextPermutation) === 2;
-    }
 }
 
 function calcListDiff(arr1, arr2) {
