@@ -1,22 +1,22 @@
 const fs = require('fs');
 const { Readable } = require('stream');
 
-writePermutations(
-    generateCharSequence('A', 9),
+testPermutations(
+    createCharSequence('A', 9),
     'output.txt',
     x => x.join('') + '\n'
 );
 
-async function writePermutations(set, outputFile, printModifier) {
+async function testPermutations(set, outputFile, printModifier) {
     console.log(`input: ${JSON.stringify(set)}`);
 
-    const permutationGenerator = getMinDiffPermutationsGenerator(set);
-    const testGenerator = forEachGenerator(permutationGenerator, createCheckMinDiffPermutations());
-    const progressGenerator = forEachGenerator(testGenerator, createProgressBar(getPermutationsLength(set.length), 30));
-    const printGenerator = mapGenerator(progressGenerator, printModifier || defaultPrintModifier);
+    let generator = getMinDiffPermutationsGenerator(set);
+    generator = forEachGenerator(generator, createCheckMinDiffPermutations());
+    generator = forEachGenerator(generator, createProgressBar(getPermutationsLength(set.length), 30));
+    generator = mapGenerator(generator, printModifier || defaultPrintModifier);
 
     try {
-        await logDeltaTimeAsync(writeGenerator)(outputFile, printGenerator);
+        await logDeltaTimeAsync(writeGenerator)(outputFile, generator);
         console.log(`result: ${outputFile}`);
     } catch (error) {
         console.error(`An error occurred while writing to ${outputFile}: ${error}`);
@@ -32,7 +32,6 @@ async function writePermutations(set, outputFile, printModifier) {
             const isInvalid = prevValue && calcListDiff(prevValue, value) !== 2;
             if (isInvalid) throw new Error('Invalid adjacent permutations encountered');
             prevValue = value;
-            return value;
         }
     }
 }
@@ -78,7 +77,7 @@ async function writeGenerator(outputFile, generator) {
     });
 }
 
-function generateCharSequence(startChar, length) {
+function createCharSequence(startChar, length) {
     const startCharCode = startChar.charCodeAt(0);
     return Array.from({ length }, (_, i) => String.fromCharCode(startCharCode + i));
 }
