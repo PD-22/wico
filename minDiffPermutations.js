@@ -12,7 +12,8 @@ async function writePermutations(set, outputFile, printModifier) {
 
     const permutationGenerator = getMinDiffPermutationsGenerator(set);
     const testGenerator = forEachGenerator(permutationGenerator, createCheckMinDiffPermutations());
-    const printGenerator = mapGenerator(testGenerator, printModifier || defaultPrintModifier);
+    const progressGenerator = forEachGenerator(testGenerator, createProgressBar(getPermutationsLength(set.length), 30));
+    const printGenerator = mapGenerator(progressGenerator, printModifier || defaultPrintModifier);
 
     try {
         await logDeltaTimeAsync(writeGenerator)(outputFile, printGenerator);
@@ -34,6 +35,24 @@ async function writePermutations(set, outputFile, printModifier) {
             return value;
         }
     }
+}
+
+function createProgressBar(total, width) {
+    let completed = 0;
+    let prevProgressWidth = -1;
+
+    return () => {
+        completed++;
+        const progressWidth = Math.floor((completed / total) * width);
+
+        if (progressWidth === prevProgressWidth) return;
+
+        process.stdout.write(`\rprogress: [${'='.repeat(progressWidth)}${' '.repeat(width - progressWidth)}]`);
+
+        prevProgressWidth = progressWidth;
+
+        if (completed === total) process.stdout.write(`\n`);
+    };
 }
 
 function* forEachGenerator(generator, callbackfn) {
