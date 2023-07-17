@@ -57,22 +57,6 @@ function generateCharSequence(startChar, length) {
     return Array.from({ length }, (_, i) => String.fromCharCode(startCharCode + i));
 }
 
-function logDeltaTime(callback) {
-    return (...args) => {
-        console.log(`${callback.name}...`);
-        const [deltaTime, result] = getDeltaTime(callback.bind(null, ...args));
-        console.log(`${callback.name}(${deltaTime.toFixed()} ms)`);
-        return result;
-    };
-}
-
-function getDeltaTime(callback) {
-    const startTime = performance.now();
-    const result = callback();
-    const deltaTime = performance.now() - startTime;
-    return [deltaTime, result];
-}
-
 function logDeltaTimeAsync(asyncCallback) {
     return async (...args) => {
         console.log(`${asyncCallback.name}...`);
@@ -87,10 +71,6 @@ async function getDeltaTimeAsync(asyncCallback) {
     const result = await asyncCallback();
     const deltaTime = performance.now() - startTime;
     return [deltaTime, result];
-}
-
-function getMinDiffPermutations(set) {
-    return Array.from(getMinDiffPermutationsGenerator(set));
 }
 
 function* getMinDiffPermutationsGenerator(set) {
