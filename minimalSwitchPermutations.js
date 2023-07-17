@@ -81,8 +81,12 @@ async function getDeltaTimeAsync(asyncCallback) {
 }
 
 function* getMinDiffPermutationsGenerator(set) {
-    for (let i = 0; i < factorial(set.length); i++)
+    for (let i = 0; i < getPermutationsLength(set.length); i++)
         yield getMinDiffPermutationAtIndex(set, i);
+}
+
+function getPermutationsLength(setLength) {
+    return factorial(setLength);
 }
 
 function factorial(n) {
@@ -97,9 +101,11 @@ function getMinDiffPermutationAtIndex(set, index) {
 }
 
 function getMinDiffPermutationSwapIndex(length, index) {
-    if (index < 0 || index >= factorial(length)) throw new RangeError();
+    const permutationsLength = getPermutationsLength(length);
 
-    let height = factorial(length) / length--;
+    if (index < 0 || index >= permutationsLength) throw new RangeError();
+
+    let height = permutationsLength / length--;
     let offset = 0;
 
     while (length > 1) {
@@ -115,7 +121,7 @@ function getMinDiffPermutationSwapIndex(length, index) {
 }
 
 function getPermutationAtIndex(set, index) {
-    if (index < 0 || index >= factorial(set.length)) throw new RangeError();
+    if (index < 0 || index >= getPermutationsLength(set.length)) throw new RangeError();
 
     let remainingSet = set.slice();
     let result = [];
