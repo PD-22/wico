@@ -1,8 +1,7 @@
-const fs = require('fs');
-const { Readable } = require('stream');
 const { getPermutationsLength } = require('./permutations');
 const { getMinDiffPermutationsGenerator } = require('./permutationsOptimization');
 const { createProgressBar, logDeltaTimeAsync } = require('./testUtils');
+const { forEachGenerator, mapGenerator, writeGenerator } = require('./generator');
 
 testPermutations(
     createCharSequence('A', 9),
@@ -37,29 +36,6 @@ async function testPermutations(set, outputFile, printModifier) {
             prevValue = value;
         }
     }
-}
-
-function* forEachGenerator(generator, callbackfn) {
-    for (const value of generator) {
-        callbackfn(value);
-        yield value;
-    }
-};
-
-function* mapGenerator(generator, callbackfn) {
-    for (const value of generator) yield callbackfn(value);
-};
-
-async function writeGenerator(outputFile, generator) {
-    const readable = Readable.from(generator);
-    const writeStream = fs.createWriteStream(outputFile);
-
-    return new Promise((resolve, reject) => {
-        readable.pipe(writeStream);
-
-        writeStream.on('finish', resolve);
-        writeStream.on('error', reject);
-    });
 }
 
 function createCharSequence(startChar, length) {
