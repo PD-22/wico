@@ -1,6 +1,7 @@
 const fs = require('fs');
 const { Readable } = require('stream');
-const { getPermutationsLength, getPermutationAtIndex } = require('./permutations');
+const { getPermutationsLength } = require('./permutations');
+const { getMinDiffPermutationsGenerator } = require('./permutationsOptimization');
 
 testPermutations(
     createCharSequence('A', 9),
@@ -97,36 +98,6 @@ async function getDeltaTimeAsync(asyncCallback) {
     const result = await asyncCallback();
     const deltaTime = performance.now() - startTime;
     return [deltaTime, result];
-}
-
-function* getMinDiffPermutationsGenerator(set) {
-    for (let i = 0; i < getPermutationsLength(set.length); i++)
-        yield getMinDiffPermutationAtIndex(set, i);
-}
-
-function getMinDiffPermutationAtIndex(set, index) {
-    const minDiffPermutationSwapIndex = getMinDiffPermutationSwapIndex(set.length, index);
-    return getPermutationAtIndex(set, minDiffPermutationSwapIndex);
-}
-
-function getMinDiffPermutationSwapIndex(length, index) {
-    const permutationsLength = getPermutationsLength(length);
-
-    if (index < 0 || index >= permutationsLength) throw new RangeError();
-
-    let height = permutationsLength / length--;
-    let offset = 0;
-
-    while (length > 1) {
-        const leftover = Math.floor(index / height);
-        const isOdd = leftover % 2 === 1;
-        offset += leftover * height;
-        index %= height;
-        if (isOdd) index = height - index - 1;
-        height /= length--;
-    }
-
-    return index + offset;
 }
 
 function calcListDiff(arr1, arr2) {
