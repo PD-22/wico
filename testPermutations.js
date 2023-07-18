@@ -1,5 +1,6 @@
 const fs = require('fs');
 const { Readable } = require('stream');
+const { getPermutationsLength, getPermutationAtIndex } = require('./permutations');
 
 testPermutations(
     createCharSequence('A', 9),
@@ -103,16 +104,6 @@ function* getMinDiffPermutationsGenerator(set) {
         yield getMinDiffPermutationAtIndex(set, i);
 }
 
-function getPermutationsLength(setLength) {
-    return factorial(setLength);
-}
-
-function factorial(n) {
-    let result = 1;
-    for (let i = 2; i <= n; i++) result *= i;
-    return result;
-}
-
 function getMinDiffPermutationAtIndex(set, index) {
     const minDiffPermutationSwapIndex = getMinDiffPermutationSwapIndex(set.length, index);
     return getPermutationAtIndex(set, minDiffPermutationSwapIndex);
@@ -136,24 +127,6 @@ function getMinDiffPermutationSwapIndex(length, index) {
     }
 
     return index + offset;
-}
-
-function getPermutationAtIndex(set, index) {
-    if (index < 0 || index >= getPermutationsLength(set.length)) throw new RangeError();
-
-    let remainingSet = set.slice();
-    let result = [];
-
-    for (let i = set.length - 1; i >= 0; i--) {
-        const quotient = Math.floor(index / factorial(i));
-
-        result.push(remainingSet[quotient]);
-        remainingSet.splice(quotient, 1);
-
-        index %= factorial(i);
-    }
-
-    return result;
 }
 
 function calcListDiff(arr1, arr2) {
