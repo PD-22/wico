@@ -9,13 +9,18 @@ testPermutations(
     x => x.join('') + '\n'
 );
 
-async function testPermutations(set, outputFile, printModifier) {
+function createCharSequence(startChar, length) {
+    const startCharCode = startChar.charCodeAt(0);
+    return Array.from({ length }, (_, i) => String.fromCharCode(startCharCode + i));
+}
+
+async function testPermutations(set, outputFile, printModifier = defaultPrintModifier) {
     console.log(`input: ${JSON.stringify(set)}`);
 
     let generator = getMinDiffPermutationsGenerator(set);
     generator = forEachGenerator(generator, createCheckMinDiffPermutations());
     generator = forEachGenerator(generator, createProgressBar(getPermutationsLength(set.length), 30));
-    generator = mapGenerator(generator, printModifier || defaultPrintModifier);
+    generator = mapGenerator(generator, printModifier);
 
     try {
         await logDeltaTimeAsync(writeGenerator)(outputFile, generator);
@@ -23,24 +28,19 @@ async function testPermutations(set, outputFile, printModifier) {
     } catch (error) {
         console.error(`An error occurred while writing to ${outputFile}: ${error}`);
     }
-
-    function defaultPrintModifier(value) {
-        return value.join(' ') + '\n';
-    }
-
-    function createCheckMinDiffPermutations() {
-        let prevValue = null;
-        return value => {
-            const isInvalid = prevValue && calcListDiff(prevValue, value) !== 2;
-            if (isInvalid) throw new Error('Invalid adjacent permutations encountered');
-            prevValue = value;
-        }
-    }
 }
 
-function createCharSequence(startChar, length) {
-    const startCharCode = startChar.charCodeAt(0);
-    return Array.from({ length }, (_, i) => String.fromCharCode(startCharCode + i));
+function defaultPrintModifier(value) {
+    return value.join(' ') + '\n';
+}
+
+function createCheckMinDiffPermutations() {
+    let prevValue = null;
+    return value => {
+        const isInvalid = prevValue && calcListDiff(prevValue, value) !== 2;
+        if (isInvalid) throw new Error('Invalid adjacent permutations encountered');
+        prevValue = value;
+    }
 }
 
 function calcListDiff(arr1, arr2) {
