@@ -2,6 +2,7 @@ const fs = require('fs');
 const { Readable } = require('stream');
 const { getPermutationsLength } = require('./permutations');
 const { getMinDiffPermutationsGenerator } = require('./permutationsOptimization');
+const { createProgressBar, logDeltaTimeAsync } = require('./testUtils');
 
 testPermutations(
     createCharSequence('A', 9),
@@ -38,24 +39,6 @@ async function testPermutations(set, outputFile, printModifier) {
     }
 }
 
-function createProgressBar(total, width) {
-    let completed = 0;
-    let prevProgressWidth = -1;
-
-    return () => {
-        completed++;
-        const progressWidth = Math.floor((completed / total) * width);
-
-        if (progressWidth === prevProgressWidth) return;
-
-        process.stdout.write(`\rprogress: [${'='.repeat(progressWidth)}${' '.repeat(width - progressWidth)}]`);
-
-        prevProgressWidth = progressWidth;
-
-        if (completed === total) process.stdout.write(`\n`);
-    };
-}
-
 function* forEachGenerator(generator, callbackfn) {
     for (const value of generator) {
         callbackfn(value);
@@ -82,22 +65,6 @@ async function writeGenerator(outputFile, generator) {
 function createCharSequence(startChar, length) {
     const startCharCode = startChar.charCodeAt(0);
     return Array.from({ length }, (_, i) => String.fromCharCode(startCharCode + i));
-}
-
-function logDeltaTimeAsync(asyncCallback) {
-    return async (...args) => {
-        console.log(`${asyncCallback.name}...`);
-        const [deltaTime, result] = await getDeltaTimeAsync(asyncCallback.bind(null, ...args));
-        console.log(`${asyncCallback.name}(${deltaTime.toFixed()} ms)`);
-        return result;
-    };
-}
-
-async function getDeltaTimeAsync(asyncCallback) {
-    const startTime = performance.now();
-    const result = await asyncCallback();
-    const deltaTime = performance.now() - startTime;
-    return [deltaTime, result];
 }
 
 function calcListDiff(arr1, arr2) {
