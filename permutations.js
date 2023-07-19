@@ -1,4 +1,4 @@
-const { factorial } = require("./math");
+const { factorial } = require("./utils");
 
 function getPermutations(set) {
     return Array.from(getPermutationsGenerator(set));
