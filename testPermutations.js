@@ -1,7 +1,7 @@
 const { getPermutationsLength } = require('./permutations');
 const { getMinDiffPermutationsGenerator } = require('./permutationsOptimization');
 const { createProgressBar, logDeltaTimeAsync } = require('./testUtils');
-const { forEachGenerator, mapGenerator, writeGenerator } = require('./generator');
+const { writeGenerator, enrichGenerator } = require('./generator');
 
 testPermutations(
     createCharSequence('A', 9),
@@ -14,13 +14,13 @@ function createCharSequence(startChar, length) {
     return Array.from({ length }, (_, i) => String.fromCharCode(startCharCode + i));
 }
 
-async function testPermutations(set, outputFile, printModifier = defaultPrintModifier) {
+async function testPermutations(set, outputFile, formatEntry = x => x.join(' ') + '\n') {
     console.log(`input: ${JSON.stringify(set)}`);
 
-    let generator = getMinDiffPermutationsGenerator(set);
-    generator = forEachGenerator(generator, createCheckMinDiffPermutations());
-    generator = forEachGenerator(generator, createProgressBar(getPermutationsLength(set.length), 30));
-    generator = mapGenerator(generator, printModifier);
+    const generator = enrichGenerator(getMinDiffPermutationsGenerator(set))
+        .forEach(createCheckMinDiffPermutations())
+        .forEach(createProgressBar(getPermutationsLength(set.length), 30).increment)
+        .map(formatEntry);
 
     try {
         await logDeltaTimeAsync(writeGenerator)(outputFile, generator);
@@ -28,10 +28,6 @@ async function testPermutations(set, outputFile, printModifier = defaultPrintMod
     } catch (error) {
         console.error(`An error occurred while writing to ${outputFile}: ${error}`);
     }
-}
-
-function defaultPrintModifier(value) {
-    return value.join(' ') + '\n';
 }
 
 function createCheckMinDiffPermutations() {

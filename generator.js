@@ -1,6 +1,13 @@
 const fs = require('fs');
 const { Readable } = require('stream');
 
+function enrichGenerator(generatorObj) {
+    generatorObj.forEach = callbackfn => enrichGenerator(forEachGenerator(generatorObj, callbackfn));
+    generatorObj.map = callbackfn => enrichGenerator(mapGenerator(generatorObj, callbackfn));
+
+    return generatorObj;
+}
+
 function* forEachGenerator(generator, callbackfn) {
     for (const value of generator) {
         callbackfn(value);
@@ -25,6 +32,7 @@ async function writeGenerator(outputFile, generator) {
 }
 
 module.exports = {
+    enrichGenerator,
     forEachGenerator,
     mapGenerator,
     writeGenerator

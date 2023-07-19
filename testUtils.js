@@ -2,7 +2,9 @@ function createProgressBar(total, width) {
     let completed = 0;
     let prevProgressWidth = -1;
 
-    return () => {
+    return { increment };
+
+    function increment() {
         completed++;
         const progressWidth = Math.floor((completed / total) * width);
 
