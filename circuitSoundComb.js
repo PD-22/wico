@@ -53,7 +53,13 @@ const soundCombinations = keyValuesCombs(soundKeys, soundValues);
 
 const combinations = mergeCircuitSoundCombs(circuitCombinations, soundCombinations);
 
-const enrichedCombinations = combinations.map((comb, i) => {
+const data = formatCombinations(combinations);
+fs.writeFileSync('output.txt', data);
+
+const fileContentMatches = fs.readFileSync('output copy.txt', 'utf8') === data;
+console.log(`file content matches: ${fileContentMatches}`);
+
+function enrichCombination(comb, i) {
     const result = {};
 
     const nextComb = combinations[i + 1];
@@ -83,18 +89,17 @@ const enrichedCombinations = combinations.map((comb, i) => {
     }
 
     return result;
-});
-
-function formatCombinations({ comb, diff }, i) {
-    return `  #${i + 1} (${diff}):\n${circuitSoundCombToString(comb, '    ')}`;
 }
 
-const totalSwitches = enrichedCombinations.map(x => x.diff).reduce((a, b) => a + b);
-const formattedCombinations = enrichedCombinations.map(formatCombinations).join('');
-const data = `all combinations:\n${formattedCombinations}\ntotal switches: ${totalSwitches}\n`;
+function formatCombinations(combinations) {
+    const enrichedCombination = combinations.map(enrichCombination);
 
-fs.writeFileSync('output.txt', data);
+    const formattedCombinations = enrichedCombination.map(formatEnrichedCombination).join('');
+    const totalSwitches = enrichedCombination.map(x => x.diff).reduce((a, b) => a + b);
+    
+    return `all combinations:\n${formattedCombinations}\ntotal switches: ${totalSwitches}\n`;
 
-const fileContentMatches = fs.readFileSync('output copy.txt', 'utf8') === data;
-
-console.log(`file content matches: ${fileContentMatches}`);
+    function formatEnrichedCombination({ comb, diff }, i) {
+        return `  #${i + 1} (${diff}):\n${circuitSoundCombToString(comb, '    ')}`;
+    }
+}
