@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 function keyValuesCombs(keys, values) {
     if (keys.length !== values.length) {
         throw new Error("Keys and values must have the same length");
@@ -113,18 +115,14 @@ const enrichedCombinations = combinations.map((comb, i) => {
     return result;
 });
 
-console.log(
-    `all combinations:\n${enrichedCombinations.map(
-        ({ comb, diff }, i) => {
-            let result = '';
-            result += `  #${i + 1} (${diff}):\n`;
-            result += circuitSoundCombToString(comb, '    ');
-            return result;
-        }
-    ).join('')}`
-);
+function formatCombinations({ comb, diff }, i) {
+    return `  #${i + 1} (${diff}):\n${circuitSoundCombToString(comb, '    ')}`;
+}
 
-console.log(
-    "total switches:",
-    enrichedCombinations.map(x => x.diff).reduce((a, b) => a + b)
+const totalSwitches = enrichedCombinations.map(x => x.diff).reduce((a, b) => a + b);
+
+fs.writeFileSync(
+    'output.txt',
+    `all combinations:\n${enrichedCombinations.map(formatCombinations).join('')}` +
+    `\ntotal switches: ${totalSwitches}\n`
 );
