@@ -17,8 +17,19 @@ function countListDiff(arr1, arr2) {
     return count;
 }
 
+function zip(...arrays) {
+    const minLength = Math.min(...arrays.map((arr) => arr.length));
+    const zipped = [];
+
+    for (let i = 0; i < minLength; i++)
+        zipped.push(arrays.map((arr) => arr[i]));
+
+    return zipped;
+}
+
 module.exports = {
     factorial,
     createCharSequence,
-    countListDiff
+    countListDiff,
+    zip
 };

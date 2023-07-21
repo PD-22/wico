@@ -1,32 +1,14 @@
 const fs = require('fs');
+const { getPermutations } = require("./permutations");
+const { zip } = require('./utils');
 
 function keyValuesCombs(keys, values) {
-    if (keys.length !== values.length) {
+    if (keys.length !== values.length)
         throw new Error("Keys and values must have the same length");
-    }
 
-    const combinations = [];
-
-    function generate(currentCombo, remainingKeys, remainingValues) {
-        if (remainingKeys.length === 0) {
-            combinations.push(currentCombo);
-            return;
-        }
-
-        const currentKey = remainingKeys[0];
-        for (let i = 0; i < remainingValues.length; i++) {
-            const currentValue = remainingValues[i];
-            generate(
-                { ...currentCombo, [currentKey]: currentValue },
-                remainingKeys.slice(1),
-                remainingValues.filter((_, idx) => idx !== i)
-            );
-        }
-    }
-
-    generate({}, keys, values);
-
-    return combinations;
+    return getPermutations(values).map(
+        permutation => Object.fromEntries(zip(keys, permutation))
+    );
 }
 
 function mergeCircuitSoundCombs(circuitCombinations, soundCombinations) {
@@ -120,9 +102,11 @@ function formatCombinations({ comb, diff }, i) {
 }
 
 const totalSwitches = enrichedCombinations.map(x => x.diff).reduce((a, b) => a + b);
+const formattedCombinations = enrichedCombinations.map(formatCombinations).join('');
+const data = `all combinations:\n${formattedCombinations}\ntotal switches: ${totalSwitches}\n`;
 
-fs.writeFileSync(
-    'output.txt',
-    `all combinations:\n${enrichedCombinations.map(formatCombinations).join('')}` +
-    `\ntotal switches: ${totalSwitches}\n`
-);
+fs.writeFileSync('output.txt', data);
+
+const fileContentMatches = fs.readFileSync('output copy.txt', 'utf8') === data;
+
+console.log(`file content matches: ${fileContentMatches}`);
