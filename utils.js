@@ -39,10 +39,15 @@ function zip(...arrays) {
     return zipped;
 }
 
+function mapObject(obj, callbackfn) {
+    return Object.fromEntries(Object.entries(obj).map(([k, v]) => callbackfn(k, v)));
+}
+
 module.exports = {
     factorial,
     createCharSequence,
     countListDiff,
     countObjDiff,
-    zip
+    zip,
+    mapObject
 };

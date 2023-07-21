@@ -1,6 +1,6 @@
 const fs = require('fs');
 const { getPermutations } = require("./permutations");
-const { zip, countObjDiff } = require('./utils');
+const { zip, countObjDiff, mapObject } = require('./utils');
 
 function keyValuesCombs(keys, values) {
     if (keys.length !== values.length)
@@ -59,9 +59,9 @@ const enrichedCombinations = combinations.map((comb, i) => {
     const nextComb = combinations[i + 1];
 
     let nextNumberCounter = 0;
-    result.comb = Object.fromEntries(Object.entries(comb).map(([type, wires]) => {
+    result.comb = mapObject(comb, (type, wires) => {
         const nextWires = nextComb && nextComb[type];
-        const newWires = Object.fromEntries(Object.entries(wires).map(([label, color]) => {
+        const newWires = mapObject(wires, (label, color) => {
             let next = null;
             let nextNumber = null;
             const nextColor = nextWires && nextWires[label];
@@ -72,9 +72,9 @@ const enrichedCombinations = combinations.map((comb, i) => {
             }
             const newColor = { color, next, nextNumber };
             return [label, newColor];
-        }));
+        });
         return [type, newWires];
-    }));
+    });
 
     result.diff = 0;
     if (nextComb) {
