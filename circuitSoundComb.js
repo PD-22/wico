@@ -1,6 +1,6 @@
 const fs = require('fs');
 const { getPermutations } = require("./permutations");
-const { zip } = require('./utils');
+const { zip, countObjDiff } = require('./utils');
 
 function keyValuesCombs(keys, values) {
     if (keys.length !== values.length)
@@ -43,22 +43,6 @@ function circuitSoundCombToString(comb, padding = '') {
     return result;
 }
 
-function circuitSoundCombDiff(a, b) {
-    let result = 0;
-
-    Object.keys(a).forEach(key => {
-        const currentWires = a[key];
-        const nextWires = b[key];
-
-        result += Object
-            .keys(currentWires)
-            .filter(wireKey => currentWires[wireKey] !== nextWires[wireKey])
-            .length;
-    });
-
-    return result
-}
-
 const circuitKeys = "mrlg".split("");
 const circuitValues = "blue red green copper".split(" ");
 const circuitCombinations = keyValuesCombs(circuitKeys, circuitValues);
@@ -92,7 +76,11 @@ const enrichedCombinations = combinations.map((comb, i) => {
         return [type, newWires];
     }));
 
-    result.diff = nextComb ? circuitSoundCombDiff(comb, nextComb) : 0;
+    result.diff = 0;
+    if (nextComb) {
+        result.diff += countObjDiff(comb.circuit, nextComb.circuit);
+        result.diff += countObjDiff(comb.sound, nextComb.sound);
+    }
 
     return result;
 });

@@ -17,6 +17,18 @@ function countListDiff(arr1, arr2) {
     return count;
 }
 
+function countObjDiff(obj1, obj2) {
+    let count = 0;
+
+    const keys1 = Object.keys(obj1);
+    const keys2 = Object.keys(obj2);
+
+    for (const key of new Set([...keys1, ...keys2]))
+        if (obj1[key] !== obj2[key]) count++;
+
+    return count;
+}
+
 function zip(...arrays) {
     const minLength = Math.min(...arrays.map((arr) => arr.length));
     const zipped = [];
@@ -31,5 +43,6 @@ module.exports = {
     factorial,
     createCharSequence,
     countListDiff,
+    countObjDiff,
     zip
 };
