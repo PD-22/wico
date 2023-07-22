@@ -2,12 +2,9 @@ const fs = require('fs');
 const { getPermutations } = require("./permutations");
 const { zip, countObjDiff, mapObject } = require('./utils');
 
-function keyValuesCombs(keys, values) {
-    if (keys.length !== values.length)
-        throw new Error("Keys and values must have the same length");
-
+function getKeyValuePermutations(keys, values) {
     return getPermutations(values).map(
-        permutation => Object.fromEntries(zip(keys, permutation))
+        valuePermutation => Object.fromEntries(zip(keys, valuePermutation))
     );
 }
 
@@ -45,11 +42,11 @@ function circuitSoundCombToString(comb, padding = '') {
 
 const circuitKeys = "mrlg".split("");
 const circuitValues = "blue red green copper".split(" ");
-const circuitCombinations = keyValuesCombs(circuitKeys, circuitValues);
+const circuitCombinations = getKeyValuePermutations(circuitKeys, circuitValues);
 
 const soundKeys = "rgl".split("");
 const soundValues = "red copper green".split(" ");
-const soundCombinations = keyValuesCombs(soundKeys, soundValues);
+const soundCombinations = getKeyValuePermutations(soundKeys, soundValues);
 
 const combinations = mergeCircuitSoundCombs(circuitCombinations, soundCombinations);
 
@@ -96,7 +93,7 @@ function formatCombinations(combinations) {
 
     const formattedCombinations = enrichedCombination.map(formatEnrichedCombination).join('');
     const totalSwitches = enrichedCombination.map(x => x.diff).reduce((a, b) => a + b);
-    
+
     return `all combinations:\n${formattedCombinations}\ntotal switches: ${totalSwitches}\n`;
 
     function formatEnrichedCombination({ comb, diff }, i) {
