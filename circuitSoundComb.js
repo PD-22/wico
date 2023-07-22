@@ -2,22 +2,22 @@ const fs = require('fs');
 const { getPermutations } = require("./permutations");
 const { zip, countObjDiff, mapObject } = require('./utils');
 
-const circuitCombinations = getKeyValuePermutations(
+const auxPermutations = getKeyValuePermutations(
     "mrlg".split(""),
     "blue red green copper".split(" ")
 );
 
-const soundCombinations = getKeyValuePermutations(
+const soundPermutations = getKeyValuePermutations(
     "rgl".split(""),
     "red copper green".split(" ")
 );
 
 const wiringCombinations = combineArraysWithKeys(
-    'circuit', circuitCombinations,
-    'sound', soundCombinations
+    'aux', auxPermutations,
+    'sound', soundPermutations
 );
 
-const formattedCombinations = formatCombinations(wiringCombinations);
+const formattedCombinations = formatCircuitSoundCombinations(wiringCombinations);
 fs.writeFileSync('output.txt', formattedCombinations);
 
 const oldFormattedCombinations = fs.readFileSync('output copy.txt', 'utf8');
@@ -36,8 +36,8 @@ function combineArraysWithKeys(key1, array1, key2, array2) {
     ));
 }
 
-function formatCombinations(combinations) {
-    const enrichedCombination = combinations.map(enrichCombination);
+function formatCircuitSoundCombinations(wiringCombinations) {
+    const enrichedCombination = wiringCombinations.map(enrichCombination);
 
     const formattedCombinations = enrichedCombination.map(formatEnrichedCombination).join('');
     const totalSwitches = enrichedCombination.map(x => x.diff).reduce((a, b) => a + b);
@@ -74,7 +74,7 @@ function enrichCombination(comb, i) {
 
     result.diff = 0;
     if (nextComb) {
-        result.diff += countObjDiff(comb.circuit, nextComb.circuit);
+        result.diff += countObjDiff(comb.aux, nextComb.aux);
         result.diff += countObjDiff(comb.sound, nextComb.sound);
     }
 
@@ -84,8 +84,8 @@ function enrichCombination(comb, i) {
 function circuitSoundCombToString(comb, padding = '') {
     let result = "";
 
-    result += `${padding}circuit:\n`;
-    for (const [key, { color, next, nextNumber }] of Object.entries(comb.circuit)) {
+    result += `${padding}aux:\n`;
+    for (const [key, { color, next, nextNumber }] of Object.entries(comb.aux)) {
         result += `${padding}  ${key} - ${color}`;
         if (next) result += ` -> ${next} (${nextNumber})`;
         result += "\n";
