@@ -1,13 +1,13 @@
 const fs = require('fs');
-const { getPermutations } = require("./permutations");
 const { zip, countObjDiff, mapObject } = require('./utils');
+const { getMinDiffPermutations } = require('./permutationsOptimization');
 
-const auxPermutations = getKeyValuePermutations(
+const auxPermutations = getOptimizedKeyValuePermutations(
     "mrlg".split(""),
     "blue red green copper".split(" ")
 );
 
-const soundPermutations = getKeyValuePermutations(
+const soundPermutations = getOptimizedKeyValuePermutations(
     "rgl".split(""),
     "red copper green".split(" ")
 );
@@ -24,8 +24,8 @@ const oldFormattedCombinations = fs.readFileSync('output copy.txt', 'utf8');
 
 console.log(`file content matches: ${oldFormattedCombinations === formattedCombinations}`);
 
-function getKeyValuePermutations(keys, values) {
-    return getPermutations(values).map(valuesPermutation =>
+function getOptimizedKeyValuePermutations(keys, values) {
+    return getMinDiffPermutations(values).map(valuesPermutation =>
         Object.fromEntries(zip(keys, valuesPermutation))
     );
 }
@@ -42,7 +42,7 @@ function formatCircuitSoundCombinations(wiringCombinations) {
     const formattedCombinations = enrichedCombination.map(formatEnrichedCombination).join('');
     const totalSwitches = enrichedCombination.map(x => x.diff).reduce((a, b) => a + b);
 
-    return `all combinations:\n${formattedCombinations}\ntotal switches: ${totalSwitches}\n`;
+    return `total switches: ${totalSwitches}\n\nall combinations:\n${formattedCombinations}`;
 
     function formatEnrichedCombination({ comb, diff }, i) {
         return `  #${i + 1} (${diff}):\n${circuitSoundCombToString(comb, '    ')}`;

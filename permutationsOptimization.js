@@ -1,7 +1,7 @@
 const { getPermutationsLength, getPermutationAtIndex } = require("./permutations");
 
 function getMinDiffPermutations(set) {
-    Array.from(getMinDiffPermutationsGenerator(set));
+    return Array.from(getMinDiffPermutationsGenerator(set));
 }
 
 function* getMinDiffPermutationsGenerator(set) {
