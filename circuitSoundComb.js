@@ -2,6 +2,22 @@ const fs = require('fs');
 const { getPermutations } = require("./permutations");
 const { zip, countObjDiff, mapObject } = require('./utils');
 
+const circuitKeys = "mrlg".split("");
+const circuitValues = "blue red green copper".split(" ");
+const circuitCombinations = getKeyValuePermutations(circuitKeys, circuitValues);
+
+const soundKeys = "rgl".split("");
+const soundValues = "red copper green".split(" ");
+const soundCombinations = getKeyValuePermutations(soundKeys, soundValues);
+
+const combinations = combineArraysWithKeys('circuit', circuitCombinations, 'sound', soundCombinations);
+
+const data = formatCombinations(combinations);
+fs.writeFileSync('output.txt', data);
+
+const fileContentMatches = fs.readFileSync('output copy.txt', 'utf8') === data;
+console.log(`file content matches: ${fileContentMatches}`);
+
 function getKeyValuePermutations(keys, values) {
     return getPermutations(values).map(valuesPermutation =>
         Object.fromEntries(zip(keys, valuesPermutation))
@@ -33,22 +49,6 @@ function circuitSoundCombToString(comb, padding = '') {
 
     return result;
 }
-
-const circuitKeys = "mrlg".split("");
-const circuitValues = "blue red green copper".split(" ");
-const circuitCombinations = getKeyValuePermutations(circuitKeys, circuitValues);
-
-const soundKeys = "rgl".split("");
-const soundValues = "red copper green".split(" ");
-const soundCombinations = getKeyValuePermutations(soundKeys, soundValues);
-
-const combinations = combineArraysWithKeys('circuit', circuitCombinations, 'sound', soundCombinations);
-
-const data = formatCombinations(combinations);
-fs.writeFileSync('output.txt', data);
-
-const fileContentMatches = fs.readFileSync('output copy.txt', 'utf8') === data;
-console.log(`file content matches: ${fileContentMatches}`);
 
 function enrichCombination(comb, i) {
     const result = {};
