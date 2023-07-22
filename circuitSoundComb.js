@@ -3,21 +3,15 @@ const { getPermutations } = require("./permutations");
 const { zip, countObjDiff, mapObject } = require('./utils');
 
 function getKeyValuePermutations(keys, values) {
-    return getPermutations(values).map(
-        valuePermutation => Object.fromEntries(zip(keys, valuePermutation))
+    return getPermutations(values).map(valuesPermutation =>
+        Object.fromEntries(zip(keys, valuesPermutation))
     );
 }
 
-function mergeCircuitSoundCombs(circuitCombinations, soundCombinations) {
-    const mergedCombinations = [];
-
-    for (const circuitCombo of circuitCombinations) {
-        for (const soundCombo of soundCombinations) {
-            mergedCombinations.push({ circuit: circuitCombo, sound: soundCombo });
-        }
-    }
-
-    return mergedCombinations;
+function combineArraysWithKeys(key1, array1, key2, array2) {
+    return array1.flatMap(item1 => array2.map(item2 =>
+        ({ [key1]: item1, [key2]: item2 })
+    ));
 }
 
 function circuitSoundCombToString(comb, padding = '') {
@@ -48,7 +42,7 @@ const soundKeys = "rgl".split("");
 const soundValues = "red copper green".split(" ");
 const soundCombinations = getKeyValuePermutations(soundKeys, soundValues);
 
-const combinations = mergeCircuitSoundCombs(circuitCombinations, soundCombinations);
+const combinations = combineArraysWithKeys('circuit', circuitCombinations, 'sound', soundCombinations);
 
 const data = formatCombinations(combinations);
 fs.writeFileSync('output.txt', data);
