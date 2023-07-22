@@ -50,35 +50,45 @@ function formatCircuitSoundCombinations(wiringCombinations) {
 }
 
 function enrichCombination(comb, i) {
-    const result = {};
-
     const nextComb = wiringCombinations[i + 1];
 
-    let nextNumberCounter = 0;
-    result.comb = mapObject(comb, (type, wires) => {
-        const nextWires = nextComb && nextComb[type];
-        const newWires = mapObject(wires, (label, color) => {
-            let next = null;
-            let nextNumber = null;
-            const nextColor = nextWires && nextWires[label];
-            const colorChanged = nextColor && color !== nextColor;
-            if (colorChanged) {
-                next = nextColor;
-                nextNumber = ++nextNumberCounter;
-            }
-            const newColor = { color, next, nextNumber };
-            return [label, newColor];
-        });
-        return [type, newWires];
-    });
-
-    result.diff = 0;
-    if (nextComb) {
-        result.diff += countObjDiff(comb.aux, nextComb.aux);
-        result.diff += countObjDiff(comb.sound, nextComb.sound);
-    }
+    const result = {
+        diff: calculateDiff(nextComb),
+        comb: calculateComb(nextComb)
+    };
 
     return result;
+
+    function calculateComb(nextComb) {
+        let nextNumberCounter = 0;
+
+        return mapObject(comb, (type, wires) => {
+            const nextWires = nextComb?.[type];
+
+            const newWires = mapObject(wires, (label, color) => {
+                const newColor = { color };
+
+                const nextColor = nextWires?.[label];
+                const colorChanged = nextColor && nextColor !== color;
+                if (colorChanged) {
+                    newColor.next = nextColor;
+                    newColor.nextNumber = ++nextNumberCounter;
+                }
+                return [label, newColor];
+            });
+
+            return [type, newWires];
+        });
+    }
+
+    function calculateDiff(nextComb) {
+        let result = 0;
+        if (nextComb) {
+            result += countObjDiff(comb.aux, nextComb.aux);
+            result += countObjDiff(comb.sound, nextComb.sound);
+        }
+        return result;
+    }
 }
 
 function circuitSoundCombToString(comb, padding = '') {
