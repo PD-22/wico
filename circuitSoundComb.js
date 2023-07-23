@@ -53,13 +53,13 @@ function enrichCombination(comb, i) {
     const nextComb = wiringCombinations[i + 1];
 
     const result = {
-        diff: calculateDiff(nextComb),
-        comb: calculateComb(nextComb)
+        diff: calculateDiff(comb, nextComb),
+        comb: calculateComb(comb, nextComb)
     };
 
     return result;
 
-    function calculateComb(nextComb) {
+    function calculateComb(comb, nextComb) {
         let nextNumberCounter = 0;
 
         return mapObject(comb, (type, wires) => {
@@ -81,32 +81,28 @@ function enrichCombination(comb, i) {
         });
     }
 
-    function calculateDiff(nextComb) {
-        let result = 0;
-        if (nextComb) {
-            result += countObjDiff(comb.aux, nextComb.aux);
-            result += countObjDiff(comb.sound, nextComb.sound);
+    function calculateDiff(comb, nextComb) {
+        if (!nextComb) return 0;
+
+        return Object.keys(comb).reduce(calculate, 0);
+
+        function calculate(acc, wiringName) {
+            return acc + countObjDiff(comb[wiringName], nextComb[wiringName]);
         }
-        return result;
     }
 }
 
 function circuitSoundCombToString(comb, padding = '') {
     let result = "";
 
-    result += `${padding}aux:\n`;
-    for (const [key, { color, next, nextNumber }] of Object.entries(comb.aux)) {
-        result += `${padding}  ${key} - ${color}`;
-        if (next) result += ` -> ${next} (${nextNumber})`;
-        result += "\n";
-    }
-
-    result += `${padding}sound:\n`;
-    for (const [key, { color, next, nextNumber }] of Object.entries(comb.sound)) {
-        result += `${padding}  ${key} - ${color}`;
-        if (next) result += ` -> ${next} (${nextNumber})`;
-        result += "\n";
-    }
+    Object.keys(comb).forEach(wiringName => {
+        result += `${padding}${wiringName}:\n`;
+        for (const [key, { color, next, nextNumber }] of Object.entries(comb[wiringName])) {
+            result += `${padding}  ${key} - ${color}`;
+            if (next) result += ` -> ${next} (${nextNumber})`;
+            result += "\n";
+        }
+    });
 
     return result;
 }
