@@ -1,5 +1,5 @@
 const fs = require('fs');
-const { zip, countObjDiff, mapObject } = require('./utils');
+const { zip, countObjDiff, transformObject } = require('./utils');
 const { getMinDiffPermutations } = require('./permutationsOptimization');
 
 const auxPermutations = getMinDiffKeyValuePermutations(
@@ -62,10 +62,10 @@ function enrichWiringCombinations(comb, i) {
     function calculateComb(comb, nextComb) {
         let nextNumberCounter = 0;
 
-        return mapObject(comb, (type, wires) => {
+        return transformObject(comb, (type, wires) => {
             const nextWires = nextComb?.[type];
 
-            const newWires = mapObject(wires, (label, wire) => {
+            const newWires = transformObject(wires, (label, wire) => {
                 const newWire = { value: wire };
 
                 const nextWire = nextWires?.[label];

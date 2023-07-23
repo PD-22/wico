@@ -39,8 +39,12 @@ function zip(...arrays) {
     return zipped;
 }
 
+function transformObject(obj, callbackfn) {
+    return Object.fromEntries(mapObject(obj, callbackfn));
+}
+
 function mapObject(obj, callbackfn) {
-    return Object.fromEntries(Object.entries(obj).map(([k, v]) => callbackfn(k, v)));
+    return Object.entries(obj).map(([k, v]) => callbackfn(k, v));
 }
 
 module.exports = {
@@ -49,5 +53,6 @@ module.exports = {
     countListDiff,
     countObjDiff,
     zip,
+    transformObject,
     mapObject
 };
