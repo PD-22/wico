@@ -47,6 +47,13 @@ function mapObject(obj, callbackfn) {
     return Object.entries(obj).map(([k, v]) => callbackfn(k, v));
 }
 
+function indentText(text, indentation) {
+    return text.replaceAll(
+        /(^|\n)(?=.*?\S.*?(\n|$))/g,
+        (_match, newline) => (newline ? '\n' : '') + indentation
+    );
+}
+
 module.exports = {
     factorial,
     createCharSequence,
@@ -54,5 +61,6 @@ module.exports = {
     countObjDiff,
     zip,
     transformObject,
-    mapObject
+    mapObject,
+    indentText
 };
