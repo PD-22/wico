@@ -37,7 +37,7 @@ function combineArraysWithKeys(key1, array1, key2, array2) {
 }
 
 function formatWiringCombinations(wiringCombinations) {
-    const enrichedCombination = wiringCombinations.map(enrichWiringCombinations);
+    const enrichedCombination = enrichWiringCombinations(wiringCombinations);
 
     const totalDiffs = enrichedCombination.map(x => x.diff).reduce((a, b) => a + b);
     const formattedDiffs = `total diffs: ${totalDiffs}`;
@@ -48,17 +48,19 @@ function formatWiringCombinations(wiringCombinations) {
     return `${formattedDiffs}\n\n${formattedCombinations}`;
 }
 
-function enrichWiringCombinations(comb, i) {
-    const nextComb = wiringCombinations[i + 1];
+function enrichWiringCombinations(wiringCombinations) {
+    return wiringCombinations.map((comb, i) => {
+        const nextComb = wiringCombinations[i + 1];
 
-    const result = {
-        diff: calculateDiff(comb, nextComb),
-        comb: calculateComb(comb, nextComb)
-    };
+        const result = {
+            diff: enrichDiff(comb, nextComb),
+            comb: enrichComb(comb, nextComb)
+        };
 
-    return result;
+        return result;
+    });
 
-    function calculateComb(comb, nextComb) {
+    function enrichComb(comb, nextComb) {
         let nextNumberCounter = 0;
 
         return transformObject(comb, (type, wires) => {
@@ -80,13 +82,13 @@ function enrichWiringCombinations(comb, i) {
         });
     }
 
-    function calculateDiff(comb, nextComb) {
-        if (!nextComb) return 0;
+    function enrichDiff(current, next) {
+        if (!next) return 0;
 
-        return Object.keys(comb).reduce(calculate, 0);
+        return Object.keys(current).reduce(calculate, 0);
 
-        function calculate(acc, wiringName) {
-            return acc + countObjDiff(comb[wiringName], nextComb[wiringName]);
+        function calculate(acc, key) {
+            return acc + countObjDiff(current[key], next[key]);
         }
     }
 }
