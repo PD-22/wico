@@ -12,7 +12,7 @@ const soundPermutations = getMinDiffKeyValuePermutations(
     "red copper green".split(" ")
 );
 
-const wiringCombinations = combineArraysWithKeys(
+const wiringCombinations = combineArraysWithKeysReversedAlternate(
     'aux', auxPermutations,
     'sound', soundPermutations
 );
@@ -30,10 +30,11 @@ function getMinDiffKeyValuePermutations(keys, values) {
     );
 }
 
-function combineArraysWithKeys(key1, array1, key2, array2) {
-    return array1.flatMap(item1 => array2.map(item2 =>
-        ({ [key1]: item1, [key2]: item2 })
-    ));
+function combineArraysWithKeysReversedAlternate(key1, array1, key2, array2) {
+    return array1.flatMap((item1, i) => {
+        const array2Alter = i % 2 ? array2.toReversed() : array2;
+        return array2Alter.map(item2 => ({ [key1]: item1, [key2]: item2 }));
+    });
 }
 
 function formatWiringCombinations(wiringCombinations) {
