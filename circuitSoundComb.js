@@ -2,27 +2,53 @@ const fs = require('fs');
 const { zip, countObjDiff, transformObject, mapObject, indentText } = require('./utils');
 const { getMinDiffPermutations } = require('./permutationsOptimization');
 
-const auxPermutations = getMinDiffKeyValuePermutations(
-    "mrlg".split(""),
-    "blue red green copper".split(" ")
-);
+start({
+    wiringSettings: [
+        {
+            name: "aux",
+            points: "mrlg".split(""),
+            wires: "blue red green copper".split(" "),
+        },
+        {
+            name: "sound",
+            points: "rgl".split(""),
+            wires: "red copper green".split(" "),
+        }
+    ],
+    outputFile: 'output.txt',
+    outputCompareFile: 'output copy.txt'
+});
 
-const soundPermutations = getMinDiffKeyValuePermutations(
-    "rgl".split(""),
-    "red copper green".split(" ")
-);
+function start({ wiringSettings, outputFile, outputCompareFile }) {
+    const wiringCombinations = getWiringCombinations(wiringSettings);
 
-const wiringCombinations = combineArraysWithKeysReversedAlternate(
-    'aux', auxPermutations,
-    'sound', soundPermutations
-);
+    const formattedCombinations = formatWiringCombinations(wiringCombinations);
 
-const formattedCombinations = formatWiringCombinations(wiringCombinations);
-fs.writeFileSync('output.txt', formattedCombinations);
+    fs.writeFileSync(outputFile, formattedCombinations);
+    console.log(`result: "${outputFile}"`);
 
-const oldFormattedCombinations = fs.readFileSync('output copy.txt', 'utf8');
+    if (outputCompareFile) {
+        const oldFormattedCombinations = fs.readFileSync(outputCompareFile, 'utf8');
+        console.log(`file content matches: ${oldFormattedCombinations === formattedCombinations}`);
+    }
+}
 
-console.log(`file content matches: ${oldFormattedCombinations === formattedCombinations}`);
+// TODO: make it work on multiple settings (>2)
+function getWiringCombinations(wiringSettings) {
+    const [settings1, settings2] = wiringSettings;
+
+    const permutations1 = getWiringPermutations(settings1);
+    const permutations2 = getWiringPermutations(settings2);
+
+    return combineArraysWithKeysReversedAlternate(
+        settings1.name, permutations1,
+        settings2.name, permutations2
+    );
+}
+
+function getWiringPermutations(wiringSetting) {
+    return getMinDiffKeyValuePermutations(wiringSetting.points, wiringSetting.wires);
+}
 
 function getMinDiffKeyValuePermutations(keys, values) {
     return getMinDiffPermutations(values).map(valuesPermutation =>
