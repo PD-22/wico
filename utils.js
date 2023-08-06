@@ -54,6 +54,15 @@ function indentText(text, indentation) {
     );
 }
 
+function swap(arr, i, j) {
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+    return arr;
+}
+
+function swapImmutable(arr, i, j) {
+    return swap(arr.slice(), i, j);
+}
+
 module.exports = {
     factorial,
     createCharSequence,
@@ -62,5 +71,7 @@ module.exports = {
     zip,
     transformObject,
     mapObject,
-    indentText
+    indentText,
+    swap,
+    swapImmutable
 };
