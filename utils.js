@@ -69,6 +69,12 @@ function countPartition(arr, predicate) {
     return [passed, notPassed];
 }
 
+function findIndices(array, predicate) {
+    return array
+        .map((testResult, index) => predicate(testResult) ? index : null)
+        .filter(savedIndex => savedIndex !== null);
+}
+
 module.exports = {
     factorial,
     createCharSequence,
@@ -80,5 +86,6 @@ module.exports = {
     indentText,
     swap,
     swapImmutable,
-    countPartition
+    countPartition,
+    findIndices
 };

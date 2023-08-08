@@ -1,6 +1,6 @@
 const fs = require('fs');
 const { combineArrays, combineArraysReversedAlternate } = require('./combineArraysReversedAlternate');
-const { countListDiff, createCharSequence, zip, countPartition, swap } = require('./utils');
+const { countListDiff, createCharSequence, zip, countPartition, swap, findIndices } = require('./utils');
 
 start();
 
@@ -64,12 +64,16 @@ function start() {
 
     const formattedStatus = notPassedCount === 0 ? "PASS" : "FAIL";
 
+    const failedTestIndices = findIndices(testResults, testResult => !isValidTestResult(testResult));
+    const formattedFailedTestIndices = failedTestIndices.map(i => `#${i}`).join(', ');
+
     const formattedTestSummary = [
         `Status: ${formattedStatus}`,
         `Total Tests: ${testInputs.length}`,
         `Pass: ${passedCount}`,
         `Fail: ${notPassedCount}`,
-    ].join('\n');
+        notPassedCount ? `Failed Tests: ${formattedFailedTestIndices}` : null
+    ].filter(x => x !== null).join('\n');
 
     const result = `${formattedTestSummary}\n\n${formattedTestResults.join('\n\n')}\n`;
 
