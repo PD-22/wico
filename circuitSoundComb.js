@@ -1,5 +1,5 @@
 const fs = require('fs');
-const { zip, countObjDiff, transformObject, mapObject, indentText } = require('./utils');
+const { zip, countObjDiff, transformObject, mapObject, indentText, compareFileContents } = require('./utils');
 const { getMinDiffPermutations } = require('./permutationsOptimization');
 
 start({
@@ -29,7 +29,8 @@ function start({ wiringSettings, outputFile, outputCompareFile }) {
 
     if (outputCompareFile) {
         const oldFormattedCombinations = fs.readFileSync(outputCompareFile, 'utf8');
-        console.log(`file content matches: ${oldFormattedCombinations === formattedCombinations}`);
+        const matches = compareFileContents(oldFormattedCombinations, formattedCombinations);
+        console.log(`file content matches: ${matches}`);
     }
 }
 

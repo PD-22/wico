@@ -75,6 +75,14 @@ function findIndices(array, predicate) {
         .filter(savedIndex => savedIndex !== null);
 }
 
+function compareFileContents(fileContent1, fileContent2) {
+    return normalizeEOL(fileContent1) === normalizeEOL(fileContent2);
+
+    function normalizeEOL(str) {
+        return str.replace(/\r\n|\r|\n/g, '\n');
+    }
+}
+
 module.exports = {
     factorial,
     createCharSequence,
@@ -87,5 +95,6 @@ module.exports = {
     swap,
     swapImmutable,
     countPartition,
-    findIndices
+    findIndices,
+    compareFileContents
 };
