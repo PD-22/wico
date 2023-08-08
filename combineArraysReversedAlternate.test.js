@@ -1,46 +1,74 @@
 const fs = require('fs');
-const path = require('path');
 const { combineArrays, combineArraysReversedAlternate } = require('./combineArraysReversedAlternate');
-const { countListDiff, createCharSequence, zip } = require('./utils');
+const { countListDiff, createCharSequence, zip, countPartition } = require('./utils');
 
 /*
 TODO:
-console log short report
-write full test report to a file
-    for each char sequences:
-    input char sequences
-    result combinations formatted
-    description of at what place what failed
+maybe add console log short report
+extract inputs
+refactor result output formatting
 */
 
 start();
 
-// TODO: extract inputs
 function start() {
-    const baseDirName = 'combineArraysReversedAlternate';
+    const outputFile = 'output.txt';
 
-    if (fs.existsSync(baseDirName)) fs.rmSync(baseDirName, { recursive: true });
-    fs.mkdirSync(baseDirName);
+    // list of charSequenceVariants
+    // charSequenceVariants is an array of chars, where each index holds a set of possible values
+    const testInputs1 = getCharSequenceVariants('Aa'.split(''), [2, 3]);
+    const testInputs2 = getCharSequenceVariants('Aa1'.split(''), [2, 3]);
+    const testInputs = [...testInputs1, ...testInputs2];
 
-    ['Aa', 'Aa1'].flatMap(chars =>
-        getCharSequenceVariants(chars.split(''), [2, 3])
-    ).forEach((charSequences, inputIndex) => {
-        const combinations = combineArraysReversedAlternate(charSequences);
+    const testResults = testInputs.map(testInput => {
+        const combinations = combineArraysReversedAlternate(testInput);
 
-        const formattedCombinations = combinations.map(x => x.join('')).join('\n');
-
-        const fileName = `${inputIndex}.txt`;
-        fs.writeFileSync(path.join(baseDirName, fileName), formattedCombinations);
+        let outputError = null;
 
         try {
             validateArrayNeighbours(combinations, (prev, curr) => countListDiff(prev, curr) === 1);
-            console.log('Valid adjacent values');
         } catch (error) {
-            console.error(`${error.message}. charSequences: ${JSON.stringify(charSequences)}`);
+            outputError = error;
         }
+
+        return {
+            input: testInput,
+            output: combinations,
+            error: outputError
+        };
     });
 
-    console.log(`Results written in: "${baseDirName}"`);
+    const formattedTestResults = testResults.map((testResult, testIndex) => {
+        const { input, output, error } = testResult;
+
+        const formattedStatus = error ? "FAIL" : "PASS";
+        const formattedOutput = output.map(x => x.join(' ')).join('\n');
+
+        return [
+            `Test # ${testIndex + 1}`,
+            `Status: ${formattedStatus}`,
+            `Input: ${JSON.stringify(input)}`,
+            `Output:\n${formattedOutput}`,
+            error ? `Error: ${error.message}` : ''
+        ].filter(Boolean).join('\n');
+    });
+
+    const [passedCount, notPassedCount] = countPartition(testResults, testResult => !testResult.error);
+
+    const formattedStatus = notPassedCount === 0 ? "PASS" : "FAIL";
+
+    const formattedTestSummary = [
+        `Status: ${formattedStatus}`,
+        `Total Tests: ${testInputs.length}`,
+        `Pass: ${passedCount}`,
+        `Fail: ${notPassedCount}`,
+    ].join('\n');
+
+    const result = `${formattedTestSummary}\n\n${formattedTestResults.join('\n\n')}\n`;
+
+    fs.writeFileSync(outputFile, result);
+
+    console.log(`Results written in: "${outputFile}"`);
 }
 
 function getCharSequenceVariants(firstChars, possibleLengths) {
@@ -52,8 +80,11 @@ function getCharSequenceVariants(firstChars, possibleLengths) {
 }
 
 function validateArrayNeighbours(array, validateAdjacent) {
-    return array.find((curr, i) => {
-        if (i && !validateAdjacent(array[i - 1], curr))
-            throw new Error(`Invalid adjacent values: i:${i - 1} "${array[i - 1]}" and i:${i} "${curr}"`);
+    return array.forEach((value, index) => {
+        const prevIndex = index - 1;
+        const prevValue = array[prevIndex];
+        const isInvalid = index && !validateAdjacent(prevValue, value);
+        const errorMessage = `Invalid adjacent values ${JSON.stringify(prevValue)} at index ${index} and ${JSON.stringify(value)} at index ${prevIndex}`;
+        if (isInvalid) throw new Error(errorMessage);
     });
 }

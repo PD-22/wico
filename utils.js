@@ -63,6 +63,12 @@ function swapImmutable(arr, i, j) {
     return swap(arr.slice(), i, j);
 }
 
+function countPartition(arr, predicate) {
+    let passed = 0; let notPassed = 0;
+    for (const item of arr) predicate(item) ? passed++ : notPassed++;
+    return [passed, notPassed];
+}
+
 module.exports = {
     factorial,
     createCharSequence,
@@ -73,5 +79,6 @@ module.exports = {
     mapObject,
     indentText,
     swap,
-    swapImmutable
+    swapImmutable,
+    countPartition
 };
