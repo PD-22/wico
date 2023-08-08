@@ -2,6 +2,13 @@ const fs = require('fs');
 const { combineArrays, combineArraysReversedAlternate } = require('./combineArraysReversedAlternate');
 const { countListDiff, createCharSequence, zip, countPartition, swap, findIndices } = require('./utils');
 
+class AdjacencyError extends Error {
+    constructor(message) {
+        super(message);
+        this.name = 'AdjacencyError';
+    }
+}
+
 // list of charSequenceVariants
 // charSequenceVariants is an array of chars, where each index holds a set of possible values
 const testInputs1 = getCharSequenceVariants('Aa'.split(''), [2, 3]);
@@ -31,6 +38,7 @@ function start(outputFile) {
         try {
             validateArrayNeighbours(testResult.output, (prev, curr) => countListDiff(prev, curr) === 1);
         } catch (error) {
+            if (!(error instanceof AdjacencyError)) throw error;
             outputError = error;
         }
 
@@ -66,8 +74,8 @@ function start(outputFile) {
     const formattedFailedTestIndices = failedTestIndices.map(i => `#${i}`).join(', ');
 
     const formattedTestSummary = [
-        `Status: ${formattedStatus}`,
         `Total Tests: ${testInputs.length}`,
+        `Status: ${formattedStatus}`,
         `Pass: ${passedCount}`,
         `Fail: ${notPassedCount}`,
         notPassedCount ? `Failed Tests: ${formattedFailedTestIndices}` : null
@@ -94,6 +102,6 @@ function validateArrayNeighbours(array, validateAdjacent) {
         const prevValue = array[prevIndex];
         const isInvalid = index && !validateAdjacent(prevValue, value);
         const errorMessage = `Invalid adjacent values ${JSON.stringify(prevValue)} at index ${index} and ${JSON.stringify(value)} at index ${prevIndex}`;
-        if (isInvalid) throw new Error(errorMessage);
+        if (isInvalid) throw new AdjacencyError(errorMessage);
     });
 }
