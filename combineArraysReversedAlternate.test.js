@@ -2,29 +2,27 @@ const fs = require('fs');
 const { combineArrays, combineArraysReversedAlternate } = require('./combineArraysReversedAlternate');
 const { countListDiff, createCharSequence, zip, countPartition, swap, findIndices } = require('./utils');
 
-start();
+// list of charSequenceVariants
+// charSequenceVariants is an array of chars, where each index holds a set of possible values
+const testInputs1 = getCharSequenceVariants('Aa'.split(''), [2, 3]);
+const testInputs2 = getCharSequenceVariants('Aa1'.split(''), [2, 3]);
+const testInputs = [...testInputs1, ...testInputs2];
 
-function start() {
-    const outputFile = 'output.txt';
+start('output.txt', testInputs);
 
-    // list of charSequenceVariants
-    // charSequenceVariants is an array of chars, where each index holds a set of possible values
-    const testInputs1 = getCharSequenceVariants('Aa'.split(''), [2, 3]);
-    const testInputs2 = getCharSequenceVariants('Aa1'.split(''), [2, 3]);
-    const testInputs = [...testInputs1, ...testInputs2];
-
+function start(outputFile) {
     // add output
     let testResults = testInputs.map(testInput => {
         const combinations = combineArraysReversedAlternate(testInput);
         return { input: testInput, output: combinations };
     });
 
-    // hardcoded test failure
-    const testIndicesToBreak = [1, 3, 4];
-    testIndicesToBreak.forEach(index => {
-        const testToBreak = testResults[index].output;
-        swap(testToBreak, 0, testToBreak.length - 1);
-    });
+    // // hardcoded test failure
+    // const testIndicesToBreak = [1, 3, 4];
+    // testIndicesToBreak.forEach(index => {
+    //     const testToBreak = testResults[index].output;
+    //     swap(testToBreak, 0, testToBreak.length - 1);
+    // });
 
     // add error
     testResults = testResults.map(testResult => {
