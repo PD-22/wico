@@ -1,13 +1,6 @@
 const fs = require('fs');
 const { combineArrays, combineArraysReversedAlternate } = require('./combineArraysReversedAlternate');
-const { countListDiff, createCharSequence, zip, countPartition } = require('./utils');
-
-/*
-TODO:
-maybe add console log short report
-extract inputs
-refactor result output formatting
-*/
+const { countListDiff, createCharSequence, zip, countPartition, swap } = require('./utils');
 
 start();
 
@@ -20,22 +13,34 @@ function start() {
     const testInputs2 = getCharSequenceVariants('Aa1'.split(''), [2, 3]);
     const testInputs = [...testInputs1, ...testInputs2];
 
-    const testResults = testInputs.map(testInput => {
+    // add output
+    let testResults = testInputs.map(testInput => {
         const combinations = combineArraysReversedAlternate(testInput);
+        return { input: testInput, output: combinations };
+    });
 
+    // hardcoded test failure
+    const testIndicesToBreak = [1, 3, 4];
+    testIndicesToBreak.forEach(index => {
+        const testToBreak = testResults[index].output;
+        swap(testToBreak, 0, testToBreak.length - 1);
+    });
+
+    // add error
+    testResults = testResults.map(testResult => {
         let outputError = null;
 
         try {
-            validateArrayNeighbours(combinations, (prev, curr) => countListDiff(prev, curr) === 1);
+            validateArrayNeighbours(testResult.output, (prev, curr) => countListDiff(prev, curr) === 1);
         } catch (error) {
             outputError = error;
         }
 
         return {
-            input: testInput,
-            output: combinations,
+            ...testResult,
             error: outputError
         };
+
     });
 
     const formattedTestResults = testResults.map((testResult, testIndex) => {
@@ -45,15 +50,17 @@ function start() {
         const formattedOutput = output.map(x => x.join(' ')).join('\n');
 
         return [
-            `Test # ${testIndex + 1}`,
+            `Test #${testIndex}`,
             `Status: ${formattedStatus}`,
             `Input: ${JSON.stringify(input)}`,
             `Output:\n${formattedOutput}`,
-            error ? `Error: ${error.message}` : ''
-        ].filter(Boolean).join('\n');
+            error ? `Error: ${error.message}` : null
+        ].filter(x => x !== null).join('\n');
     });
 
-    const [passedCount, notPassedCount] = countPartition(testResults, testResult => !testResult.error);
+    const isValidTestResult = testResult => !testResult.error;
+
+    const [passedCount, notPassedCount] = countPartition(testResults, isValidTestResult);
 
     const formattedStatus = notPassedCount === 0 ? "PASS" : "FAIL";
 
