@@ -29,7 +29,30 @@ function combineArraysReversedAlternate(arrays) {
     }
 }
 
+function combineArraysWithKeysReversedAlternate(keyWiringsDict) {
+    const keyWiringsEntries = Object.entries(keyWiringsDict);
+
+    return recursion(keyWiringsEntries.length - 1);
+
+    function recursion(i) {
+        const [key, wirings] = keyWiringsEntries[i];
+
+        if (i === 0) return wirings.map(wiring => ({ [key]: wiring }));
+
+        return recursion(i - 1).flatMap((x, j) => {
+            const [key, wirings] = keyWiringsEntries[i];
+
+            const wiringsAlter = j % 2 === 1 ?
+                wirings.toReversed() :
+                wirings;
+
+            return wiringsAlter.map(wiring => ({ ...x, [key]: wiring }));
+        });
+    }
+}
+
 module.exports = {
     combineArrays,
-    combineArraysReversedAlternate
+    combineArraysReversedAlternate,
+    combineArraysWithKeysReversedAlternate
 };

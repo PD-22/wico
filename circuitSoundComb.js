@@ -1,6 +1,7 @@
 const fs = require('fs');
 const { zip, countObjDiff, transformObject, mapObject, indentText, compareFileContents } = require('./utils');
 const { getMinDiffPermutations } = require('./permutationsOptimization');
+const { combineArraysWithKeysReversedAlternate } = require('./combineArrays');
 
 start({
     wiringSettings: [
@@ -41,10 +42,10 @@ function getWiringCombinations(wiringSettings) {
     const permutations1 = getWiringPermutations(settings1);
     const permutations2 = getWiringPermutations(settings2);
 
-    return combineArraysWithKeysReversedAlternate(
-        settings1.name, permutations1,
-        settings2.name, permutations2
-    );
+    return combineArraysWithKeysReversedAlternate({
+        [settings1.name]: permutations1,
+        [settings2.name]: permutations2
+    });
 }
 
 function getWiringPermutations(wiringSetting) {
@@ -55,13 +56,6 @@ function getMinDiffKeyValuePermutations(keys, values) {
     return getMinDiffPermutations(values).map(valuesPermutation =>
         Object.fromEntries(zip(keys, valuesPermutation))
     );
-}
-
-function combineArraysWithKeysReversedAlternate(key1, array1, key2, array2) {
-    return array1.flatMap((item1, i) => {
-        const array2Alter = i % 2 ? array2.toReversed() : array2;
-        return array2Alter.map(item2 => ({ [key1]: item1, [key2]: item2 }));
-    });
 }
 
 function formatWiringCombinations(wiringCombinations) {
