@@ -1,17 +1,13 @@
-/*
-TODO:
-maybe add by index generator approach
-meassure perfomance, improve
-*/
+const { product, indices } = require("./utils");
 
-// DUPL: combineArrays and combineArraysAlternate
 function combineArrays(arrays) {
-    return recursion(arrays.length - 1);
-
-    function recursion(i) {
-        if (i < 0) return [[]];
-        return recursion(i - 1).flatMap(x => arrays[i].map(y => [...x, y]));
-    }
+    const resultLength = product(arrays.map(x => x.length));
+    return indices(resultLength).map(i => indices(arrays.length).map(j => {
+        const currArray = arrays[j];
+        const l1 = currArray.length;
+        const l2 = product(arrays.slice(j).map(x => x.length));
+        return currArray[Math.floor(l1 / l2 * i) % l1];
+    }));
 }
 
 function combineArraysReversedAlternate(arrays) {

@@ -83,6 +83,18 @@ function compareFileContents(fileContent1, fileContent2) {
     }
 }
 
+function product(numbers) {
+    return numbers.reduce((product, number) => product * number, 1);
+}
+
+function indices(l) {
+    return range(0, l - 1);
+}
+
+function range(start, end, step = 1) {
+    return Array.from({ length: Math.floor((end - start) / step) + 1 }, (_, i) => start + i * step);
+}
+
 module.exports = {
     factorial,
     createCharSequence,
@@ -96,5 +108,8 @@ module.exports = {
     swapImmutable,
     countPartition,
     findIndices,
-    compareFileContents
+    compareFileContents,
+    product,
+    indices,
+    range
 };
