@@ -9,7 +9,7 @@ function combineArrays(arrays) {
     return recursion(arrays.length - 1);
 
     function recursion(i) {
-        if (i === 0) return arrays[i].map(x => [x]);
+        if (i < 0) return [[]];
         return recursion(i - 1).flatMap(x => arrays[i].map(y => [...x, y]));
     }
 }
@@ -18,7 +18,7 @@ function combineArraysReversedAlternate(arrays) {
     return recursion(arrays.length - 1);
 
     function recursion(i) {
-        if (i === 0) return arrays[i].map(x => [x]);
+        if (i < 0) return [[]];
 
         return recursion(i - 1).flatMap((x, j) =>
             (j % 2 === 1 ?
@@ -35,9 +35,7 @@ function combineArraysWithKeysReversedAlternate(keyWiringsDict) {
     return recursion(keyWiringsEntries.length - 1);
 
     function recursion(i) {
-        const [key, wirings] = keyWiringsEntries[i];
-
-        if (i === 0) return wirings.map(wiring => ({ [key]: wiring }));
+        if (i < 0) return [{}];
 
         return recursion(i - 1).flatMap((x, j) => {
             const [key, wirings] = keyWiringsEntries[i];
