@@ -1,6 +1,6 @@
 const { product, indices } = require("./utils");
 
-function combineArrays(arrays) {
+function getCombinations(arrays) {
     const resultLength = product(arrays.map(x => x.length));
     return indices(resultLength).map(index => {
         return indices(arrays.length).map(arrayIndex => {
@@ -12,7 +12,7 @@ function combineArrays(arrays) {
     });
 }
 
-function combineArraysReversedAlternate(arrays) {
+function getMinDiffCombinations(arrays) {
     return recursion(arrays.length - 1);
 
     function recursion(i) {
@@ -27,7 +27,7 @@ function combineArraysReversedAlternate(arrays) {
     }
 }
 
-function combineArraysWithKeysReversedAlternate(keyWiringsDict) {
+function getMinDiffDictCombinations(keyWiringsDict) {
     const keyWiringsEntries = Object.entries(keyWiringsDict);
 
     return recursion(keyWiringsEntries.length - 1);
@@ -48,7 +48,7 @@ function combineArraysWithKeysReversedAlternate(keyWiringsDict) {
 }
 
 module.exports = {
-    combineArrays,
-    combineArraysReversedAlternate,
-    combineArraysWithKeysReversedAlternate
+    getCombinations,
+    getMinDiffCombinations,
+    getMinDiffDictCombinations
 };

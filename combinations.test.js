@@ -1,5 +1,5 @@
 const fs = require('fs');
-const { combineArrays, combineArraysReversedAlternate } = require('./combineArrays');
+const { getCombinations, getMinDiffCombinations } = require('./combinations');
 const { countListDiff, createCharSequence, zip, countPartition, findIndices, compareFileContents } = require('./utils');
 
 class AdjacencyError extends Error {
@@ -20,7 +20,7 @@ start('output.txt', testInputs, "output copy.txt");
 function start(outputFile, testInputs, outputCompareFile) {
     // add output
     let testResults = testInputs.map(testInput => {
-        const combinations = combineArraysReversedAlternate(testInput);
+        const combinations = getMinDiffCombinations(testInput);
         return { input: testInput, output: combinations };
     });
 
@@ -95,7 +95,7 @@ function start(outputFile, testInputs, outputCompareFile) {
 }
 
 function getCharSequenceVariants(firstChars, possibleLengths) {
-    return combineArrays(
+    return getCombinations(
         Array(firstChars.length).fill(possibleLengths)
     ).map(
         lengths => zip(firstChars, lengths).map(args => createCharSequence(...args))
