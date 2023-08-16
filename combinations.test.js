@@ -1,5 +1,6 @@
 const fs = require('fs');
-const { getCombinations, getMinDiffCombinations } = require('./combinations');
+const { getCombinations } = require('./combinations');
+const { getMinDiffCombinations } = require('./combinationsOptimization');
 const { countListDiff, createCharSequence, zip, countPartition, findIndices, compareFileContents } = require('./utils');
 
 class AdjacencyError extends Error {
