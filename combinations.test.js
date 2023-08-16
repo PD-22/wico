@@ -15,7 +15,7 @@ const testInputs1 = getCharSequenceVariants('Aa'.split(''), [2, 3]);
 const testInputs2 = getCharSequenceVariants('Aa1'.split(''), [2, 3]);
 const testInputs = [...testInputs1, ...testInputs2];
 
-start('output.txt', testInputs, "output copy.txt");
+start('combinations output.txt', testInputs, "combinations output copy.txt");
 
 function start(outputFile, testInputs, outputCompareFile) {
     // add output

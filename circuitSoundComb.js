@@ -16,8 +16,8 @@ start({
             wires: "red copper green".split(" "),
         }
     ],
-    outputFile: 'output.txt',
-    outputCompareFile: 'output copy.txt'
+    outputFile: 'circuitSoundComb output.txt',
+    outputCompareFile: 'circuitSoundComb output copy.txt'
 });
 
 function start({ wiringSettings, outputFile, outputCompareFile }) {
