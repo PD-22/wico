@@ -87,8 +87,8 @@ function product(numbers) {
     return numbers.reduce((product, number) => product * number, 1);
 }
 
-function indices(l) {
-    return range(0, l - 1);
+function indices(length) {
+    return range(0, length - 1);
 }
 
 function range(start, end, step = 1) {

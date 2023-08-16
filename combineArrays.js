@@ -2,12 +2,14 @@ const { product, indices } = require("./utils");
 
 function combineArrays(arrays) {
     const resultLength = product(arrays.map(x => x.length));
-    return indices(resultLength).map(i => indices(arrays.length).map(j => {
-        const currArray = arrays[j];
-        const l1 = currArray.length;
-        const l2 = product(arrays.slice(j).map(x => x.length));
-        return currArray[Math.floor(l1 / l2 * i) % l1];
-    }));
+    return indices(resultLength).map(index => {
+        return indices(arrays.length).map(arrayIndex => {
+            const currArray = arrays[arrayIndex];
+            const l1 = currArray.length;
+            const l2 = product(arrays.slice(arrayIndex).map(x => x.length));
+            return currArray[Math.floor(l1 / l2 * index) % l1];
+        })
+    });
 }
 
 function combineArraysReversedAlternate(arrays) {
