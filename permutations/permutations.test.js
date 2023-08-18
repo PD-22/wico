@@ -1,6 +1,6 @@
 const { getPermutationsLength } = require('./permutations');
 const { getMinDiffPermutationsGenerator } = require('./permutationsOptimization');
-const { createProgressBar, logDeltaTimeAsync } = require('../utils/perfomance');
+const { createProgressBar, logDeltaTimeAsync } = require('../utils/debug');
 const { writeGenerator, enrichGenerator } = require('../utils/generator');
 const { createCharSequence, countListDiff } = require("../utils/general");
 const path = require('path');

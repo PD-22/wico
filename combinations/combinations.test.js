@@ -3,6 +3,7 @@ const { getCombinations } = require('./combinations');
 const { getMinDiffCombinations } = require('./combinationsOptimization');
 const { countListDiff, createCharSequence, zip, countPartition, findIndices, compareFileContents } = require('../utils/general');
 const path = require('path');
+const { compareDataToFile } = require('../utils/debug');
 
 class AdjacencyError extends Error {
     constructor(message) {
@@ -93,11 +94,7 @@ function start(outputFile, testInputs, outputCompareFile) {
 
     console.log(`Results written in: "${outputFile}"`);
 
-    if (outputCompareFile) {
-        const oldOutput = fs.readFileSync(outputCompareFile, 'utf8');
-        const matches = compareFileContents(oldOutput, result);
-        console.log(`file content matches: ${matches}`);
-    }
+    if (outputCompareFile) compareDataToFile(result, outputCompareFile);
 }
 
 function getCharSequenceVariants(firstChars, possibleLengths) {

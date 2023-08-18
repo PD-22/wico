@@ -1,8 +1,9 @@
 const fs = require('fs');
-const { zip, countObjDiff, transformObject, mapObject, indentText, compareFileContents } = require('../utils/general');
+const { zip, countObjDiff, transformObject, mapObject, indentText } = require('../utils/general');
 const { getMinDiffPermutations } = require('../permutations/permutationsOptimization');
 const { getMinDiffCombinations } = require('../combinations/combinationsOptimization');
 const path = require('path');
+const { compareDataToFile } = require('../utils/debug');
 
 start({
     wiringSettings: [
@@ -29,11 +30,7 @@ function start({ wiringSettings, outputFile, outputCompareFile }) {
     fs.writeFileSync(outputFile, formattedCombinations);
     console.log(`result: "${outputFile}"`);
 
-    if (outputCompareFile) {
-        const oldFormattedCombinations = fs.readFileSync(outputCompareFile, 'utf8');
-        const matches = compareFileContents(oldFormattedCombinations, formattedCombinations);
-        console.log(`file content matches: ${matches}`);
-    }
+    if (outputCompareFile) compareDataToFile(formattedCombinations, outputCompareFile);
 }
 
 // TODO: make it work on multiple settings (>2)

@@ -1,3 +1,6 @@
+const fs = require('fs');
+const { compareFileContents } = require('./general');
+
 function createProgressBar(total, width) {
     let completed = 0;
     let prevProgressWidth = -1;
@@ -34,8 +37,20 @@ async function getDeltaTimeAsync(asyncCallback) {
     return [deltaTime, result];
 }
 
+async function compareDataToFile(data, backupFile) {
+    try {
+        const backupData = fs.readFileSync(backupFile, 'utf8');
+        const matches = compareFileContents(backupData, data);
+        console.log(`File content matches backup: ${matches}`);
+    } catch (error) {
+        if (error.code !== 'ENOENT') throw error;
+        console.log('File not found:', backupFile);
+    }
+}
+
 module.exports = {
     createProgressBar,
     logDeltaTimeAsync,
-    getDeltaTimeAsync
+    getDeltaTimeAsync,
+    compareDataToFile
 };
