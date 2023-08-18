@@ -44,7 +44,7 @@ function transformObject(obj, callbackfn) {
 }
 
 function mapObject(obj, callbackfn) {
-    return Object.entries(obj).map(([k, v]) => callbackfn(k, v));
+    return Object.entries(obj).map(([k, v], i) => callbackfn(k, v, i));
 }
 
 function indentText(text, indentation) {
@@ -95,6 +95,16 @@ function range(start, end, step = 1) {
     return Array.from({ length: Math.floor((end - start) / step) + 1 }, (_, i) => start + i * step);
 }
 
+function mapObjectOrArray(obj, callback) {
+    if (Array.isArray(obj)) return obj.map((value, index) =>
+        callback(value, index, index)
+    );
+
+    return transformObject(obj, (key, value, index) =>
+        [key, callback(value, index, key)]
+    );
+}
+
 module.exports = {
     factorial,
     createCharSequence,
@@ -111,5 +121,6 @@ module.exports = {
     compareFileContents,
     product,
     indices,
-    range
+    range,
+    mapObjectOrArray
 };

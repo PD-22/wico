@@ -1,5 +1,5 @@
 const { getCombinationsLength, getCombinationAtIndex } = require("./combinations");
-const { product } = require("./utils");
+const { product, mapObjectOrArray } = require("./utils");
 
 function getMinDiffCombinations(arrays) {
     return Array.from(getMinDiffCombinationsGenerator(arrays));
@@ -11,9 +11,9 @@ function* getMinDiffCombinationsGenerator(arrays) {
 }
 
 function getMinDiffCombinationAtIndex(arrays, index) {
-    const alterReversedArrays = arrays.map((array, i) => {
+    const alterReversedArrays = mapObjectOrArray(arrays, (array, i) => {
         if (i <= 0) return array;
-        const groupSize = product(arrays.slice(i).map(x => x.length));
+        const groupSize = product(Object.values(arrays).slice(i).map(x => x.length));
         const groupIndex = Math.floor(index / groupSize);
         const shouldReverse = groupIndex % 2 === 1;
         return shouldReverse ? array.toReversed() : array;

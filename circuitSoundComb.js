@@ -1,7 +1,7 @@
 const fs = require('fs');
 const { zip, countObjDiff, transformObject, mapObject, indentText, compareFileContents } = require('./utils');
 const { getMinDiffPermutations } = require('./permutationsOptimization');
-const { getDictMinDiffCombinations } = require('./combinationsOptimizationDict');
+const { getMinDiffCombinations } = require('./combinationsOptimization');
 
 start({
     wiringSettings: [
@@ -42,7 +42,7 @@ function getWiringCombinations(wiringSettings) {
     const permutations1 = getWiringPermutations(settings1);
     const permutations2 = getWiringPermutations(settings2);
 
-    return getDictMinDiffCombinations({
+    return getMinDiffCombinations({
         [settings1.name]: permutations1,
         [settings2.name]: permutations2
     });
