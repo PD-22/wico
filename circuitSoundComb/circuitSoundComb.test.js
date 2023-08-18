@@ -1,7 +1,8 @@
 const fs = require('fs');
-const { zip, countObjDiff, transformObject, mapObject, indentText, compareFileContents } = require('./utils');
-const { getMinDiffPermutations } = require('./permutationsOptimization');
-const { getMinDiffCombinations } = require('./combinationsOptimization');
+const { zip, countObjDiff, transformObject, mapObject, indentText, compareFileContents } = require('../utils/general');
+const { getMinDiffPermutations } = require('../permutations/permutationsOptimization');
+const { getMinDiffCombinations } = require('../combinations/combinationsOptimization');
+const path = require('path');
 
 start({
     wiringSettings: [
@@ -16,8 +17,8 @@ start({
             wires: "red copper green".split(" "),
         }
     ],
-    outputFile: 'circuitSoundComb output.txt',
-    outputCompareFile: 'circuitSoundComb output copy.txt'
+    outputFile: path.join(__dirname, 'output.txt'),
+    outputCompareFile: path.join(__dirname, 'output copy.txt'),
 });
 
 function start({ wiringSettings, outputFile, outputCompareFile }) {

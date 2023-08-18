@@ -1,12 +1,13 @@
 const { getPermutationsLength } = require('./permutations');
 const { getMinDiffPermutationsGenerator } = require('./permutationsOptimization');
-const { createProgressBar, logDeltaTimeAsync } = require('./testUtils');
-const { writeGenerator, enrichGenerator } = require('./generator');
-const { createCharSequence, countListDiff } = require('./utils');
+const { createProgressBar, logDeltaTimeAsync } = require('../utils/perfomance');
+const { writeGenerator, enrichGenerator } = require('../utils/generator');
+const { createCharSequence, countListDiff } = require("../utils/general");
+const path = require('path');
 
 testPermutations(
     createCharSequence('A', 9),
-    'permutations output.txt',
+    path.join(__dirname, 'output.txt'),
     x => x.join('') + '\n'
 );
 

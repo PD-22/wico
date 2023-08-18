@@ -1,7 +1,8 @@
 const fs = require('fs');
 const { getCombinations } = require('./combinations');
 const { getMinDiffCombinations } = require('./combinationsOptimization');
-const { countListDiff, createCharSequence, zip, countPartition, findIndices, compareFileContents } = require('./utils');
+const { countListDiff, createCharSequence, zip, countPartition, findIndices, compareFileContents } = require('../utils/general');
+const path = require('path');
 
 class AdjacencyError extends Error {
     constructor(message) {
@@ -16,7 +17,11 @@ const testInputs1 = getCharSequenceVariants('Aa'.split(''), [2, 3]);
 const testInputs2 = getCharSequenceVariants('Aa1'.split(''), [2, 3]);
 const testInputs = [...testInputs1, ...testInputs2];
 
-start('combinations output.txt', testInputs, "combinations output copy.txt");
+start(
+    path.join(__dirname, 'output.txt'),
+    testInputs,
+    path.join(__dirname, "output copy.txt")
+);
 
 function start(outputFile, testInputs, outputCompareFile) {
     // add output

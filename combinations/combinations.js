@@ -1,4 +1,4 @@
-const { product, mapObjectOrArray } = require("./utils");
+const { product, mapObjectOrArray } = require("../utils/general");
 
 function getCombinations(arrays) {
     return Array.from(getCombinationsGenerator(arrays));

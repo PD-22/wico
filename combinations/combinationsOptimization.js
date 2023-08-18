@@ -1,5 +1,5 @@
 const { getCombinationsLength, getCombinationAtIndex } = require("./combinations");
-const { product, mapObjectOrArray } = require("./utils");
+const { product, mapObjectOrArray } = require("../utils/general");
 
 function getMinDiffCombinations(arrays) {
     return Array.from(getMinDiffCombinationsGenerator(arrays));
