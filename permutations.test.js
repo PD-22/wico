@@ -6,7 +6,7 @@ const { createCharSequence, countListDiff } = require('./utils');
 
 testPermutations(
     createCharSequence('A', 9),
-    'output.txt',
+    'permutations output.txt',
     x => x.join('') + '\n'
 );
 
