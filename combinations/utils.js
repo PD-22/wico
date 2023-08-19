@@ -17,13 +17,11 @@ function testCombinations({
     outputCompareFile,
     getMinDiffCombinationsCallback = getMinDiffCombinations
 }) {
-    // add output
     let testResults = testInputs.map(testInput => {
         const combinations = getMinDiffCombinationsCallback(testInput);
         return { input: testInput, output: combinations };
     });
 
-    // add error
     testResults = testResults.map(testResult => {
         let outputError = null;
 
