@@ -1,9 +1,9 @@
 const fs = require('fs');
 const { getCombinations } = require('./combinations');
 const { getMinDiffCombinations } = require('./combinationsOptimization');
-const { countListDiff, createCharSequence, zip, countPartition, findIndices, compareFileContents } = require('../utils/general');
+const { countListDiff, createCharSequence, zip, countPartition, findIndices, compareFileContents, range } = require('../utils/general');
 const path = require('path');
-const { compareDataToFile } = require('../utils/debug');
+const { compareDataToFile, logDeltaTime } = require('../utils/debug');
 
 class AdjacencyError extends Error {
     constructor(message) {
@@ -18,25 +18,18 @@ const testInputs1 = getCharSequenceVariants('Aa'.split(''), [2, 3]);
 const testInputs2 = getCharSequenceVariants('Aa1'.split(''), [2, 3]);
 const testInputs = [...testInputs1, ...testInputs2];
 
-start(
-    path.join(__dirname, 'output.txt'),
-    testInputs,
-    path.join(__dirname, "output copy.txt")
-);
+logDeltaTime(testCombinations)({
+    testInputs: testInputs,
+    outputFile: path.join(__dirname, 'output.txt'),
+    outputCompareFile: path.join(__dirname, "output copy.txt")
+});
 
-function start(outputFile, testInputs, outputCompareFile) {
+function testCombinations({ testInputs, outputFile, outputCompareFile }) {
     // add output
     let testResults = testInputs.map(testInput => {
         const combinations = getMinDiffCombinations(testInput);
         return { input: testInput, output: combinations };
     });
-
-    // // hardcoded test failure
-    // const testIndicesToBreak = [1, 3, 4];
-    // testIndicesToBreak.forEach(index => {
-    //     const testToBreak = testResults[index].output;
-    //     swap(testToBreak, 0, testToBreak.length - 1);
-    // });
 
     // add error
     testResults = testResults.map(testResult => {
@@ -90,9 +83,10 @@ function start(outputFile, testInputs, outputCompareFile) {
 
     const result = `${formattedTestSummary}\n\n${formattedTestResults.join('\n\n')}\n`;
 
-    fs.writeFileSync(outputFile, result);
-
-    console.log(`Results written in: "${outputFile}"`);
+    if (outputFile) {
+        fs.writeFileSync(outputFile, result);
+        console.log(`Results written in: "${outputFile}"`);
+    }
 
     if (outputCompareFile) compareDataToFile(result, outputCompareFile);
 }
