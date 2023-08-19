@@ -21,6 +21,15 @@ function createProgressBar(total, width) {
     };
 }
 
+function logDeltaTime(callback) {
+    return (...args) => {
+        console.log(`${callback.name}...`);
+        const [deltaTime, result] = getDeltaTime(callback.bind(null, ...args));
+        console.log(`${callback.name}(${deltaTime.toFixed()} ms)`);
+        return result;
+    };
+}
+
 function logDeltaTimeAsync(asyncCallback) {
     return async (...args) => {
         console.log(`${asyncCallback.name}...`);
@@ -28,6 +37,13 @@ function logDeltaTimeAsync(asyncCallback) {
         console.log(`${asyncCallback.name}(${deltaTime.toFixed()} ms)`);
         return result;
     };
+}
+
+function getDeltaTime(callback) {
+    const startTime = performance.now();
+    const result = callback();
+    const deltaTime = performance.now() - startTime;
+    return [deltaTime, result];
 }
 
 async function getDeltaTimeAsync(asyncCallback) {
@@ -41,7 +57,7 @@ async function compareDataToFile(data, backupFile) {
     try {
         const backupData = fs.readFileSync(backupFile, 'utf8');
         const matches = compareFileContents(backupData, data);
-        console.log(`File content matches backup: ${matches}`);
+        console.log(`File content matches: ${matches}`);
     } catch (error) {
         if (error.code !== 'ENOENT') throw error;
         console.log('File not found:', backupFile);
@@ -50,7 +66,9 @@ async function compareDataToFile(data, backupFile) {
 
 module.exports = {
     createProgressBar,
+    logDeltaTime,
     logDeltaTimeAsync,
+    getDeltaTime,
     getDeltaTimeAsync,
     compareDataToFile
 };
