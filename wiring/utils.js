@@ -2,27 +2,9 @@ const fs = require('fs');
 const { zip, countObjDiff, transformObject, mapObject, indentText } = require('../utils/general');
 const { getMinDiffPermutations } = require('../permutations/permutationsOptimization');
 const { getMinDiffCombinations } = require('../combinations/combinationsOptimization');
-const path = require('path');
 const { compareDataToFile } = require('../utils/debug');
 
-start({
-    wiringSettings: [
-        {
-            name: "aux",
-            points: "mrlg".split(""),
-            wires: "blue red green copper".split(" "),
-        },
-        {
-            name: "sound",
-            points: "rgl".split(""),
-            wires: "red copper green".split(" "),
-        }
-    ],
-    outputFile: path.join(__dirname, 'output.txt'),
-    outputCompareFile: path.join(__dirname, 'output copy.txt'),
-});
-
-function start({ wiringSettings, outputFile, outputCompareFile }) {
+function testWiring({ wiringSettings, outputFile, outputCompareFile }) {
     const wiringCombinations = getWiringCombinations(wiringSettings);
 
     const formattedCombinations = formatWiringCombinations(wiringCombinations);
@@ -140,3 +122,9 @@ function indent(text) {
     const BASE_PADDING = '  ';
     return indentText(text, BASE_PADDING);
 }
+
+module.exports = {
+    testWiring,
+    getWiringCombinations,
+    formatWiringCombinations
+};
