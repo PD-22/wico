@@ -1,8 +1,8 @@
 const fs = require('fs');
 const { getCombinations } = require('./combinations');
-const { getMinDiffCombinations } = require('./combinationsOptimization');
 const { countListDiff, createCharSequence, zip, countPartition, findIndices } = require('../utils/general');
 const { compareDataToFile } = require('../utils/debug');
+const { getMinDiffCombinations } = require('./combinationsOptimization');
 
 class AdjacencyError extends Error {
     constructor(message) {
@@ -11,10 +11,15 @@ class AdjacencyError extends Error {
     }
 }
 
-function testCombinations({ testInputs, outputFile, outputCompareFile }) {
+function testCombinations({
+    outputFile,
+    testInputs,
+    outputCompareFile,
+    getMinDiffCombinationsCallback = getMinDiffCombinations
+}) {
     // add output
     let testResults = testInputs.map(testInput => {
-        const combinations = getMinDiffCombinations(testInput);
+        const combinations = getMinDiffCombinationsCallback(testInput);
         return { input: testInput, output: combinations };
     });
 
