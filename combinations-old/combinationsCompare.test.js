@@ -1,14 +1,15 @@
 const fs = require('fs');
-const { range, compareJSON } = require('../utils/general');
+const { range, deepArrayCompare } = require('../utils/general');
 const { getNumSequenceVariants } = require('../combinations/utils');
 const { getDeltaTime } = require('../utils/debug');
 const { getCombinationsOld } = require('./combinationsOld');
 const path = require('path');
 
-const commonRange = range(2, 5);
+const commonRange = range(2, 50);
 const testInputs1 = [Array(2).fill(0), commonRange];
-const testInputs2 = [Array(3).fill(0), commonRange];
-const testInputs = [testInputs1, testInputs2];
+// const testInputs2 = [Array(3).fill(0), commonRange];
+// const testInputs = [testInputs1, testInputs2];
+const testInputs = [testInputs1];
 
 console.log('Measure new combinations method...');
 const [deltaTimeNew, newCombinationsResult] = getDeltaTime(() => testCharCombinations({ testInputs }));
@@ -27,14 +28,13 @@ const diff = deltaTimeNew - deltaTimeOld;
 console.log(`Diff delta time (new - old): ${diff.toFixed(2)}`);
 console.log(`Total / diff: ${(100 * diff / total).toFixed(2)}%`);
 
-const outputFile = path.join(__dirname, 'output.txt');
-console.log(`Writing results to: "${outputFile}"`);
-const resultsMatch = compareJSON(newCombinationsResult, oldCombinationsResult);
-if (!resultsMatch) throw new Error('Different results');
-const formattedCombinationResults = [newCombinationsResult, oldCombinationsResult].map(
-    x => x.map(x => x.map(x => x.join(' ')).join('\n')).join('\n\n')
-).join('\n\n\n// // //\n\n\n');
-fs.writeFileSync(outputFile, formattedCombinationResults);
+const outputFileNewCombinations = path.join(__dirname, 'output-old-combinations.txt');
+const outputFileOldCombinations = path.join(__dirname, 'output-new-combinations.txt');
+console.log(`Writing results to: "${outputFileOldCombinations}" and "${outputFileNewCombinations}"`);
+const resultsMatch = deepArrayCompare(newCombinationsResult, oldCombinationsResult);
+if (!resultsMatch) console.error('Different combination results!');
+fs.writeFileSync(outputFileNewCombinations, formatCombinations(newCombinationsResult));
+fs.writeFileSync(outputFileOldCombinations, formatCombinations(oldCombinationsResult));
 console.log('Done');
 
 function testCharCombinations({ testInputs, getCombinationsCallback }) {
@@ -42,4 +42,8 @@ function testCharCombinations({ testInputs, getCombinationsCallback }) {
         const [firstNums, possibleLengths] = testInput;
         return getNumSequenceVariants(firstNums, possibleLengths, getCombinationsCallback);
     });
+}
+
+function formatCombinations(combinations) {
+    return combinations.map(x => x.map(x => x.join(' ')).join('\n')).join('\n\n')
 }
