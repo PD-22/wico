@@ -1,4 +1,4 @@
-function getCombinations(arrays) {
+function getCombinationsOld(arrays) {
     return recursion(arrays.length - 1);
 
     function recursion(i) {
@@ -11,5 +11,5 @@ function getCombinations(arrays) {
 }
 
 module.exports = {
-    getCombinations
+    getCombinationsOld
 };

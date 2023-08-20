@@ -1,7 +1,7 @@
 const { range } = require('../utils/general');
 const { getCharSequenceVariants, testCombinations } = require('../combinations/utils');
 const { getDeltaTime } = require('../utils/debug');
-const { getMinDiffCombinations: getMinDiffCombinationsOld } = require('./combinationsOldOptimization');
+const { getMinDiffCombinationsOld } = require('./combinationsOldOptimization');
 
 // list of charSequenceVariants
 // charSequenceVariants is an array of chars, where each index holds a set of possible values

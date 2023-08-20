@@ -1,4 +1,4 @@
-function getMinDiffCombinations(arrays) {
+function getMinDiffCombinationsOld(arrays) {
     const f = Array.isArray(arrays) ?
         getMinDiffCombinationsArray :
         getMinDiffCombinationsObject;
@@ -41,5 +41,5 @@ function getMinDiffCombinationsObject(keyWiringsDict) {
 }
 
 module.exports = {
-    getMinDiffCombinations,
+    getMinDiffCombinationsOld,
 };
