@@ -1,6 +1,6 @@
 const fs = require('fs');
 const { getCombinations } = require('./combinations');
-const { countListDiff, createCharSequence, zip, countPartition, findIndices } = require('../utils/general');
+const { countListDiff, createCharSequence, zip, countPartition, findIndices, createNumSequence } = require('../utils/general');
 const { compareDataToFile } = require('../utils/debug');
 const { getMinDiffCombinations } = require('./combinationsOptimization');
 
@@ -81,11 +81,27 @@ function testCombinations({
     if (outputCompareFile) compareDataToFile(result, outputCompareFile);
 }
 
-function getCharSequenceVariants(firstChars, possibleLengths) {
-    return getCombinations(
+function getCharSequenceVariants(
+    firstChars,
+    possibleLengths,
+    getCombinationsCallback = getCombinations
+) {
+    return getCombinationsCallback(
         Array(firstChars.length).fill(possibleLengths)
     ).map(
         lengths => zip(firstChars, lengths).map(args => createCharSequence(...args))
+    );
+}
+
+function getNumSequenceVariants(
+    firstNums,
+    possibleLengths,
+    getCombinationsCallback = getCombinations
+) {
+    return getCombinationsCallback(
+        Array(firstNums.length).fill(possibleLengths)
+    ).map(
+        lengths => zip(firstNums, lengths).map(args => createNumSequence(...args))
     );
 }
 
@@ -101,5 +117,6 @@ function validateArrayNeighbours(array, validateAdjacent) {
 
 module.exports = {
     testCombinations,
-    getCharSequenceVariants
+    getCharSequenceVariants,
+    getNumSequenceVariants
 };

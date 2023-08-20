@@ -105,6 +105,14 @@ function mapObjectOrArray(obj, callback) {
     );
 }
 
+function createNumSequence(startNum, length) {
+    return Array.from({ length }, (_, i) => startNum + i);
+}
+
+function compareJSON(a, b) {
+    return JSON.stringify(a) === JSON.stringify(b);
+}
+
 module.exports = {
     factorial,
     createCharSequence,
@@ -122,5 +130,7 @@ module.exports = {
     product,
     indices,
     range,
-    mapObjectOrArray
+    mapObjectOrArray,
+    createNumSequence,
+    compareJSON
 };
