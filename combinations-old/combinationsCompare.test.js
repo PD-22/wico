@@ -1,5 +1,5 @@
 const { range } = require('../utils/general');
-const { getCharSequenceVariants, testCombinations } = require('./utils');
+const { getCharSequenceVariants, testCombinations } = require('../combinations/utils');
 const { getDeltaTime } = require('../utils/debug');
 const { getMinDiffCombinations: getMinDiffCombinationsOld } = require('./combinationsOldOptimization');
 
