@@ -5,10 +5,10 @@ const { getDeltaTime } = require('../utils/debug');
 const { getCombinationsOld } = require('./combinationsOld');
 const path = require('path');
 
-const commonRange = range(2, 50);
-const testInputs1 = [Array(2).fill(0), commonRange];
-const testInputs2 = [Array(3).fill(0), commonRange];
-const testInputs = [testInputs1, testInputs2];
+const testInputs = range(2, 3).map(x => ({
+    firstNums: Array(x).fill(0),
+    possibleLengths: range(2, 50)
+}));
 
 const outputFileNewCombinations = path.join(__dirname, 'output-new-combinations.txt');
 console.log('Measure new combinations method...');
@@ -35,10 +35,9 @@ fs.writeFileSync(outputFileOldCombinations, formatCombinations(oldCombinationsRe
 console.log('Done');
 
 function testCharCombinations(testInputs, getCombinationsCallback) {
-    return testInputs.flatMap(testInput => {
-        const [firstNums, possibleLengths] = testInput;
-        return getNumSequenceVariants(firstNums, possibleLengths, getCombinationsCallback);
-    });
+    return testInputs.flatMap(({ firstNums, possibleLengths }) =>
+        getNumSequenceVariants(firstNums, possibleLengths, getCombinationsCallback)
+    );
 }
 
 function formatCombinations(combinations) {
