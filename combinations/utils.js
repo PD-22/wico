@@ -93,15 +93,17 @@ function getCharSequenceVariants(
     );
 }
 
-function getNumSequenceVariants(
-    firstNums,
-    possibleLengths,
-    getCombinationsCallback = getCombinations
-) {
-    return getCombinationsCallback(
+function getNumSequenceVariants(firstNums, possibleLengths, getCombinationsCallback = getCombinations) {
+    const firstNumsLengthCombinations = getCombinationsCallback(
         Array(firstNums.length).fill(possibleLengths)
-    ).map(
-        lengths => zip(firstNums, lengths).map(args => createNumSequence(...args))
+    );
+
+    const firstNumLengthPairListCombinations = firstNumsLengthCombinations.map(
+        firstNumsLength => zip(firstNums, firstNumsLength)
+    );
+
+    return firstNumLengthPairListCombinations.map(pairList =>
+        pairList.map(([firstNum, length]) => createNumSequence(firstNum, length))
     );
 }
 
