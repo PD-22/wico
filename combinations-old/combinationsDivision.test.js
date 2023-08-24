@@ -1,8 +1,7 @@
 const fs = require('fs');
-const { range, deepArrayCompare } = require('../utils/general');
-const { getDeltaTime } = require('../utils/debug');
-const { getCombinationsOld } = require('./combinationsOld');
 const path = require('path');
+const { range, deepArrayCompare } = require('../utils/general');
+const { getCombinationsOld } = require('./combinationsOld');
 const { getCombinations } = require('../combinations/combinations');
 
 /*
@@ -13,34 +12,32 @@ this is a test for division accuracy bug
 
 const start = 1;
 const amount = 49;
-const inputArrays = [[1, 2], range(start, start + amount - 1)];
+const testInputs = [[1, 2], range(start, start + amount - 1)];
 
-const outputFileNewCombinations = path.join(__dirname, 'output-new-combinations.txt');
-console.log('Measure new combinations method...');
-const [deltaTimeNew, newCombinationsResult] = getDeltaTime(() => getCombinations(inputArrays));
-console.log(`New delta time: ${deltaTimeNew.toFixed(2)}`);
+const newCombinationsResult = getCombinations(testInputs);
+const oldCombinationsResult = getCombinationsOld(testInputs);
 
-const outputFileOldCombinations = path.join(__dirname, 'output-old-combinations.txt');
-console.log('Measure old combinations method...');
-const [deltaTimeOld, oldCombinationsResult] = getDeltaTime(() => getCombinationsOld(inputArrays));
-console.log(`Old delta time: ${deltaTimeOld.toFixed(2)}`);
+checkResultsMatch(newCombinationsResult, oldCombinationsResult)
 
-const total = deltaTimeNew + deltaTimeOld;
-console.log(`Total delta time: ${total.toFixed(2)}`);
-const diff = deltaTimeNew - deltaTimeOld;
-console.log(`Diff delta time (new - old): ${diff.toFixed(2)}`);
-console.log(`Total / diff: ${(100 * diff / total).toFixed(2)}%`);
+writeResult(newCombinationsResult, path.join(__dirname, 'output-new-combinations.txt'));
+writeResult(oldCombinationsResult, path.join(__dirname, 'output-old-combinations.txt'));
 
+function checkResultsMatch(newCombinationsResult, oldCombinationsResult) {
+    console.log("Testing results...");
+    const resultsMatch = deepArrayCompare(newCombinationsResult, oldCombinationsResult);
+    if (resultsMatch) {
+        console.log('Combination results match\n');
+    } else {
+        console.error('Different combination results!\n');
+    }
+}
 
-console.log(`Writing results to: "${outputFileOldCombinations}" and "${outputFileNewCombinations}"`);
-const resultsMatch = deepArrayCompare(newCombinationsResult, oldCombinationsResult);
-resultsMatch ?
-    console.log('Combination results match') :
-    console.error('Different combination results!');
-fs.writeFileSync(outputFileNewCombinations, formatCombinations(newCombinationsResult));
-fs.writeFileSync(outputFileOldCombinations, formatCombinations(oldCombinationsResult));
-console.log('Done');
+function writeResult(result, file) {
+    console.log(`Writing to "${file}"...`);
+    fs.writeFileSync(file, formatCombinations(result));
+    console.log('Done\n');
 
-function formatCombinations(combinations) {
-    return combinations.map(x => x.join(' ')).join('\n')
+    function formatCombinations(combinations) {
+        return combinations.map(x => x.join(' ')).join('\n')
+    }
 }
