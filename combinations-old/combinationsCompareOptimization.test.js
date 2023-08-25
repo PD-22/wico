@@ -1,41 +1,42 @@
 const { range } = require('../utils/general');
-const { getCharSequenceVariants, testCombinations } = require('../combinations/utils');
-const { getDeltaTime, createProgressBar } = require('../utils/debug');
+const { getCharSequenceVariants, validateMinDiffCombination } = require('../combinations/utils');
 const { getMinDiffCombinationsOld } = require('./combinationsOldOptimization');
 const { getMinDiffCombinations } = require('../combinations/combinationsOptimization');
+const { createProgressBar, getDeltaTime, comparePerfomance } = require('../utils/debug');
+const { checkResultsMatch } = require('./utils');
 
-// list of charSequenceVariants
-// charSequenceVariants is an array of chars, where each index holds a set of possible values
 const commonRange = range(2, 14);
 const testInputs1 = getCharSequenceVariants('Aa'.split(''), commonRange);
 const testInputs2 = getCharSequenceVariants('Aa1'.split(''), commonRange);
 const testInputs = [...testInputs1, ...testInputs2];
 
-const progressOptions = { total: testInputs.length, width: 40 };
+const [deltaTimeNew, resultNew] = measurePerfomance(getMinDiffCombinations, testInputs);
+validateMinDiffCombinations(resultNew);
 
-console.log('Measure new combinations method...');
-const deltaTimeNew = measureExecutionTime(getMinDiffCombinations);
-console.log(`New delta time: ${deltaTimeNew.toFixed(2)}`);
+const [deltaTimeOld, resultOld] = measurePerfomance(getMinDiffCombinationsOld, testInputs);
+validateMinDiffCombinations(resultOld);
 
-console.log('Measure old combinations method...');
-const deltaTimeOld = measureExecutionTime(getMinDiffCombinationsOld);
-console.log(`Old delta time: ${deltaTimeOld.toFixed(2)}`);
+checkResultsMatch(resultNew, resultOld);
 
-const total = deltaTimeNew + deltaTimeOld;
-console.log(`Total delta time: ${total.toFixed(2)}`);
-console.log(`New - old delta time: ${(deltaTimeNew - deltaTimeOld).toFixed(2)}`);
+comparePerfomance(deltaTimeNew, deltaTimeOld);
 
-function measureExecutionTime(methodCallback) {
-    const progressBar = createProgressBar(progressOptions.total, progressOptions.width);
+function measurePerfomance(methodCallback, testInputs) {
+    const progressBar = createProgressBar(testInputs.length, 40);
 
-    const getMinDiffCombinationsCallback = (...args) => {
-        progressBar.increment();
-        return methodCallback(...args);
-    };
+    console.log(`${methodCallback.name}...`);
+    const [deltaTime, result] = getDeltaTime(() =>
+        testInputs.map(testInput => {
+            progressBar.increment();
+            return methodCallback(testInput);
+        })
+    );
+    console.log(`${deltaTime.toFixed(2)} ms`);
 
-    const [deltaTime] = getDeltaTime(() => testCombinations({
-        testInputs, getMinDiffCombinationsCallback
-    }));
+    return [deltaTime, result];
+}
 
-    return deltaTime;
+function validateMinDiffCombinations(combinations) {
+    console.log("Validating combinations...");
+    combinations.forEach(combination => validateMinDiffCombination(combination));
+    console.log("Valid\n");
 }
