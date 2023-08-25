@@ -134,6 +134,15 @@ function deepArrayCompare(arr1, arr2) {
     return true;
 }
 
+function mapAdjacents(array, callback) {
+    return array.map((value, index) => {
+        if (index === 0) return;
+        const index1 = index - 1;
+        const value1 = array[index1];
+        return callback(value1, value, index1, index);
+    });
+}
+
 module.exports = {
     factorial,
     createCharSequence,
@@ -154,5 +163,6 @@ module.exports = {
     mapObjectOrArray,
     createNumSequence,
     compareJSON,
-    deepArrayCompare
+    deepArrayCompare,
+    mapAdjacents
 };
