@@ -27,8 +27,9 @@ function measurePerfomance(methodCallback, testInputs) {
     console.log(`${methodCallback.name}...`);
     const [deltaTime, result] = getDeltaTime(() =>
         testInputs.map(testInput => {
+            const result = methodCallback(testInput);
             progressBar.increment();
-            return methodCallback(testInput);
+            return result;
         })
     );
     console.log(`${deltaTime.toFixed(2)} ms`);
