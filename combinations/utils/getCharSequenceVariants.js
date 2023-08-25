@@ -1,7 +1,6 @@
 const { getCombinations } = require('../combinations');
 const { createCharSequence, zip } = require('../../utils/general');
 
-// TODO: make similar to getNumSequenceVariants
 function getCharSequenceVariants(
     firstChars,
     possibleLengths,

@@ -4,8 +4,7 @@ const { range, deepArrayCompare } = require('../utils/general');
 const { getCombinationsOld } = require('./combinationsOld');
 const { getCombinations } = require('../combinations/combinations');
 
-/*
-this is a test for division accuracy bug
+/* NOTE: test for division accuracy bug
 2 / 98 * 49 = 0.9999999999999999
 2 * 49 / 98 = 1
 */

@@ -15,7 +15,6 @@ function testWiring({ wiringSettings, outputFile, outputCompareFile }) {
     if (outputCompareFile) compareDataToFile(formattedCombinations, outputCompareFile);
 }
 
-// TODO: make it work on multiple settings (>2)
 function getWiringCombinations(wiringSettings) {
     const [settings1, settings2] = wiringSettings;
 

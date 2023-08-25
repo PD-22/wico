@@ -17,7 +17,7 @@ function getCombinationAtIndex(arrays, index) {
     return mapObjectOrArray(arrays, (currArray, arrayIndex) => {
         const l1 = currArray.length;
         const l2 = product(Object.values(arrays).slice(arrayIndex).map(x => x.length));
-        // division should be perfomed last to avoid floating-point rounding Errors
+        // NOTE: division should be perfomed last to avoid floating-point rounding Errors
         const resultIndex = Math.floor(index * l1 / l2) % l1;
         return currArray[resultIndex];
     });

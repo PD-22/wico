@@ -6,4 +6,4 @@ const progress = createProgressBar(num, num);
 
 for (let i = 0; i < num; i++) progress.increment();
 
-progress.increment(); // warn: "Progress bar overflow!"
+progress.increment(); // NOTE: should print "Progress bar overflow!"
