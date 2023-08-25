@@ -1,6 +1,7 @@
 const path = require('path');
 const { logDeltaTime } = require('../utils/debug');
-const { getCharSequenceVariants, testCombinations } = require('./utils');
+const { getCharSequenceVariants } = require('./utils/getCharSequenceVariants');
+const { testCombinations } = require('./utils/testCombinations');
 const { getMinDiffCombinations } = require('./combinationsOptimization');
 
 logDeltaTime(testCombinations)({

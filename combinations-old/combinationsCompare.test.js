@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const { range, } = require('../utils/general');
-const { getNumSequenceVariants } = require('../combinations/utils');
+const { getNumSequenceVariants } = require('../combinations/utils/getNumSequenceVariants');
 const { getDeltaTime, comparePerfomance } = require('../utils/debug');
 const { getCombinationsOld } = require('./combinationsOld');
 const { getCombinations } = require('../combinations/combinations');
