@@ -72,15 +72,26 @@ async function getDeltaTimeAsync(asyncCallback) {
     return [deltaTime, result];
 }
 
-async function compareDataToFile(data, backupFile) {
+async function compareDataToFile(data, compareFile) {
     try {
-        const backupData = fs.readFileSync(backupFile, 'utf8');
+        const backupData = fs.readFileSync(compareFile, 'utf8');
         const matches = compareFileContents(backupData, data);
         console.log(`File content matches: ${matches}`);
     } catch (error) {
         if (error.code !== 'ENOENT') throw error;
-        console.log('File not found:', backupFile);
+        console.log('File not found:', compareFile);
     }
+}
+
+function comparePerfomance(time1, time2) {
+    const total = time1 + time2;
+    const diff = time1 - time2;
+    const relDiff = Math.sign(diff) * 100 * 2 * Math.abs(diff) / total;
+
+    console.log(`Total: ${total.toFixed(2)} ms`);
+    console.log(`Diff: ${diff.toFixed(2)} ms`);
+    console.log(`Relative diff: ${relDiff.toFixed(2)}%`);
+    console.log();
 }
 
 module.exports = {
@@ -89,5 +100,6 @@ module.exports = {
     logDeltaTimeAsync,
     getDeltaTime,
     getDeltaTimeAsync,
-    compareDataToFile
+    compareDataToFile,
+    comparePerfomance
 };
