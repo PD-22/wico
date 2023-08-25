@@ -1,19 +1,19 @@
-const { product, mapObjectOrArray } = require("../utils/general");
+import { mapObjectOrArray, product } from "../utils/general.js";
 
-function getCombinations(arrays) {
+export function getCombinations(arrays) {
     return Array.from(getCombinationsGenerator(arrays));
 }
 
-function* getCombinationsGenerator(arrays) {
+export function* getCombinationsGenerator(arrays) {
     for (let i = 0; i < getCombinationsLength(arrays); i++)
         yield getCombinationAtIndex(arrays, i);
 }
 
-function getCombinationsLength(arrays) {
+export function getCombinationsLength(arrays) {
     return product(Object.values(arrays).map(x => x.length));
 }
 
-function getCombinationAtIndex(arrays, index) {
+export function getCombinationAtIndex(arrays, index) {
     return mapObjectOrArray(arrays, (currArray, arrayIndex) => {
         const l1 = currArray.length;
         const l2 = product(Object.values(arrays).slice(arrayIndex).map(x => x.length));
@@ -22,9 +22,3 @@ function getCombinationAtIndex(arrays, index) {
         return currArray[resultIndex];
     });
 }
-
-module.exports = {
-    getCombinations,
-    getCombinationsLength,
-    getCombinationAtIndex
-};

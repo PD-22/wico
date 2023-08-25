@@ -1,4 +1,4 @@
-function getCombinationsOld(arrays) {
+export default function getCombinationsOld(arrays) {
     return recursion(arrays.length - 1);
 
     function recursion(i) {
@@ -9,7 +9,3 @@ function getCombinationsOld(arrays) {
         );
     }
 }
-
-module.exports = {
-    getCombinationsOld
-};

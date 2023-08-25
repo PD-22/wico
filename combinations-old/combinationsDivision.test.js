@@ -1,8 +1,11 @@
-const fs = require('fs');
-const path = require('path');
-const { range, deepArrayCompare } = require('../utils/general');
-const { getCombinationsOld } = require('./combinationsOld');
-const { getCombinations } = require('../combinations/combinations');
+import { writeFileSync } from "fs";
+import { join } from "path";
+import { getCombinations } from "../combinations/combinations.js";
+import { getDirname } from "../utils/debug.js";
+import { deepArrayCompare, range } from "../utils/general.js";
+import getCombinationsOld from "./combinationsOld.js";
+
+const DIRNAME = getDirname(import.meta.url);
 
 /* NOTE: test for division accuracy bug
 2 / 98 * 49 = 0.9999999999999999
@@ -18,8 +21,8 @@ const oldCombinationsResult = getCombinationsOld(testInputs);
 
 checkResultsMatch(newCombinationsResult, oldCombinationsResult)
 
-writeResult(newCombinationsResult, path.join(__dirname, 'output-new-combinations.txt'));
-writeResult(oldCombinationsResult, path.join(__dirname, 'output-old-combinations.txt'));
+writeResult(newCombinationsResult, join(DIRNAME, 'output-new-combinations.txt'));
+writeResult(oldCombinationsResult, join(DIRNAME, 'output-old-combinations.txt'));
 
 function checkResultsMatch(newCombinationsResult, oldCombinationsResult) {
     console.log("Testing results...");
@@ -33,7 +36,7 @@ function checkResultsMatch(newCombinationsResult, oldCombinationsResult) {
 
 function writeResult(result, file) {
     console.log(`Writing to "${file}"...`);
-    fs.writeFileSync(file, formatCombinations(result));
+    writeFileSync(file, formatCombinations(result));
     console.log('Done\n');
 
     function formatCombinations(combinations) {

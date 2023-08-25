@@ -1,11 +1,13 @@
-const fs = require('fs');
-const path = require('path');
-const { range, } = require('../utils/general');
-const { getNumSequenceVariants } = require('../combinations/utils/getNumSequenceVariants');
-const { getDeltaTime, comparePerfomance } = require('../utils/debug');
-const { getCombinationsOld } = require('./combinationsOld');
-const { getCombinations } = require('../combinations/combinations');
-const { checkResultsMatch } = require('./utils');
+import { writeFileSync } from "fs";
+import { join } from "path";
+import { getCombinations } from "../combinations/combinations.js";
+import { getNumSequenceVariants } from "../combinations/utils/getNumSequenceVariants.js";
+import { comparePerfomance, getDeltaTime, getDirname } from "../utils/debug.js";
+import { range } from "../utils/general.js";
+import getCombinationsOld from "./combinationsOld.js";
+import checkResultsMatch from "./utils.js";
+
+const DIRNAME = getDirname(import.meta.url);
 
 const possibleLengths = range(2, 50);
 const testInputs = range(2, 3).map(x => ({ firstNums: Array(x).fill(0), possibleLengths }));
@@ -17,8 +19,8 @@ comparePerfomance(deltaTimeNew, deltaTimeOld);
 
 checkResultsMatch(newCombinationsResult, oldCombinationsResult);
 
-writeResult(newCombinationsResult, path.join(__dirname, 'output-new-combinations.txt'));
-writeResult(oldCombinationsResult, path.join(__dirname, 'output-old-combinations.txt'));
+writeResult(newCombinationsResult, join(DIRNAME, 'output-new-combinations.txt'));
+writeResult(oldCombinationsResult, join(DIRNAME, 'output-old-combinations.txt'));
 
 function measurePerfomance(methodCallback, testInputs) {
     console.log(`${methodCallback.name}...`);
@@ -34,7 +36,7 @@ function measurePerfomance(methodCallback, testInputs) {
 
 function writeResult(result, file) {
     console.log(`Writing to "${file}"...`);
-    fs.writeFileSync(file, formatCombinations(result));
+    writeFileSync(file, formatCombinations(result));
     console.log('Done\n');
 
     function formatCombinations(combinations) {

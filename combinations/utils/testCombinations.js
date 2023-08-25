@@ -1,9 +1,9 @@
-const fs = require('fs');
-const { compareDataToFile } = require('../../utils/debug');
-const { validateMinDiffCombination } = require('./validateMinDiffCombination');
-const { formatTestResults } = require('./formatTestResults');
+import { writeFileSync } from 'fs';
+import { compareDataToFile } from '../../utils/debug.js';
+import formatTestResults from './formatTestResults.js';
+import validateMinDiffCombination from './validateMinDiffCombination.js';
 
-function testCombinations({ outputFile, testInputs, outputCompareFile, getMinDiffCombinationsCallback }) {
+export default function testCombinations({ outputFile, testInputs, outputCompareFile, getMinDiffCombinationsCallback }) {
     let testResults = testInputs.map(testInput => {
         const combinations = getMinDiffCombinationsCallback(testInput);
         return { input: testInput, output: combinations };
@@ -31,13 +31,9 @@ function testCombinations({ outputFile, testInputs, outputCompareFile, getMinDif
     const result = formatTestResults(testResults);
 
     if (outputFile) {
-        fs.writeFileSync(outputFile, result);
+        writeFileSync(outputFile, result);
         console.log(`Results written in: "${outputFile}"`);
     }
 
     if (outputCompareFile) compareDataToFile(result, outputCompareFile);
 }
-
-module.exports = {
-    testCombinations
-};

@@ -1,10 +1,10 @@
-const { range } = require('../utils/general');
-const { getCharSequenceVariants } = require('../combinations/utils/getCharSequenceVariants');
-const { validateMinDiffCombination } = require('../combinations/utils/validateMinDiffCombination');
-const { getMinDiffCombinationsOld } = require('./combinationsOldOptimization');
-const { getMinDiffCombinations } = require('../combinations/combinationsOptimization');
-const { createProgressBar, getDeltaTime, comparePerfomance } = require('../utils/debug');
-const { checkResultsMatch } = require('./utils');
+import { getMinDiffCombinations } from "../combinations/combinationsOptimization.js";
+import getCharSequenceVariants from "../combinations/utils/getCharSequenceVariants.js";
+import validateMinDiffCombination from "../combinations/utils/validateMinDiffCombination.js";
+import { comparePerfomance, createProgressBar, getDeltaTime } from "../utils/debug.js";
+import { range } from "../utils/general.js";
+import { getMinDiffCombinationsOld } from "./combinationsOldOptimization.js";
+import checkResultsMatch from "./utils.js";
 
 const commonRange = range(2, 14);
 const testInputs1 = getCharSequenceVariants('Aa'.split(''), commonRange);

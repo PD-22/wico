@@ -1,6 +1,6 @@
-const { deepArrayCompare } = require('../utils/general');
+import { deepArrayCompare } from "../utils/general.js";
 
-function checkResultsMatch(result1, result2) {
+export default function checkResultsMatch(result1, result2) {
     console.log("Testing results...");
     const resultsMatch = deepArrayCompare(result1, result2);
     if (resultsMatch) {
@@ -9,7 +9,3 @@ function checkResultsMatch(result1, result2) {
         console.error('Different results!\n');
     }
 }
-
-module.exports = {
-    checkResultsMatch
-};

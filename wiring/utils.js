@@ -1,15 +1,14 @@
-const fs = require('fs');
-const { zip, countObjDiff, transformObject, mapObject, indentText } = require('../utils/general');
-const { getMinDiffPermutations } = require('../permutations/permutationsOptimization');
-const { getMinDiffCombinations } = require('../combinations/combinationsOptimization');
-const { compareDataToFile } = require('../utils/debug');
+import { getMinDiffCombinations } from "../combinations/combinationsOptimization.js";
+import { getMinDiffPermutations } from "../permutations/permutationsOptimization.js";
+import { compareDataToFile } from "../utils/debug.js";
+import { countObjDiff, indentText, mapObject, transformObject, zip } from "../utils/general.js";
 
-function testWiring({ wiringSettings, outputFile, outputCompareFile }) {
+export function testWiring({ wiringSettings, outputFile, outputCompareFile }) {
     const wiringCombinations = getWiringCombinations(wiringSettings);
 
     const formattedCombinations = formatWiringCombinations(wiringCombinations);
 
-    fs.writeFileSync(outputFile, formattedCombinations);
+    writeFileSync(outputFile, formattedCombinations);
     console.log(`result: "${outputFile}"`);
 
     if (outputCompareFile) compareDataToFile(formattedCombinations, outputCompareFile);
@@ -121,9 +120,3 @@ function indent(text) {
     const BASE_PADDING = '  ';
     return indentText(text, BASE_PADDING);
 }
-
-module.exports = {
-    testWiring,
-    getWiringCombinations,
-    formatWiringCombinations
-};

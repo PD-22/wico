@@ -1,15 +1,15 @@
-function factorial(n) {
+export function factorial(n) {
     let result = 1;
     for (let i = 2; i <= n; i++) result *= i;
     return result;
 }
 
-function createCharSequence(startChar, length) {
+export function createCharSequence(startChar, length) {
     const startCharCode = startChar.charCodeAt(0);
     return Array.from({ length }, (_, i) => String.fromCharCode(startCharCode + i));
 }
 
-function countListDiff(arr1, arr2) {
+export function countListDiff(arr1, arr2) {
     let count = 0;
     const maxLength = Math.max(arr1.length, arr2.length);
     for (let i = 0; i < maxLength; i++)
@@ -17,7 +17,7 @@ function countListDiff(arr1, arr2) {
     return count;
 }
 
-function countObjDiff(obj1, obj2) {
+export function countObjDiff(obj1, obj2) {
     let count = 0;
 
     const keys1 = Object.keys(obj1);
@@ -29,7 +29,7 @@ function countObjDiff(obj1, obj2) {
     return count;
 }
 
-function zip(...arrays) {
+export function zip(...arrays) {
     const maxLength = Math.max(...arrays.map(arr => arr.length));
     const zipped = [];
 
@@ -39,43 +39,43 @@ function zip(...arrays) {
     return zipped;
 }
 
-function transformObject(obj, callbackfn) {
+export function transformObject(obj, callbackfn) {
     return Object.fromEntries(mapObject(obj, callbackfn));
 }
 
-function mapObject(obj, callbackfn) {
+export function mapObject(obj, callbackfn) {
     return Object.entries(obj).map(([k, v], i) => callbackfn(k, v, i));
 }
 
-function indentText(text, indentation) {
+export function indentText(text, indentation) {
     return text.replaceAll(
         /(^|\n)(?=.*?\S.*?(\n|$))/g,
         (_match, newline) => (newline ? '\n' : '') + indentation
     );
 }
 
-function swap(arr, i, j) {
+export function swap(arr, i, j) {
     [arr[i], arr[j]] = [arr[j], arr[i]];
     return arr;
 }
 
-function swapImmutable(arr, i, j) {
+export function swapImmutable(arr, i, j) {
     return swap(arr.slice(), i, j);
 }
 
-function countPartition(arr, predicate) {
+export function countPartition(arr, predicate) {
     let passed = 0; let notPassed = 0;
     for (const item of arr) predicate(item) ? passed++ : notPassed++;
     return [passed, notPassed];
 }
 
-function findIndices(array, predicate) {
+export function findIndices(array, predicate) {
     return array
         .map((testResult, index) => predicate(testResult) ? index : null)
         .filter(savedIndex => savedIndex !== null);
 }
 
-function compareFileContents(fileContent1, fileContent2) {
+export function compareFileContents(fileContent1, fileContent2) {
     return normalizeEOL(fileContent1) === normalizeEOL(fileContent2);
 
     function normalizeEOL(str) {
@@ -83,19 +83,19 @@ function compareFileContents(fileContent1, fileContent2) {
     }
 }
 
-function product(numbers) {
+export function product(numbers) {
     return numbers.reduce((product, number) => product * number, 1);
 }
 
-function indices(length) {
+export function indices(length) {
     return range(0, length - 1);
 }
 
-function range(start, end, step = 1) {
+export function range(start, end, step = 1) {
     return Array.from({ length: Math.floor((end - start) / step) + 1 }, (_, i) => start + i * step);
 }
 
-function mapObjectOrArray(obj, callback) {
+export function mapObjectOrArray(obj, callback) {
     if (Array.isArray(obj)) return obj.map((value, index) =>
         callback(value, index, index)
     );
@@ -105,15 +105,15 @@ function mapObjectOrArray(obj, callback) {
     );
 }
 
-function createNumSequence(startNum, length) {
+export function createNumSequence(startNum, length) {
     return Array.from({ length }, (_, i) => startNum + i);
 }
 
-function compareJSON(a, b) {
+export function compareJSON(a, b) {
     return JSON.stringify(a) === JSON.stringify(b);
 }
 
-function deepArrayCompare(arr1, arr2) {
+export function deepArrayCompare(arr1, arr2) {
     if (arr1.length !== arr2.length) {
         return false;
     }
@@ -134,7 +134,7 @@ function deepArrayCompare(arr1, arr2) {
     return true;
 }
 
-function mapAdjacents(array, callback) {
+export function mapAdjacents(array, callback) {
     return array.map((value, index) => {
         if (index === 0) return;
         const index1 = index - 1;
@@ -142,27 +142,3 @@ function mapAdjacents(array, callback) {
         return callback(value1, value, index1, index);
     });
 }
-
-module.exports = {
-    factorial,
-    createCharSequence,
-    countListDiff,
-    countObjDiff,
-    zip,
-    transformObject,
-    mapObject,
-    indentText,
-    swap,
-    swapImmutable,
-    countPartition,
-    findIndices,
-    compareFileContents,
-    product,
-    indices,
-    range,
-    mapObjectOrArray,
-    createNumSequence,
-    compareJSON,
-    deepArrayCompare,
-    mapAdjacents
-};

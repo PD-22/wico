@@ -1,19 +1,19 @@
-const { factorial } = require("../utils/general");
+import { factorial } from "../utils/general.js";
 
-function getPermutations(set) {
+export function getPermutations(set) {
     return Array.from(getPermutationsGenerator(set));
 }
 
-function* getPermutationsGenerator(set) {
+export function* getPermutationsGenerator(set) {
     for (let i = 0; i < getPermutationsLength(set.length); i++)
         yield getPermutationAtIndex(set, i);
 }
 
-function getPermutationsLength(setLength) {
+export function getPermutationsLength(setLength) {
     return factorial(setLength);
 }
 
-function getPermutationAtIndex(set, index) {
+export function getPermutationAtIndex(set, index) {
     if (index < 0 || index >= getPermutationsLength(set.length)) throw new RangeError();
 
     let remainingSet = set.slice();
@@ -30,10 +30,3 @@ function getPermutationAtIndex(set, index) {
 
     return result;
 }
-
-module.exports = {
-    getPermutations,
-    getPermutationsGenerator,
-    getPermutationsLength,
-    getPermutationAtIndex
-};

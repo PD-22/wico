@@ -1,6 +1,6 @@
-const { countPartition, findIndices } = require('../../utils/general');
+import { countPartition, findIndices } from "../../utils/general.js";
 
-function formatTestResults(testResults) {
+export default function formatTestResults(testResults) {
     return `${formatTestSummary(testResults)}\n\n${testResults.map(formatTestResultItem).join('\n\n')}\n`;
 }
 
@@ -38,7 +38,3 @@ function formatTestResultItem(testResult, testIndex) {
         error ? `Error: ${error.message}` : null
     ].filter(x => x !== null).join('\n');
 }
-
-module.exports = {
-    formatTestResults
-};

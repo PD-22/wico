@@ -1,7 +1,7 @@
-const { getCombinations } = require('../combinations');
-const { createCharSequence, zip } = require('../../utils/general');
+import { createCharSequence, zip } from "../../utils/general.js";
+import { getCombinations } from "../combinations.js";
 
-function getCharSequenceVariants(
+export default function getCharSequenceVariants(
     firstChars,
     possibleLengths,
     getCombinationsCallback = getCombinations
@@ -12,7 +12,3 @@ function getCharSequenceVariants(
         lengths => zip(firstChars, lengths).map(args => createCharSequence(...args))
     );
 }
-
-module.exports = {
-    getCharSequenceVariants,
-};

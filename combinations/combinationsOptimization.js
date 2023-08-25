@@ -1,16 +1,16 @@
-const { getCombinationsLength, getCombinationAtIndex } = require("./combinations");
-const { product, mapObjectOrArray } = require("../utils/general");
+import { mapObjectOrArray, product } from "../utils/general.js";
+import { getCombinationAtIndex, getCombinationsLength } from "./combinations.js";
 
-function getMinDiffCombinations(arrays) {
+export function getMinDiffCombinations(arrays) {
     return Array.from(getMinDiffCombinationsGenerator(arrays));
 }
 
-function* getMinDiffCombinationsGenerator(arrays) {
+export function* getMinDiffCombinationsGenerator(arrays) {
     for (let i = 0; i < getCombinationsLength(arrays); i++)
         yield getMinDiffCombinationAtIndex(arrays, i);
 }
 
-function getMinDiffCombinationAtIndex(arrays, index) {
+export function getMinDiffCombinationAtIndex(arrays, index) {
     const alterReversedArrays = mapObjectOrArray(arrays, (array, i) => {
         if (i <= 0) return array;
         const groupSize = product(Object.values(arrays).slice(i).map(x => x.length));
@@ -20,7 +20,3 @@ function getMinDiffCombinationAtIndex(arrays, index) {
     });
     return getCombinationAtIndex(alterReversedArrays, index);
 }
-
-module.exports = {
-    getMinDiffCombinations,
-};

@@ -1,7 +1,9 @@
-const { getCombinations } = require('../combinations');
-const { zip, createNumSequence } = require('../../utils/general');
+import { createNumSequence, zip } from "../../utils/general.js";
+import { getCombinations } from "../combinations.js";
 
-function getNumSequenceVariants(firstNums, possibleLengths, getCombinationsCallback = getCombinations) {
+export function getNumSequenceVariants(
+    firstNums, possibleLengths, getCombinationsCallback = getCombinations
+) {
     const firstNumsLengthCombinations = getCombinationsCallback(
         Array(firstNums.length).fill(possibleLengths)
     );
@@ -13,7 +15,3 @@ function getNumSequenceVariants(firstNums, possibleLengths, getCombinationsCallb
     return firstNumLengthPairListCombinations.map(pairList => pairList.map(([firstNum, length]) => createNumSequence(firstNum, length))
     );
 }
-
-module.exports = {
-    getNumSequenceVariants
-};

@@ -1,5 +1,8 @@
-const path = require('path');
-const { testWiring } = require('./utils');
+import { join } from "path";
+import { getDirname } from "../utils/debug.js";
+import { testWiring } from "./utils.js";
+
+const DIRNAME = getDirname(import.meta.url);
 
 testWiring({
     wiringSettings: [
@@ -14,6 +17,6 @@ testWiring({
             wires: "red copper green".split(" "),
         }
     ],
-    outputFile: path.join(__dirname, 'output.txt'),
-    outputCompareFile: path.join(__dirname, 'output copy.txt'),
+    outputFile: join(DIRNAME, 'output.txt'),
+    outputCompareFile: join(DIRNAME, 'output copy.txt'),
 });

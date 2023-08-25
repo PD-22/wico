@@ -1,9 +1,12 @@
-const { createCharSequence } = require("../utils/general");
-const path = require('path');
-const { testPermutations } = require("./utils");
+import { join } from "path";
+import { getDirname } from "../utils/debug.js";
+import { createCharSequence } from "../utils/general.js";
+import { testPermutations } from "./utils.js";
+
+const DIRNAME = getDirname(import.meta.url);
 
 testPermutations(
     createCharSequence('A', 9),
-    path.join(__dirname, 'output.txt'),
+    join(DIRNAME, 'output.txt'),
     x => x.join('') + '\n'
 );

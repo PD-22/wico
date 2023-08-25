@@ -1,7 +1,9 @@
-const fs = require('fs');
-const { compareFileContents } = require('./general');
+import { readFileSync } from "fs";
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+import { compareFileContents } from "./general.js";
 
-function createProgressBar(total, width) {
+export function createProgressBar(total, width) {
     let completed, prevProgressWidth, overflow;
 
     init();
@@ -40,7 +42,7 @@ function createProgressBar(total, width) {
     }
 }
 
-function logDeltaTime(callback) {
+export function logDeltaTime(callback) {
     return (...args) => {
         console.log(`${callback.name}...`);
         const [deltaTime, result] = getDeltaTime(callback.bind(null, ...args));
@@ -49,7 +51,7 @@ function logDeltaTime(callback) {
     };
 }
 
-function logDeltaTimeAsync(asyncCallback) {
+export function logDeltaTimeAsync(asyncCallback) {
     return async (...args) => {
         console.log(`${asyncCallback.name}...`);
         const [deltaTime, result] = await getDeltaTimeAsync(asyncCallback.bind(null, ...args));
@@ -58,23 +60,23 @@ function logDeltaTimeAsync(asyncCallback) {
     };
 }
 
-function getDeltaTime(callback) {
+export function getDeltaTime(callback) {
     const startTime = performance.now();
     const result = callback();
     const deltaTime = performance.now() - startTime;
     return [deltaTime, result];
 }
 
-async function getDeltaTimeAsync(asyncCallback) {
+export async function getDeltaTimeAsync(asyncCallback) {
     const startTime = performance.now();
     const result = await asyncCallback();
     const deltaTime = performance.now() - startTime;
     return [deltaTime, result];
 }
 
-async function compareDataToFile(data, compareFile) {
+export async function compareDataToFile(data, compareFile) {
     try {
-        const backupData = fs.readFileSync(compareFile, 'utf8');
+        const backupData = readFileSync(compareFile, 'utf8');
         const matches = compareFileContents(backupData, data);
         console.log(`File content matches: ${matches}`);
     } catch (error) {
@@ -83,7 +85,7 @@ async function compareDataToFile(data, compareFile) {
     }
 }
 
-function comparePerfomance(time1, time2) {
+export function comparePerfomance(time1, time2) {
     const total = time1 + time2;
     const diff = time1 - time2;
     const relDiff = Math.sign(diff) * 100 * 2 * Math.abs(diff) / total;
@@ -94,12 +96,6 @@ function comparePerfomance(time1, time2) {
     console.log();
 }
 
-module.exports = {
-    createProgressBar,
-    logDeltaTime,
-    logDeltaTimeAsync,
-    getDeltaTime,
-    getDeltaTimeAsync,
-    compareDataToFile,
-    comparePerfomance
-};
+export function getDirname(importMetaUrl) {
+    return dirname(fileURLToPath(importMetaUrl));
+}

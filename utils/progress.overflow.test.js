@@ -1,4 +1,4 @@
-const { createProgressBar } = require("./debug");
+import { createProgressBar } from "./debug.js";
 
 const num = 20;
 

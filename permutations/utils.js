@@ -1,10 +1,10 @@
-const { getPermutationsLength } = require('./permutations');
-const { getMinDiffPermutationsGenerator } = require('./permutationsOptimization');
-const { createProgressBar, logDeltaTimeAsync } = require('../utils/debug');
-const { writeGenerator, enrichGenerator } = require('../utils/generator');
-const { countListDiff } = require("../utils/general");
+import { createProgressBar, logDeltaTimeAsync } from "../utils/debug.js";
+import { countListDiff } from "../utils/general.js";
+import { enrichGenerator } from "../utils/generator.js";
+import { getPermutationsLength } from "./permutations.js";
+import { getMinDiffPermutationsGenerator } from "./permutationsOptimization.js";
 
-async function testPermutations(set, outputFile, formatEntry = x => x.join(' ') + '\n') {
+export async function testPermutations(set, outputFile, formatEntry = x => x.join(' ') + '\n') {
     console.log(`input: ${JSON.stringify(set)}`);
 
     const generator = enrichGenerator(getMinDiffPermutationsGenerator(set))
@@ -28,7 +28,3 @@ function createCheckMinDiffPermutations() {
         prevValue = value;
     }
 }
-
-module.exports = {
-    testPermutations
-};

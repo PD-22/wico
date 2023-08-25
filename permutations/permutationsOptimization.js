@@ -1,20 +1,20 @@
-const { getPermutationsLength, getPermutationAtIndex } = require("./permutations");
+import { getPermutationAtIndex, getPermutationsLength } from "./permutations.js";
 
-function getMinDiffPermutations(set) {
+export function getMinDiffPermutations(set) {
     return Array.from(getMinDiffPermutationsGenerator(set));
 }
 
-function* getMinDiffPermutationsGenerator(set) {
+export function* getMinDiffPermutationsGenerator(set) {
     for (let i = 0; i < getPermutationsLength(set.length); i++)
         yield getMinDiffPermutationAtIndex(set, i);
 }
 
-function getMinDiffPermutationAtIndex(set, index) {
+export function getMinDiffPermutationAtIndex(set, index) {
     const minDiffPermutationSwapIndex = getMinDiffPermutationSwapIndex(set.length, index);
     return getPermutationAtIndex(set, minDiffPermutationSwapIndex);
 }
 
-function getMinDiffPermutationSwapIndex(length, index) {
+export function getMinDiffPermutationSwapIndex(length, index) {
     const permutationsLength = getPermutationsLength(length);
 
     if (index < 0 || index >= permutationsLength) throw new RangeError();
@@ -33,10 +33,3 @@ function getMinDiffPermutationSwapIndex(length, index) {
 
     return index + offset;
 }
-
-module.exports = {
-    getMinDiffPermutations,
-    getMinDiffPermutationsGenerator,
-    getMinDiffPermutationAtIndex,
-    getMinDiffPermutationSwapIndex
-};
