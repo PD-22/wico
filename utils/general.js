@@ -5,8 +5,11 @@ export function factorial(n) {
 }
 
 export function createCharSequence(startChar, length) {
-    const startCharCode = startChar.charCodeAt(0);
-    return Array.from({ length }, (_, i) => String.fromCharCode(startCharCode + i));
+    return Array.from({ length }, (_, i) => String.fromCharCode(startChar.charCodeAt(0) + i));
+}
+
+export function createNumSequence(startNum, length) {
+    return Array.from({ length }, (_, i) => startNum + i);
 }
 
 export function countListDiff(arr1, arr2) {
@@ -103,10 +106,6 @@ export function mapObjectOrArray(obj, callback) {
     return transformObject(obj, (key, value, index) =>
         [key, callback(value, index, key)]
     );
-}
-
-export function createNumSequence(startNum, length) {
-    return Array.from({ length }, (_, i) => startNum + i);
 }
 
 export function compareJSON(a, b) {

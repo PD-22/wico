@@ -1,7 +1,7 @@
 import { writeFileSync } from "fs";
 import { join } from "path";
 import { getCombinations } from "../combinations/combinations.js";
-import { getNumSequenceVariants } from "../combinations/utils/getNumSequenceVariants.js";
+import getNumSequenceVariants from "../combinations/utils/getNumSequenceVariants.js";
 import { comparePerfomance, getDeltaTime, getDirname } from "../utils/debug.js";
 import { range } from "../utils/general.js";
 import getCombinationsOld from "./combinationsOld.js";

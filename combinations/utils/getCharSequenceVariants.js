@@ -6,9 +6,15 @@ export default function getCharSequenceVariants(
     possibleLengths,
     getCombinationsCallback = getCombinations
 ) {
-    return getCombinationsCallback(
+    const firstCharLengthCombinations = getCombinationsCallback(
         Array(firstChars.length).fill(possibleLengths)
-    ).map(
-        lengths => zip(firstChars, lengths).map(args => createCharSequence(...args))
+    );
+
+    const firstCharLengthPairListCombinations = firstCharLengthCombinations.map(
+        firstCharsLength => zip(firstChars, firstCharsLength)
+    );
+
+    return firstCharLengthPairListCombinations.map(
+        pairList => pairList.map(([firstChar, length]) => createCharSequence(firstChar, length))
     );
 }
