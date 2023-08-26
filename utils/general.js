@@ -140,5 +140,5 @@ export function mapAdjacents(array, callback) {
         const index1 = index - 1;
         const value1 = array[index1];
         return callback(value1, value, index1, index);
-    });
+    }).slice(1);
 }
