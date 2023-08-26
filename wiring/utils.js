@@ -1,3 +1,4 @@
+import { writeFileSync } from 'fs';
 import { getMinDiffCombinations } from "../combinations/combinationsOptimization.js";
 import { getMinDiffPermutations } from "../permutations/permutationsOptimization.js";
 import { compareDataToFile } from "../utils/debug.js";
