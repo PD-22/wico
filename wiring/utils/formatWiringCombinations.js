@@ -1,43 +1,6 @@
-import { writeFileSync } from 'fs';
-import { getMinDiffCombinations } from "../combinations/combinationsOptimization.js";
-import { getMinDiffPermutations } from "../permutations/permutationsOptimization.js";
-import { compareDataToFile } from "../utils/debug.js";
-import { countObjDiff, indentText, mapObject, transformObject, zip } from "../utils/general.js";
+import { countObjDiff, indentText, mapObject, transformObject } from "../../utils/general.js";
 
-export function testWiring({ wiringSettings, outputFile, outputCompareFile }) {
-    const wiringCombinations = getWiringCombinations(wiringSettings);
-
-    const formattedCombinations = formatWiringCombinations(wiringCombinations);
-
-    writeFileSync(outputFile, formattedCombinations);
-    console.log(`result: "${outputFile}"`);
-
-    if (outputCompareFile) compareDataToFile(formattedCombinations, outputCompareFile);
-}
-
-function getWiringCombinations(wiringSettings) {
-    const [settings1, settings2] = wiringSettings;
-
-    const permutations1 = getWiringPermutations(settings1);
-    const permutations2 = getWiringPermutations(settings2);
-
-    return getMinDiffCombinations({
-        [settings1.name]: permutations1,
-        [settings2.name]: permutations2
-    });
-}
-
-function getWiringPermutations(wiringSetting) {
-    return getMinDiffKeyValuePermutations(wiringSetting.points, wiringSetting.wires);
-}
-
-function getMinDiffKeyValuePermutations(keys, values) {
-    return getMinDiffPermutations(values).map(valuesPermutation =>
-        Object.fromEntries(zip(keys, valuesPermutation))
-    );
-}
-
-function formatWiringCombinations(wiringCombinations) {
+export default function formatWiringCombinations(wiringCombinations) {
     const enrichedCombination = enrichWiringCombinations(wiringCombinations);
 
     const totalDiffs = enrichedCombination.map(x => x.diff).reduce((a, b) => a + b);
