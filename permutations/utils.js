@@ -1,6 +1,6 @@
 import { createProgressBar, logDeltaTimeAsync } from "../utils/debug.js";
 import { countListDiff } from "../utils/general.js";
-import { enrichGenerator } from "../utils/generator.js";
+import { enrichGenerator, writeGenerator } from "../utils/generator.js";
 import { getPermutationsLength } from "./permutations.js";
 import { getMinDiffPermutationsGenerator } from "./permutationsOptimization.js";
 
