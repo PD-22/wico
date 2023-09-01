@@ -5,18 +5,19 @@ import testWiring from "./utils/testWiring.js";
 const DIRNAME = getDirname(import.meta.url);
 
 testWiring({
-    wiringSettings: [
-        {
-            name: "aux",
-            points: "mrlg".split(""),
-            wires: "blue red green copper".split(" "),
+    wiringSettings: {
+        aux: {
+            m: "blue",
+            r: "red",
+            l: "green",
+            g: "copper"
         },
-        {
-            name: "sound",
-            points: "rgl".split(""),
-            wires: "red copper green".split(" "),
+        sound: {
+            r: "red",
+            g: "copper",
+            l: "green",
         }
-    ],
+    },
     outputFile: join(DIRNAME, 'output.txt'),
     outputCompareFile: join(DIRNAME, 'output copy.txt'),
 });

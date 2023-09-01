@@ -1,19 +1,13 @@
 import { getMinDiffCombinations } from "../../combinations/combinationsOptimization.js";
 import { getMinDiffPermutations } from "../../permutations/permutationsOptimization.js";
-import { transformObject, zip } from "../../utils/general.js";
+import { mapValues, zip } from "../../utils/general.js";
 
 export default function getWiringCombinations(wiringSettings) {
-    return getMinDiffCombinations(transformObject(wiringSettings,
-        settings => [settings.name, getWiringPermutations(settings)]
-    ));
+    return getMinDiffCombinations(mapValues(wiringSettings, settings => getMinDiffKeyValuePermutations(settings)));
 }
 
-function getWiringPermutations(wiringSetting) {
-    return getMinDiffKeyValuePermutations(wiringSetting.points, wiringSetting.wires);
-}
-
-function getMinDiffKeyValuePermutations(keys, values) {
-    return getMinDiffPermutations(values).map(valuesPermutation =>
-        Object.fromEntries(zip(keys, valuesPermutation))
+function getMinDiffKeyValuePermutations(wiringSetting) {
+    return getMinDiffPermutations(Object.values(wiringSetting)).map(
+        valuesPermutation => Object.fromEntries(zip(Object.keys(wiringSetting), valuesPermutation))
     );
 }
