@@ -108,6 +108,12 @@ export function mapValues(obj, callback) {
     );
 }
 
+export function mapKeys(obj, callback) {
+    return transformObject(obj, (value, key, index) =>
+        [callback(value, key, index), value]
+    );
+}
+
 export function compareJSON(a, b) {
     return JSON.stringify(a) === JSON.stringify(b);
 }
