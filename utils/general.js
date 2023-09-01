@@ -98,7 +98,7 @@ export function range(start, end, step = 1) {
     return Array.from({ length: Math.floor((end - start) / step) + 1 }, (_, i) => start + i * step);
 }
 
-export function mapObjectOrArray(obj, callback) {
+export function mapValues(obj, callback) {
     if (Array.isArray(obj)) return obj.map((value, index) =>
         callback(value, index, index)
     );

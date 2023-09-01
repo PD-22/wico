@@ -1,4 +1,4 @@
-import { mapObjectOrArray, product } from "../utils/general.js";
+import { mapValues, product } from "../utils/general.js";
 
 export function getCombinations(arrays) {
     return Array.from(getCombinationsGenerator(arrays));
@@ -14,7 +14,7 @@ export function getCombinationsLength(arrays) {
 }
 
 export function getCombinationAtIndex(arrays, index) {
-    return mapObjectOrArray(arrays, (currArray, arrayIndex) => {
+    return mapValues(arrays, (currArray, arrayIndex) => {
         const l1 = currArray.length;
         const l2 = product(Object.values(arrays).slice(arrayIndex).map(x => x.length));
         // NOTE: division should be perfomed last to avoid floating-point rounding Errors
