@@ -11,7 +11,7 @@ export function* getMinDiffCombinationsGenerator(arrays) {
 }
 
 export function getMinDiffCombinationAtIndex(arrays, index) {
-    const alterReversedArrays = mapValues(arrays, (array, i) => {
+    const alterReversedArrays = mapValues(arrays, (array, key, i) => {
         if (i <= 0) return array;
         const groupSize = product(Object.values(arrays).slice(i).map(x => x.length));
         const groupIndex = Math.floor(index / groupSize);

@@ -104,7 +104,7 @@ export function mapValues(obj, callback) {
     );
 
     return transformObject(obj, (key, value, index) =>
-        [key, callback(value, index, key)]
+        [key, callback(value, key, index)]
     );
 }
 
