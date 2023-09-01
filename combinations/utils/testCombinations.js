@@ -26,7 +26,7 @@ export default function testCombinations({ outputFile, testInputs, outputCompare
 
     });
 
-    if (!outputFile || !outputCompareFile) return testResults;
+    if (!outputFile && !outputCompareFile) return testResults;
 
     const result = formatTestResults(testResults);
 
