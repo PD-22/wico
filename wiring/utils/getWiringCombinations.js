@@ -4,7 +4,7 @@ import { transformObject, zip } from "../../utils/general.js";
 
 export default function getWiringCombinations(wiringSettings) {
     return getMinDiffCombinations(transformObject(wiringSettings,
-        (k, settings) => [settings.name, getWiringPermutations(settings)]
+        settings => [settings.name, getWiringPermutations(settings)]
     ));
 }
 

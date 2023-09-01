@@ -47,7 +47,7 @@ export function transformObject(obj, callbackfn) {
 }
 
 export function mapObject(obj, callbackfn) {
-    return Object.entries(obj).map(([k, v], i) => callbackfn(k, v, i));
+    return Object.entries(obj).map(([k, v], i) => callbackfn(v, k, i));
 }
 
 export function indentText(text, indentation) {
@@ -103,7 +103,7 @@ export function mapValues(obj, callback) {
         callback(value, index, index)
     );
 
-    return transformObject(obj, (key, value, index) =>
+    return transformObject(obj, (value, key, index) =>
         [key, callback(value, key, index)]
     );
 }

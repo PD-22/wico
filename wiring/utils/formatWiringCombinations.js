@@ -27,10 +27,10 @@ function enrichWiringCombinations(wiringCombinations) {
     function enrichComb(comb, nextComb) {
         let nextNumberCounter = 0;
 
-        return transformObject(comb, (type, wires) => {
+        return transformObject(comb, (wires, type) => {
             const nextWires = nextComb?.[type];
 
-            const newWires = transformObject(wires, (label, wire) => {
+            const newWires = transformObject(wires, (wire, label) => {
                 const newWire = { value: wire };
 
                 const nextWire = nextWires?.[label];
@@ -63,14 +63,14 @@ function formatEnrichedCombination({ comb, diff }, index) {
 
     return headerline + '\n' + indent(wiringSegments.join('\n'));
 
-    function getWiringSegment(wiringName, wires) {
+    function getWiringSegment(wires, wiringName) {
         const wiringHeaderLine = `${wiringName}:`;
         const wiringLines = mapObject(wires, getWiringLine);
 
         return wiringHeaderLine + '\n' + indent(wiringLines.join('\n'));
     }
 
-    function getWiringLine(joint, enrichedWire) {
+    function getWiringLine(enrichedWire, joint) {
         const { value: wire, next, nextNumber } = enrichedWire;
 
         let result = `${joint} - ${wire}`;
