@@ -1,4 +1,4 @@
-import { mapValues, product } from "../utils/general.js";
+import { product } from "../utils/general.js";
 import { getCombinationAtIndex, getCombinationsLength } from "./combinations.js";
 
 export function getMinDiffCombinations(arrays) {
@@ -11,7 +11,7 @@ export function* getMinDiffCombinationsGenerator(arrays) {
 }
 
 export function getMinDiffCombinationAtIndex(arrays, index) {
-    const alterReversedArrays = mapValues(arrays, (array, key, i) => {
+    const alterReversedArrays = arrays.map((array, i) => {
         if (i <= 0) return array;
         const groupSize = product(Object.values(arrays).slice(i).map(x => x.length));
         const groupIndex = Math.floor(index / groupSize);

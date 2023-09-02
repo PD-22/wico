@@ -14,7 +14,7 @@ export function getCombinationsLength(arrays) {
 }
 
 export function getCombinationAtIndex(arrays, index) {
-    return mapValues(arrays, (currArray, key, arrayIndex) => {
+    return arrays.map((currArray, arrayIndex) => {
         const l1 = currArray.length;
         const l2 = product(Object.values(arrays).slice(arrayIndex).map(x => x.length));
         // NOTE: division should be perfomed last to avoid floating-point rounding Errors
