@@ -147,3 +147,7 @@ export function mapAdjacents(array, callback) {
         return callback(value1, value, index1, index);
     }).slice(1);
 }
+
+export function createObject(keys, values) {
+    return Object.fromEntries(zip(keys, values));
+}
