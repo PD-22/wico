@@ -1,4 +1,5 @@
-import { countObjDiff, indentText, mapObject, transformObject } from "../../utils/general.js";
+import { indentText, mapObject } from "../../utils/general.js";
+import enrichWiringCombinations from "./enrichWiringCombinations.js";
 
 export default function formatWiringCombinations(wiringCombinations) {
     const enrichedCombination = enrichWiringCombinations(wiringCombinations);
@@ -12,72 +13,27 @@ export default function formatWiringCombinations(wiringCombinations) {
     return `${formattedDiffs}\n\n${formattedCombinations}`;
 }
 
-function enrichWiringCombinations(wiringCombinations) {
-    return wiringCombinations.map((comb, i) => {
-        const nextComb = wiringCombinations[i + 1];
-
-        const result = {
-            diff: enrichDiff(comb, nextComb),
-            comb: enrichComb(comb, nextComb)
-        };
-
-        return result;
-    });
-
-    function enrichComb(comb, nextComb) {
-        let nextNumberCounter = 0;
-
-        return transformObject(comb, (wires, type) => {
-            const nextWires = nextComb?.[type];
-
-            const newWires = transformObject(wires, (wire, label) => {
-                const newWire = { value: wire };
-
-                const nextWire = nextWires?.[label];
-                const wireChanged = nextWire && nextWire !== wire;
-                if (wireChanged) {
-                    newWire.next = nextWire;
-                    newWire.nextNumber = ++nextNumberCounter;
-                }
-                return [label, newWire];
-            });
-
-            return [type, newWires];
-        });
-    }
-
-    function enrichDiff(current, next) {
-        if (!next) return 0;
-
-        return Object.keys(current).reduce(calculate, 0);
-
-        function calculate(acc, key) {
-            return acc + countObjDiff(current[key], next[key]);
-        }
-    }
-}
-
 function formatEnrichedCombination({ comb, diff }, index) {
     const headerline = `#${index + 1} (${diff}):`;
     const wiringSegments = mapObject(comb, getWiringSegment);
 
     return headerline + '\n' + indent(wiringSegments.join('\n'));
+}
 
-    function getWiringSegment(wires, wiringName) {
-        const wiringHeaderLine = `${wiringName}:`;
-        const wiringLines = mapObject(wires, getWiringLine);
+function getWiringSegment(wires, wiringName) {
+    const wiringHeaderLine = `${wiringName}:`;
+    const wiringLines = mapObject(wires, getWiringLine);
 
-        return wiringHeaderLine + '\n' + indent(wiringLines.join('\n'));
-    }
+    return wiringHeaderLine + '\n' + indent(wiringLines.join('\n'));
+}
 
-    function getWiringLine(enrichedWire, joint) {
-        const { value: wire, next, nextNumber } = enrichedWire;
+function getWiringLine(enrichedWire, joint) {
+    const { value: wire, next, nextNumber } = enrichedWire;
 
-        let result = `${joint} - ${wire}`;
-        if (next) result += ` -> ${next} (${nextNumber})`;
+    let result = `${joint} - ${wire}`;
+    if (next) result += ` -> ${next} (${nextNumber})`;
 
-        return result;
-    }
+    return result;
 }
 
 function indent(text) {
