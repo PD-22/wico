@@ -1,7 +1,7 @@
 import { writeFileSync } from 'fs';
 import { compareDataToFile } from '../../utils/debug.js';
 import formatTestResults from './formatTestResults.js';
-import validateMinDiffCombination from './validateMinDiffCombination.js';
+import validateMinDiffCombination, { AdjacencyError } from './validateMinDiffCombination.js';
 
 export default function testCombinations({ outputFile, testInputs, outputCompareFile, getMinDiffCombinationsCallback }) {
     let testResults = testInputs.map(testInput => {
