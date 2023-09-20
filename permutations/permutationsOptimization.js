@@ -1,4 +1,9 @@
+import { combineDict } from "../utils/combinatorics.js";
 import { getPermutationAtIndex, getPermutationsLength } from "./permutations.js";
+
+export function getMinDiffKeyValuePermutations(set) {
+    return combineDict(set, getMinDiffPermutations);
+}
 
 export function getMinDiffPermutations(set) {
     return Array.from(getMinDiffPermutationsGenerator(set));

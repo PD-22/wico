@@ -1,5 +1,10 @@
+import { combineDict } from "../utils/combinatorics.js";
 import { product } from "../utils/general.js";
 import { getCombinationAtIndex, getCombinationsLength } from "./combinations.js";
+
+export function getMinDiffKeyValueCombinations(arrays) {
+    return combineDict(arrays, getMinDiffCombinations);
+}
 
 export function getMinDiffCombinations(arrays) {
     return Array.from(getMinDiffCombinationsGenerator(arrays));

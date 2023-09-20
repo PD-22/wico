@@ -1,4 +1,9 @@
-import { mapValues, product } from "../utils/general.js";
+import { combineDict } from "../utils/combinatorics.js";
+import { product } from "../utils/general.js";
+
+export function getKeyValueCombinations(arrays) {
+    return combineDict(arrays, getCombinations);
+}
 
 export function getCombinations(arrays) {
     return Array.from(getCombinationsGenerator(arrays));

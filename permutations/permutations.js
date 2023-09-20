@@ -1,5 +1,9 @@
 import { factorial } from "../utils/general.js";
 
+export function getKeyValuePermutations(set) {
+    return combineDict(set, getPermutations);
+}
+
 export function getPermutations(set) {
     return Array.from(getPermutationsGenerator(set));
 }
