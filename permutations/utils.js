@@ -14,7 +14,7 @@ export async function testPermutations(set, outputFile, formatEntry = x => x.joi
 
     try {
         await logDeltaTimeAsync(writeGenerator)(outputFile, generator);
-        console.log(`result: ${outputFile}`);
+        console.log(`result: "${outputFile}"`);
     } catch (error) {
         console.error(`An error occurred while writing to ${outputFile}: ${error}`);
     }
