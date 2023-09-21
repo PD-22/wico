@@ -94,8 +94,12 @@ export function indices(length) {
     return range(0, length - 1);
 }
 
-export function range(start, end, step = 1) {
-    return Array.from({ length: Math.floor((end - start) / step) + 1 }, (_, i) => start + i * step);
+export function range(start, end, step) {
+    return Array.from(rangeGenerator(start, end, step));
+}
+
+export function* rangeGenerator(start, end, step = 1) {
+    for (let i = start; i <= end; i += step) yield i;
 }
 
 export function mapValues(obj, callback) {
