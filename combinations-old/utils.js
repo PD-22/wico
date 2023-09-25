@@ -1,3 +1,4 @@
+import { writeFileSync } from "fs";
 import { deepArrayCompare } from "../utils/general.js";
 
 export function checkResultsMatch(result1, result2) {
@@ -8,4 +9,10 @@ export function checkResultsMatch(result1, result2) {
     } else {
         console.error('Different results!\n');
     }
+}
+
+export function writeCombinations(result, file) {
+    console.log(`Writing to "${file}"...`);
+    writeFileSync(file, result);
+    console.log('Done\n');
 }

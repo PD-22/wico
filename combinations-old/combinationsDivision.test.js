@@ -1,10 +1,9 @@
-import { writeFileSync } from "fs";
 import { join } from "path";
 import { getCombinations } from "../combinations/combinations.js";
 import { getDirname } from "../utils/debug.js";
 import { range } from "../utils/general.js";
 import getCombinationsOld from "./combinationsOld.js";
-import { checkResultsMatch } from "./utils.js";
+import { checkResultsMatch, writeCombinations } from "./utils.js";
 
 const DIRNAME = getDirname(import.meta.url);
 
@@ -20,17 +19,15 @@ const testInputs = [[1, 2], range(start, start + amount - 1)];
 const newCombinationsResult = getCombinations(testInputs);
 const oldCombinationsResult = getCombinationsOld(testInputs);
 
-checkResultsMatch(newCombinationsResult, oldCombinationsResult)
+checkResultsMatch(newCombinationsResult, oldCombinationsResult);
 
-writeResult(newCombinationsResult, join(DIRNAME, 'output-new-combinations.txt'));
-writeResult(oldCombinationsResult, join(DIRNAME, 'output-old-combinations.txt'));
+writeResult(newCombinationsResult, 'output-new-combinations.txt');
+writeResult(oldCombinationsResult, 'output-old-combinations.txt');
 
-function writeResult(result, file) {
-    console.log(`Writing to "${file}"...`);
-    writeFileSync(file, formatCombinations(result));
-    console.log('Done\n');
+function writeResult(combinationsResult, fileName) {
+    return writeCombinations(formatCombinations(combinationsResult), join(DIRNAME, fileName));
+}
 
-    function formatCombinations(combinations) {
-        return combinations.map(x => x.join(' ')).join('\n')
-    }
+function formatCombinations(combinations) {
+    return combinations.map(x => x.join(' ')).join('\n')
 }

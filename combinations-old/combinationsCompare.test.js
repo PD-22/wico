@@ -1,11 +1,10 @@
-import { writeFileSync } from "fs";
 import { join } from "path";
 import { getCombinations } from "../combinations/combinations.js";
 import getNumSequenceVariants from "../combinations/utils/getNumSequenceVariants.js";
 import { comparePerfomance, getDeltaTime, getDirname } from "../utils/debug.js";
 import { range } from "../utils/general.js";
 import getCombinationsOld from "./combinationsOld.js";
-import { checkResultsMatch } from "./utils.js";
+import { checkResultsMatch, writeCombinations } from "./utils.js";
 
 const DIRNAME = getDirname(import.meta.url);
 
@@ -19,8 +18,8 @@ comparePerfomance(deltaTimeNew, deltaTimeOld);
 
 checkResultsMatch(newCombinationsResult, oldCombinationsResult);
 
-writeResult(newCombinationsResult, join(DIRNAME, 'output-new-combinations.txt'));
-writeResult(oldCombinationsResult, join(DIRNAME, 'output-old-combinations.txt'));
+writeResult(newCombinationsResult, 'output-new-combinations.txt');
+writeResult(oldCombinationsResult, 'output-old-combinations.txt');
 
 function measurePerfomance(methodCallback, testInputs) {
     console.log(`${methodCallback.name}...`);
@@ -34,12 +33,10 @@ function measurePerfomance(methodCallback, testInputs) {
     return [deltaTime, result];
 }
 
-function writeResult(result, file) {
-    console.log(`Writing to "${file}"...`);
-    writeFileSync(file, formatCombinations(result));
-    console.log('Done\n');
+function writeResult(combinationsResult, fileName) {
+    return writeCombinations(formatCombinations(combinationsResult), join(DIRNAME, fileName));
+}
 
-    function formatCombinations(combinations) {
-        return combinations.map(sequence => sequence.map(item => item.join(' ')).join(' | ')).join('\n');
-    }
+function formatCombinations(combinations) {
+    return combinations.map(sequence => sequence.map(item => item.join(' ')).join(' | ')).join('\n');
 }
