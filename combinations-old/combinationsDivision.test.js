@@ -4,7 +4,7 @@ import { getCombinations } from "../combinations/combinations.js";
 import { getDirname } from "../utils/debug.js";
 import { range } from "../utils/general.js";
 import getCombinationsOld from "./combinationsOld.js";
-import checkResultsMatch from "./utils.js";
+import { checkResultsMatch } from "./utils.js";
 
 const DIRNAME = getDirname(import.meta.url);
 
