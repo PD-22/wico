@@ -2,8 +2,9 @@ import { writeFileSync } from "fs";
 import { join } from "path";
 import { getCombinations } from "../combinations/combinations.js";
 import { getDirname } from "../utils/debug.js";
-import { deepArrayCompare, range } from "../utils/general.js";
+import { range } from "../utils/general.js";
 import getCombinationsOld from "./combinationsOld.js";
+import checkResultsMatch from "./utils.js";
 
 const DIRNAME = getDirname(import.meta.url);
 
@@ -23,16 +24,6 @@ checkResultsMatch(newCombinationsResult, oldCombinationsResult)
 
 writeResult(newCombinationsResult, join(DIRNAME, 'output-new-combinations.txt'));
 writeResult(oldCombinationsResult, join(DIRNAME, 'output-old-combinations.txt'));
-
-function checkResultsMatch(newCombinationsResult, oldCombinationsResult) {
-    console.log("Testing results...");
-    const resultsMatch = deepArrayCompare(newCombinationsResult, oldCombinationsResult);
-    if (resultsMatch) {
-        console.log('Combination results match\n');
-    } else {
-        console.error('Different combination results!\n');
-    }
-}
 
 function writeResult(result, file) {
     console.log(`Writing to "${file}"...`);
