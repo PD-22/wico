@@ -20,7 +20,7 @@ export function checkResultsMatch(result1, result2) {
     console.log(`${Boolean(resultsMatch)}\n`);
 }
 
-export function writeTestResult(file, data) {
+export function writeResult(file, data) {
     console.log(`Writing to "${file}"...`);
     writeFileSync(file, data);
     console.log('Done\n');
