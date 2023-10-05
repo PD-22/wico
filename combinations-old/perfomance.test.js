@@ -4,6 +4,7 @@ import { comparePerfomance, getDirname } from "../utils/debug.js";
 import { range } from "../utils/general.js";
 import getCombinationsOld from "./combinationsOld.js";
 import { checkResultsMatch, testInputs, writeResult } from "./perfomanceUtils.js";
+import { formatOutputs } from "./debug.js";
 
 const DIRNAME = getDirname(import.meta.url);
 
@@ -16,9 +17,5 @@ checkResultsMatch(resultNew, resultOld);
 
 comparePerfomance(deltaTimeNew, deltaTimeOld);
 
-writeResult(join(DIRNAME, 'result-new.txt'), formatResult(resultNew));
-writeResult(join(DIRNAME, 'result-old.txt'), formatResult(resultOld));
-
-function formatResult(result) {
-    return result.map(a => a.map(b => b.join(' ')).join('\n')).join('\n\n');
-}
+writeResult(join(DIRNAME, 'result-new.txt'), formatOutputs(resultNew));
+writeResult(join(DIRNAME, 'result-old.txt'), formatOutputs(resultOld));

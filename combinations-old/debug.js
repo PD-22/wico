@@ -25,3 +25,7 @@ export function writeResult(file, data) {
     writeFileSync(file, data);
     console.log('Done\n');
 }
+
+export function formatOutputs(result) {
+    return result.map(a => a.map(b => b.join(' ')).join('\n')).join('\n\n');
+}
