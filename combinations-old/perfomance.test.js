@@ -1,16 +1,16 @@
 import { writeFileSync } from "fs";
 import { join } from "path";
 import { getCombinations } from "../combinations/combinations.js";
-import { comparePerfomance, getDeltaTime, getDirname } from "../utils/debug.js";
+import { comparePerfomance, createProgressBar, getDeltaTime, getDirname } from "../utils/debug.js";
 import { deepArrayCompare, range } from "../utils/general.js";
 import getCombinationsOld from "./combinationsOld.js";
 
 const DIRNAME = getDirname(import.meta.url);
 
-const input = Array(7).fill(range(1, 7));
+const inputs = Array(20).fill(Array(5).fill(range(1, 8)));
 
-const [deltaTimeNew, resultNew] = testInput(getCombinations, input);
-const [deltaTimeOld, resultOld] = testInput(getCombinationsOld, input);
+const [deltaTimeNew, resultNew] = testInputs(getCombinations, inputs);
+const [deltaTimeOld, resultOld] = testInputs(getCombinationsOld, inputs);
 
 checkResultsMatch(resultNew, resultOld);
 
@@ -19,11 +19,16 @@ comparePerfomance(deltaTimeNew, deltaTimeOld);
 writeResult(resultNew, 'result-new.txt');
 writeResult(resultOld, 'result-old.txt');
 
-function testInput(callbackFn, input) {
+function testInputs(callbackFn, inputs) {
     console.log(`${callbackFn.name}... `);
-    const [deltaTime, result] = getDeltaTime(() => callbackFn(input));
+    const progressBar = createProgressBar(inputs.length, 20);
+    const [deltaTime, results] = getDeltaTime(() => inputs.map(input => {
+        const result = callbackFn(input);
+        progressBar.increment();
+        return result;
+    }));
     console.log(`${deltaTime.toFixed(2)} ms\n`);
-    return [deltaTime, result];
+    return [deltaTime, results];
 }
 
 function checkResultsMatch(result1, result2) {
@@ -40,5 +45,5 @@ function writeResult(combinationsResult, fileName) {
 }
 
 function formatResult(result) {
-    return result.map(b => b.join(' ')).join('\n');
+    return result.map(a => a.map(b => b.join(' ')).join('\n')).join('\n\n');
 }

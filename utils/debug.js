@@ -92,8 +92,7 @@ export function comparePerfomance(time1, time2) {
 
     console.log(`Total: ${total.toFixed(2)} ms`);
     console.log(`Diff: ${diff.toFixed(2)} ms`);
-    console.log(`Relative diff: ${relDiff.toFixed(2)}%`);
-    console.log();
+    console.log(`Relative diff: ${relDiff.toFixed(2)}%\n`);
 }
 
 export function getDirname(importMetaUrl) {
