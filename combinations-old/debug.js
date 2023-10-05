@@ -1,6 +1,7 @@
 import { writeFileSync } from "fs";
 import { createProgressBar, getDeltaTime } from "../utils/debug.js";
 import { deepArrayCompare } from "../utils/general.js";
+import validateMinDiffCombination from "../combinations/utils/validateMinDiffCombination.js";
 
 export function testCombinationsPerfomance(callbackFn, inputs) {
     console.log(`${callbackFn.name}... `);
@@ -30,4 +31,15 @@ export function writeResult(file, data) {
 
 export function formatCombinations(result) {
     return result.map(a => a.map(b => b.join(' ')).join('\n')).join('\n\n');
+}
+
+export function validateMinDiffCombinations(inputs, getCombinationsCallback) {
+    console.log(`Validate ${getCombinationsCallback.name}... `);
+    const result = inputs.map(input => {
+        const result = getCombinationsCallback(input);
+        validateMinDiffCombination(result);
+        return result;
+    });
+    console.log("Valid\n");
+    return result;
 }
