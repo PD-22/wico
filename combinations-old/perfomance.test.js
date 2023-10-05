@@ -1,9 +1,9 @@
-import { writeFileSync } from "fs";
 import { join } from "path";
 import { getCombinations } from "../combinations/combinations.js";
-import { comparePerfomance, createProgressBar, getDeltaTime, getDirname } from "../utils/debug.js";
-import { deepArrayCompare, range } from "../utils/general.js";
+import { comparePerfomance, getDirname } from "../utils/debug.js";
+import { range } from "../utils/general.js";
 import getCombinationsOld from "./combinationsOld.js";
+import { checkResultsMatch, testInputs, writeTestResult } from "./perfomanceUtils.js";
 
 const DIRNAME = getDirname(import.meta.url);
 
@@ -19,29 +19,8 @@ comparePerfomance(deltaTimeNew, deltaTimeOld);
 writeResult(resultNew, 'result-new.txt');
 writeResult(resultOld, 'result-old.txt');
 
-function testInputs(callbackFn, inputs) {
-    console.log(`${callbackFn.name}... `);
-    const progressBar = createProgressBar(inputs.length, 20);
-    const [deltaTime, results] = getDeltaTime(() => inputs.map(input => {
-        const result = callbackFn(input);
-        progressBar.increment();
-        return result;
-    }));
-    console.log(`${deltaTime.toFixed(2)} ms\n`);
-    return [deltaTime, results];
-}
-
-function checkResultsMatch(result1, result2) {
-    console.log("Results match...");
-    const resultsMatch = deepArrayCompare(result1, result2);
-    console.log(`${Boolean(resultsMatch)}\n`);
-}
-
 function writeResult(combinationsResult, fileName) {
-    const file = join(DIRNAME, fileName);
-    console.log(`Writing to "${file}"...`);
-    writeFileSync(file, formatResult(combinationsResult));
-    console.log('Done\n');
+    return writeTestResult(join(DIRNAME, fileName), formatResult(combinationsResult));
 }
 
 function formatResult(result) {
