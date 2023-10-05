@@ -29,8 +29,12 @@ export function writeResult(file, data) {
     console.log('Done\n');
 }
 
-export function formatCombinations(result) {
-    return result.map(a => a.map(b => b.join(' ')).join('\n')).join('\n\n');
+export function formatCombinations(combinations) {
+    return combinations.map(formatCombination).join('\n\n');
+}
+
+export function formatCombination(combination) {
+    return combination.map(items => items.join(' ')).join('\n');
 }
 
 export function validateMinDiffCombinations(inputs, getCombinationsCallback) {
