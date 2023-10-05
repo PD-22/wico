@@ -3,17 +3,16 @@ import { getMinDiffCombinations } from "../combinations/combinationsOptimization
 import { comparePerfomance, getDirname } from "../utils/debug.js";
 import { range } from "../utils/general.js";
 import { getMinDiffCombinationsOld } from "./combinationsOldOptimization.js";
-import { checkResultsMatch, testInputs, writeResult } from "./debug.js";
-import { formatCombinations } from "./debug.js";
+import { checkArraysMatch, formatCombinations, testCombinationsPerfomance, writeResult } from "./debug.js";
 
 const DIRNAME = getDirname(import.meta.url);
 
 const inputs = Array(20).fill(Array(5).fill(range(1, 8)));
 
-const [deltaTimeNew, resultNew] = testInputs(getMinDiffCombinations, inputs);
-const [deltaTimeOld, resultOld] = testInputs(getMinDiffCombinationsOld, inputs);
+const [deltaTimeNew, resultNew] = testCombinationsPerfomance(getMinDiffCombinations, inputs);
+const [deltaTimeOld, resultOld] = testCombinationsPerfomance(getMinDiffCombinationsOld, inputs);
 
-checkResultsMatch(resultNew, resultOld);
+checkArraysMatch(resultNew, resultOld);
 
 comparePerfomance(deltaTimeNew, deltaTimeOld);
 

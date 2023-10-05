@@ -5,7 +5,7 @@ export function getKeyValueCombinations(arrays) {
     return combineDict(arrays, getCombinations);
 }
 
-export function getCombinations(arrays) {
+export default function getCombinations(arrays) {
     return Array.from(getCombinationsGenerator(arrays));
 }
 
