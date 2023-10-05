@@ -2,8 +2,8 @@ import { join } from "path";
 import getCombinations from "../combinations/combinations.js";
 import { getDirname } from "../utils/debug.js";
 import { range } from "../utils/general.js";
-import getCombinationsOld from "./combinationsOld.js";
-import { checkArraysMatch, formatCombination, writeResult } from "./debug.js";
+import getCombinationsOld from "../combinations-old/combinationsOld.js";
+import { checkArraysMatch, formatCombination, writeResult } from "./utils.js";
 
 /* NOTE: test for division accuracy bug
 2 / 98 * 49 = 0.9999999999999999

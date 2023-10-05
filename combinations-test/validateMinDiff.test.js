@@ -2,8 +2,8 @@ import { join } from "path";
 import { getMinDiffCombinations } from "../combinations/combinationsOptimization.js";
 import getCharSequenceVariants from "../combinations/utils/getCharSequenceVariants.js";
 import { getDirname } from "../utils/debug.js";
-import { getMinDiffCombinationsOld } from "./combinationsOldOptimization.js";
-import { formatCombinations, validateMinDiffCombinations, writeResult } from "./debug.js";
+import { getMinDiffCombinationsOld } from "../combinations-old/combinationsOldOptimization.js";
+import { formatCombinations, validateMinDiffCombinations, writeResult } from "./utils.js";
 
 const DIRNAME = getDirname(import.meta.url);
 
