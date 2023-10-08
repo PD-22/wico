@@ -1,10 +1,9 @@
 import { join } from "path";
+import getCombinationsOld from "../combinations-old/combinationsOld.js";
 import getCombinations from "../combinations/combinations.js";
 import { comparePerfomance, getDirname } from "../utils/debug.js";
 import { range } from "../utils/general.js";
-import getCombinationsOld from "../combinations-old/combinationsOld.js";
-import { formatCombinations } from "./utils.js";
-import { checkArraysMatch, testCombinationsPerfomance, writeResult } from "./utils.js";
+import { checkArraysMatch, formatCombinations, testCombinationsPerfomance, writeResult } from "./utils.js";
 
 const DIRNAME = getDirname(import.meta.url);
 

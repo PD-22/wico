@@ -1,8 +1,8 @@
 import { join } from "path";
+import { getMinDiffCombinationsOld } from "../combinations-old/combinationsOldOptimization.js";
 import { getMinDiffCombinations } from "../combinations/combinationsOptimization.js";
 import { comparePerfomance, getDirname } from "../utils/debug.js";
 import { range } from "../utils/general.js";
-import { getMinDiffCombinationsOld } from "../combinations-old/combinationsOldOptimization.js";
 import { checkArraysMatch, formatCombinations, testCombinationsPerfomance, writeResult } from "./utils.js";
 
 const DIRNAME = getDirname(import.meta.url);
