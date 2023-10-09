@@ -11,16 +11,17 @@ export default function getCombinations(arrays) {
 
 export function* getCombinationsGenerator(arrays) {
     const combinationsLength = getCombinationsLength(arrays);
+    let lengthCount = product(Object.values(arrays).map(x => x.length));
     for (let i = 0; i < combinationsLength; i++)
-        yield getCombinationAtIndex(arrays, i);
+        yield getCombinationAtIndex(arrays, i, lengthCount);
 }
 
 export function getCombinationsLength(arrays) {
     return product(Object.values(arrays).map(x => x.length));
 }
 
-export function getCombinationAtIndex(arrays, index) {
-    let l2 = product(Object.values(arrays).map(x => x.length));
+// TODO: maybe remove l2 dependency
+export function getCombinationAtIndex(arrays, index, l2) {
     return arrays.map(currArray => {
         const l1 = currArray.length;
         // NOTE: division should be perfomed last to avoid floating-point rounding Errors
