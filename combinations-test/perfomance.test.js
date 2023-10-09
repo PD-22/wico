@@ -7,7 +7,7 @@ import { checkArraysMatch, formatCombinations, testCombinationsPerfomance, write
 
 const DIRNAME = getDirname(import.meta.url);
 
-const inputs = Array(20).fill(Array(5).fill(range(1, 8)));
+const inputs = Array(20).fill(Array(5).fill(range(1, 11)));
 
 const [deltaTimeNew, resultNew] = testCombinationsPerfomance(getCombinations, inputs);
 const [deltaTimeOld, resultOld] = testCombinationsPerfomance(getCombinationsOld, inputs);

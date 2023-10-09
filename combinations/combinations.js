@@ -19,12 +19,12 @@ export function getCombinationsLength(arrays) {
     return product(Object.values(arrays).map(x => x.length));
 }
 
-export function getCombinationAtIndex(arrays, index, l2 = getCombinationsLength(arrays)) {
-    return arrays.map(currArray => {
-        const l1 = currArray.length;
+export function getCombinationAtIndex(arrays, index, totalLength = getCombinationsLength(arrays)) {
+    return arrays.map(array => {
+        const length = array.length;
         // NOTE: division should be perfomed last to avoid floating-point rounding Errors
-        const resultIndex = Math.floor(index * l1 / l2) % l1;
-        l2 /= l1;
-        return currArray[resultIndex];
+        const resultIndex = Math.floor(index * length / totalLength) % length;
+        totalLength /= length;
+        return array[resultIndex];
     });
 }
