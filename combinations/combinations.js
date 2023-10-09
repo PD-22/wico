@@ -10,7 +10,8 @@ export default function getCombinations(arrays) {
 }
 
 export function* getCombinationsGenerator(arrays) {
-    for (let i = 0; i < getCombinationsLength(arrays); i++)
+    const combinationsLength = getCombinationsLength(arrays);
+    for (let i = 0; i < combinationsLength; i++)
         yield getCombinationAtIndex(arrays, i);
 }
 
