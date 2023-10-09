@@ -20,11 +20,12 @@ export function getCombinationsLength(arrays) {
 }
 
 export function getCombinationAtIndex(arrays, index) {
-    return arrays.map((currArray, arrayIndex) => {
+    let l2 = product(Object.values(arrays).map(x => x.length));
+    return arrays.map(currArray => {
         const l1 = currArray.length;
-        const l2 = product(Object.values(arrays).slice(arrayIndex).map(x => x.length));
         // NOTE: division should be perfomed last to avoid floating-point rounding Errors
         const resultIndex = Math.floor(index * l1 / l2) % l1;
+        l2 /= l1;
         return currArray[resultIndex];
     });
 }
