@@ -1,4 +1,4 @@
-export function getMinDiffCombinationsOld(arrays) {
+export default function getMinDiffCombinationsOld(arrays) {
     const f = Array.isArray(arrays) ?
         getMinDiffCombinationsArray :
         getMinDiffCombinationsObject;

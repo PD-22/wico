@@ -6,7 +6,7 @@ export function getMinDiffKeyValueCombinations(arrays) {
     return combineDict(arrays, getMinDiffCombinations);
 }
 
-export function getMinDiffCombinations(arrays) {
+export default function getMinDiffCombinations(arrays) {
     return Array.from(getMinDiffCombinationsGenerator(arrays));
 }
 
