@@ -15,7 +15,7 @@ export function* getMinDiffCombinationsGenerator(arrays) {
         yield getMinDiffCombinationAtIndex(arrays, i, combinationsLength);
 }
 
-export function getMinDiffCombinationAtIndex(arrays, index, totalLength) {
+export function getMinDiffCombinationAtIndex(arrays, index, totalLength = getCombinationsLength(arrays)) {
     let groupSize = totalLength;
     const alterReversedArrays = arrays.map(array => {
         const groupIndex = Math.floor(index / groupSize);
