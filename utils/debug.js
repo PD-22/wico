@@ -81,7 +81,7 @@ export async function compareDataToFile(data, compareFile) {
         console.log(`File content matches: ${matches}`);
     } catch (error) {
         if (error.code !== 'ENOENT') throw error;
-        console.log('File not found:', compareFile);
+        console.log(`File not found: "${compareFile}`);
     }
 }
 

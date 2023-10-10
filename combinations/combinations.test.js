@@ -1,6 +1,6 @@
 import { join } from "path";
 import { getDirname, logDeltaTime } from "../utils/debug.js";
-import { getMinDiffCombinations } from "./combinationsOptimization.js";
+import getMinDiffCombinations from "./combinationsOptimization.js";
 import getCharSequenceVariants from "./utils/getCharSequenceVariants.js";
 import testCombinations from "./utils/testCombinations.js";
 
