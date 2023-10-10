@@ -1,5 +1,4 @@
 import { combineDict } from "../utils/combinatorics.js";
-import { product } from "../utils/general.js";
 import { getCombinationAtIndex, getCombinationsLength } from "./combinations.js";
 
 export function getMinDiffKeyValueCombinations(arrays) {
@@ -17,8 +16,8 @@ export function* getMinDiffCombinationsGenerator(arrays) {
 }
 
 export function getMinDiffCombinationAtIndex(arrays, index, totalLength) {
-    let groupSize = product(Object.values(arrays).map(x => x.length));
-    const alterReversedArrays = arrays.map((array, i) => {
+    let groupSize = totalLength;
+    const alterReversedArrays = arrays.map(array => {
         const groupIndex = Math.floor(index / groupSize);
         groupSize /= array.length;
         const shouldReverse = groupIndex % 2 === 1;
