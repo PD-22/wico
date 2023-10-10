@@ -11,11 +11,12 @@ export default function getMinDiffCombinations(arrays) {
 }
 
 export function* getMinDiffCombinationsGenerator(arrays) {
-    for (let i = 0; i < getCombinationsLength(arrays); i++)
-        yield getMinDiffCombinationAtIndex(arrays, i);
+    const combinationsLength = getCombinationsLength(arrays);
+    for (let i = 0; i < combinationsLength; i++)
+        yield getMinDiffCombinationAtIndex(arrays, i, combinationsLength);
 }
 
-export function getMinDiffCombinationAtIndex(arrays, index) {
+export function getMinDiffCombinationAtIndex(arrays, index, totalLength) {
     const alterReversedArrays = arrays.map((array, i) => {
         if (i <= 0) return array;
         const groupSize = product(Object.values(arrays).slice(i).map(x => x.length));
@@ -23,5 +24,5 @@ export function getMinDiffCombinationAtIndex(arrays, index) {
         const shouldReverse = groupIndex % 2 === 1;
         return shouldReverse ? array.toReversed() : array;
     });
-    return getCombinationAtIndex(alterReversedArrays, index);
+    return getCombinationAtIndex(alterReversedArrays, index, totalLength);
 }
