@@ -17,9 +17,10 @@ export function* getMinDiffCombinationsGenerator(arrays) {
 }
 
 export function getMinDiffCombinationAtIndex(arrays, index, totalLength) {
+    let groupSize = product(Object.values(arrays).map(x => x.length));
     const alterReversedArrays = arrays.map((array, i) => {
-        const groupSize = product(Object.values(arrays).slice(i).map(x => x.length));
         const groupIndex = Math.floor(index / groupSize);
+        groupSize /= array.length;
         const shouldReverse = groupIndex % 2 === 1;
         return shouldReverse ? array.toReversed() : array;
     });
