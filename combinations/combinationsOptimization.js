@@ -1,6 +1,5 @@
 import { combineDict } from "../utils/combinatorics.js";
-import { product, range } from "../utils/general.js";
-import { getCombinationItemIndex, getCombinationsLength } from "./combinations.js";
+import { getCombinationItemIndex, getCombinationsLength, getGroupSize } from "./combinations.js";
 
 export function getMinDiffKeyValueCombinations(arrays) {
     return combineDict(arrays, getMinDiffCombinations);
@@ -13,31 +12,46 @@ export default function getMinDiffCombinations(arrays) {
 export function* getMinDiffCombinationsGenerator(arrays) {
     const combinationsLength = getCombinationsLength(arrays);
     for (let i = 0; i < combinationsLength; i++)
-        yield getMinDiffCombination(arrays, i, combinationsLength);
+        yield getMinDiffCombinationAtIndex(arrays, i, combinationsLength);
 }
 
-export function getMinDiffCombination(arrays, combIndex) {
-    const itemIndices = range(0, arrays.length - 1);
-    return itemIndices.map(itemIndex => getMinDiffCombinationItem(arrays, combIndex, itemIndex));
+export function getMinDiffCombinationAtIndex(
+    arrays, combIndex,
+    combinationsLength = getCombinationsLength(arrays)
+) {
+    let groupSizeCache = combinationsLength;
+    return arrays.map((array, itemIndex) => {
+        const result = getMinDiffCombinationItem(arrays, combIndex, itemIndex, groupSizeCache);
+        groupSizeCache /= array.length;
+        return result;
+    });
 }
 
-export function getMinDiffCombinationItem(arrays, combIndex, itemIndex) {
-    const resultIndex = getMinDiffCombinationItemIndex(arrays, combIndex, itemIndex);
+export function getMinDiffCombinationItem(
+    arrays, combIndex, itemIndex,
+    groupSizeCache = getGroupSize(arrays, itemIndex)
+) {
+    const resultIndex = getMinDiffCombinationItemIndex(arrays, combIndex, itemIndex, groupSizeCache);
     const array = arrays[itemIndex];
     return array[resultIndex];
 }
 
-export function getMinDiffCombinationItemIndex(arrays, combIndex, itemIndex) {
-    const resultIndex = getCombinationItemIndex(arrays, combIndex, itemIndex);
-    const shouldReverse = checkShouldReverseCombinationGroup(arrays, combIndex, itemIndex);
+export function getMinDiffCombinationItemIndex(
+    arrays, combIndex, itemIndex,
+    groupSizeCache = getGroupSize(arrays, itemIndex)
+) {
+    const resultIndex = getCombinationItemIndex(arrays, combIndex, itemIndex, groupSizeCache);
+    const shouldReverse = checkShouldReverseGroup(arrays, combIndex, itemIndex, groupSizeCache);
 
     const array = arrays[itemIndex];
     const reverseResultIndex = array.length - 1 - resultIndex;
     return shouldReverse ? reverseResultIndex : resultIndex;
 }
 
-export function checkShouldReverseCombinationGroup(arrays, combIndex, itemIndex) {
-    const groupSize = product(Object.values(arrays).slice(itemIndex).map(x => x.length));
-    const groupIndex = Math.floor(combIndex / groupSize);
+export function checkShouldReverseGroup(
+    arrays, combIndex, itemIndex,
+    groupSizeCache = getGroupSize(arrays, itemIndex)
+) {
+    const groupIndex = Math.floor(combIndex / groupSizeCache);
     return groupIndex % 2 === 1;
 }
