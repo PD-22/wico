@@ -29,23 +29,22 @@ export function getMinDiffCombinationAtIndex(
 
 export function getMinDiffCombinationItem(
     arrays, combIndex, itemIndex,
-    groupSizeCache = getGroupSize(arrays, itemIndex)
+    groupSize = getGroupSize(arrays, itemIndex)
 ) {
-    const resultIndex = getMinDiffCombinationItemIndex(arrays, combIndex, itemIndex, groupSizeCache);
     const array = arrays[itemIndex];
+    const resultIndex = getMinDiffCombinationItemIndex(arrays, combIndex, itemIndex, groupSize);
     return array[resultIndex];
 }
 
 export function getMinDiffCombinationItemIndex(
     arrays, combIndex, itemIndex,
-    groupSizeCache = getGroupSize(arrays, itemIndex)
+    groupSize = getGroupSize(arrays, itemIndex)
 ) {
-    const resultIndex = getCombinationItemIndex(arrays, combIndex, itemIndex, groupSizeCache);
-    const shouldReverse = checkShouldReverseGroup(arrays, combIndex, itemIndex, groupSizeCache);
+    const resultIndex = getCombinationItemIndex(arrays, combIndex, itemIndex, groupSize);
+    const shouldReverse = checkShouldReverseGroup(arrays, combIndex, itemIndex, groupSize);
 
     const array = arrays[itemIndex];
-    const reverseResultIndex = array.length - 1 - resultIndex;
-    return shouldReverse ? reverseResultIndex : resultIndex;
+    return shouldReverse ? array.length - 1 - resultIndex : resultIndex;
 }
 
 export function checkShouldReverseGroup(

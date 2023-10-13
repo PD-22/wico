@@ -35,8 +35,8 @@ export function getCombinationItem(
     arrays, combIndex, itemIndex,
     groupSize = getGroupSize(arrays, itemIndex)
 ) {
-    const resultIndex = getCombinationItemIndex(arrays, combIndex, itemIndex, groupSize);
     const array = arrays[itemIndex];
+    const resultIndex = getCombinationItemIndex(arrays, combIndex, itemIndex, groupSize);
     return array[resultIndex];
 }
 
@@ -45,7 +45,7 @@ export function getCombinationItemIndex(
     groupSize = getGroupSize(arrays, itemIndex)
 ) {
     const array = arrays[itemIndex];
-    // NOTE: division should be perfomed last to avoid floating-point rounding Errors
+    // NOTE: division should be performed last to avoid floating-point rounding errors
     return Math.floor(combIndex * array.length / groupSize) % array.length;
 }
 
