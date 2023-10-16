@@ -143,13 +143,23 @@ export function deepArrayCompare(arr1, arr2) {
     return true;
 }
 
+export function forEachAdjacents(array, callback) {
+    return array.forEach((v2, i2) => {
+        if (i2 === 0) return;
+        const i1 = i2 - 1;
+        const v1 = array[i1];
+        return callback(v1, v2, i1, i2);
+    });
+}
+
 export function mapAdjacents(array, callback) {
-    return array.map((value, index) => {
-        if (index === 0) return;
-        const index1 = index - 1;
-        const value1 = array[index1];
-        return callback(value1, value, index1, index);
-    }).slice(1);
+    const result = Array(array.length - 1);
+
+    forEachAdjacents(array, (v1, v2, i1, i2) => {
+        result[i1] = callback(v1, v2, i1, i2)
+    })
+
+    return result;
 }
 
 export function createObject(keys, values) {
