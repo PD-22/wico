@@ -1,4 +1,4 @@
-import { combineDict } from "../utils/combinatorics.js";
+import combineDict from "../utils/combineDict.js";
 import { product } from "../utils/general.js";
 
 export default function getCombinations(arrays) {
