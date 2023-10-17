@@ -1,37 +1,29 @@
 import combineDict from "../utils/combineDict.js";
 import { factorial } from "../utils/general.js";
 
-export function getKeyValuePermutations(set) {
-    return combineDict(set, getPermutations);
-}
+export default function getPermutations(set) {
+    const resultList = [];
 
-export function getPermutations(set) {
-    return Array.from(getPermutationsGenerator(set));
-}
+    for (let index = 0; index < factorial(set.length); index++) {
+        const remainingSet = set.slice();
+        const result = [];
 
-export function* getPermutationsGenerator(set) {
-    for (let i = 0; i < getPermutationsLength(set.length); i++)
-        yield getPermutationAtIndex(set, i);
-}
+        let cacheB = index;
+        for (let j = set.length - 1; j >= 0; j--) {
+            const quotient = Math.floor(cacheB / factorial(j));
 
-export function getPermutationsLength(setLength) {
-    return factorial(setLength);
-}
+            result.push(remainingSet[quotient]);
+            remainingSet.splice(quotient, 1);
 
-export function getPermutationAtIndex(set, index) {
-    if (index < 0 || index >= getPermutationsLength(set.length)) throw new RangeError();
+            cacheB %= factorial(j);
+        }
 
-    let remainingSet = set.slice();
-    let result = [];
-
-    for (let i = set.length - 1; i >= 0; i--) {
-        const quotient = Math.floor(index / factorial(i));
-
-        result.push(remainingSet[quotient]);
-        remainingSet.splice(quotient, 1);
-
-        index %= factorial(i);
+        resultList[index] = result;
     }
 
-    return result;
+    return resultList;
+}
+
+export function getKeyValuePermutations(set) {
+    return combineDict(set, getPermutations);
 }
