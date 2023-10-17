@@ -1,7 +1,7 @@
 import { writeFileSync } from "fs";
 import { countListDiff, forEachAdjacents } from "../utils/general.js";
-import { getMinDiffPermutations } from "./permutationsOptimization.js";
 import { compareDataToFile } from "../utils/debug.js";
+import getMinDiffPermutations from "./permutationsOptimization.js";
 
 export function testMinDiffPermutations(input, outputFile, compareFile) {
     console.log(`input: ${JSON.stringify(input)}`);
