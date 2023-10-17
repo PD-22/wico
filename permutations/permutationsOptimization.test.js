@@ -5,4 +5,8 @@ import { testMinDiffPermutations } from "./debug.js";
 
 const DIRNAME = getDirname(import.meta.url);
 
-testMinDiffPermutations(createCharSequence('A', 9), join(DIRNAME, 'output.txt'));
+testMinDiffPermutations(
+    createCharSequence('A', 9),
+    join(DIRNAME, 'output.txt'),
+    join(DIRNAME, 'output copy.txt')
+);
