@@ -2,6 +2,19 @@ import { writeFileSync } from "fs";
 import { countListDiff, forEachAdjacents } from "../utils/general.js";
 import { compareDataToFile } from "../utils/debug.js";
 import getMinDiffPermutations from "./permutationsOptimization.js";
+import { getPermutations } from "./permutations.js";
+
+export function testPermutations(input, outputFile, compareFile) {
+    console.log(`input: ${JSON.stringify(input)}`);
+
+    const result = getPermutations(input);
+
+    const formattedResult = formatpermutations(result);
+    writeFileSync(outputFile, formattedResult);
+    console.log(`Output written to "${outputFile}"`);
+
+    if (compareFile) compareDataToFile(formattedResult, compareFile);
+}
 
 export function testMinDiffPermutations(input, outputFile, compareFile) {
     console.log(`input: ${JSON.stringify(input)}`);
