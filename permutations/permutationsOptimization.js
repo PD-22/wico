@@ -4,9 +4,8 @@ import { factorial } from "../utils/general.js";
 export default function getMinDiffPermutations(set) {
     const resultList = [];
 
-    for (let index = 0; index < factorial(set.length); index++) {
-        const permutationsLength = factorial(set.length);
-
+    const permutationsLength = factorial(set.length);
+    for (let index = 0; index < permutationsLength; index++) {
         let groupSize = set.length;
         let height = permutationsLength / groupSize--;
         let offset = 0;
