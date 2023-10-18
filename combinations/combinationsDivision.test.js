@@ -1,10 +1,9 @@
 import { join } from "path";
 import { getDirname } from "../utils/debug.js";
-import { range } from "../utils/general.js";
+import { deepArrayCompare, range } from "../utils/general.js";
 import getCombinations from "./combinations.js";
-import checkArraysMatch from "./utils/checkArraysMatch.js";
-import formatCombination from "./utils/formatCombination.js";
-import writeResult from "./utils/writeResult.js";
+import formatCombinations from "./debug/formatCombinations.js";
+import { writeFileSync } from "fs";
 
 /* NOTE: test for division accuracy bug
 2 / 98 * 49 = 0.9999999999999999
@@ -18,6 +17,10 @@ const correctResult = [[1, 1], [1, 2], [1, 3], [1, 4], [1, 5], [1, 6], [1, 7], [
 
 const result = getCombinations(testInput);
 
-checkArraysMatch(result, correctResult);
+console.log("Results match...");
+const resultsMatch = deepArrayCompare(result, correctResult);
+console.log(`${resultsMatch}\n`);
 
-writeResult(join(DIRNAME, 'output.txt'), formatCombination(result));
+const outputFile = join(DIRNAME, 'output.txt');
+writeFileSync(outputFile, formatCombinations(result));
+console.log(`Output written to "${outputFile}"`);
