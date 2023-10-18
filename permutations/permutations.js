@@ -4,18 +4,21 @@ import { factorial } from "../utils/general.js";
 export default function getPermutations(set) {
     const resultList = [];
 
-    for (let index = 0; index < factorial(set.length); index++) {
+    const totalLength = factorial(set.length);
+    for (let index = 0; index < totalLength; index++) {
         const remainingSet = set.slice();
         const result = [];
 
         let cacheB = index;
+        let factCache = totalLength;
         for (let j = set.length - 1; j >= 0; j--) {
-            const quotient = Math.floor(cacheB / factorial(j));
+            factCache /= (j + 1);
+            const quotient = Math.floor(cacheB / factCache);
 
             result.push(remainingSet[quotient]);
             remainingSet.splice(quotient, 1);
 
-            cacheB %= factorial(j);
+            cacheB %= factCache;
         }
 
         resultList[index] = result;
