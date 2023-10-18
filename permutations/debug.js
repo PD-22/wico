@@ -19,7 +19,7 @@ export function testPermutations(input, outputFile, compareFile) {
 
     if (compareFile) {
         formattedResult ??= formatpermutations(result);
-        compareDataToFile(formattedResult, compareFile);
+        logDeltaTime(compareDataToFile)(formattedResult, compareFile);
     }
 }
 
@@ -40,7 +40,7 @@ export function testMinDiffPermutations(input, outputFile, compareFile) {
 
     if (compareFile) {
         formattedResult ??= formatpermutations(result);
-        compareDataToFile(formattedResult, compareFile);
+        logDeltaTime(compareDataToFile)(formattedResult, compareFile);
     }
 }
 
