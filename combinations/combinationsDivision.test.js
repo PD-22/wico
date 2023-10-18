@@ -20,4 +20,4 @@ const result = getCombinations(testInput);
 
 checkArraysMatch(result, correctResult);
 
-writeResult(join(DIRNAME, 'result-new.txt'), formatCombination(result));
+writeResult(join(DIRNAME, 'output.txt'), formatCombination(result));
