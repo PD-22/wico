@@ -1,7 +1,7 @@
 import { join } from "path";
 import { getDirname } from "../utils/debug.js";
 import { createCharSequence } from "../utils/general.js";
-import { testPermutations } from "./debug.js";
+import testPermutations from "./debug/testPermutations.js";
 
 const DIRNAME = getDirname(import.meta.url);
 
