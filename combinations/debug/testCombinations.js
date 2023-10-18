@@ -4,7 +4,7 @@ import getCombinations from "../combinations.js";
 import formatCombinations from "./formatCombinations.js";
 
 export default function testCombinations(input, outputFile, compareFile) {
-    console.log(`input: ${JSON.stringify(input)}`);
+    console.log(`input: ${JSON.stringify(input)}\n`);
 
     const result = logDeltaTime(getCombinations)(input);
 
@@ -13,7 +13,7 @@ export default function testCombinations(input, outputFile, compareFile) {
     if (outputFile) {
         formattedResult ??= formatCombinations(result);
         writeFileSync(outputFile, formattedResult);
-        console.log(`Output written to "${outputFile}"`);
+        console.log(`Output written to "${outputFile}"\n`);
     }
 
     if (compareFile) {
