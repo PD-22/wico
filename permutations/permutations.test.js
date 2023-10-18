@@ -1,12 +1,14 @@
 import { join } from "path";
+import testCombinatorics from "../combinatorics-debug/testCombinatorics.js";
 import { getDirname } from "../utils/debug.js";
 import { createCharSequence } from "../utils/general.js";
-import testPermutations from "./debug/testPermutations.js";
+import getPermutations from "./permutations.js";
 
 const DIRNAME = getDirname(import.meta.url);
 
-testPermutations(
-    createCharSequence('A', 9),
-    join(DIRNAME, 'output.txt'),
-    join(DIRNAME, 'output copy.txt')
-);
+testCombinatorics({
+    input: createCharSequence('A', 9),
+    outputFile: join(DIRNAME, 'output.txt'),
+    compareFile: join(DIRNAME, 'output copy.txt'),
+    getCombinatoricsCallback: getPermutations
+});
