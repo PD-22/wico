@@ -13,7 +13,7 @@ export default function testCombinatorics({
 }) {
     const outputList = processCombinatorics(inputs, getCombinatoricsCallback)
 
-    if (validateAdjacentItems) outputList.forEach(output => forEachAdjacents(output, validateAdjacentItems));
+    if (validateAdjacentItems) validateOutputList(outputList, validateAdjacentItems);
 
     let formattedOutputList;
 
@@ -46,6 +46,10 @@ function processCombinatorics(inputs, getCombinatoricsCallback) {
 
     console.log(`${deltaTime.toFixed()} ms\n`);
     return outputList;
+}
+
+function validateOutputList(outputList, validateAdjacentItems) {
+    outputList.forEach(output => forEachAdjacents(output, validateAdjacentItems));
 }
 
 function formatCombinatorics(combinatoricsList) {
