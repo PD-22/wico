@@ -1,9 +1,8 @@
+import { writeFileSync } from "fs";
 import { join } from "path";
 import { getDirname } from "../utils/debug.js";
 import { deepArrayCompare, range } from "../utils/general.js";
 import getCombinations from "./combinations.js";
-import formatCombinations from "./debug/formatCombinations.js";
-import { writeFileSync } from "fs";
 
 /* NOTE: test for division accuracy bug
 2 / 98 * 49 = 0.9999999999999999
@@ -22,5 +21,5 @@ const resultsMatch = deepArrayCompare(result, correctResult);
 console.log(`${resultsMatch}\n`);
 
 const outputFile = join(DIRNAME, 'output.txt');
-writeFileSync(outputFile, formatCombinations(result));
+writeFileSync(outputFile, result.map(x => x.join(' ')).join('\n'));
 console.log(`Output written to "${outputFile}"`);
