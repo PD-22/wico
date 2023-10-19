@@ -3,34 +3,40 @@ import { compareDataToFile, logDeltaTime } from "./debug.js";
 import { countListDiff, forEachAdjacents } from "./general.js";
 
 export default function testCombinatorics({
-    input,
+    inputs,
     getCombinatoricsCallback,
     validateAdjacentItems,
     outputFile,
     compareFile,
 }) {
-    console.log(`input: ${JSON.stringify(input)}\n`);
+    const results = inputs.map(
+        input => logDeltaTime(getCombinatoricsCallback)(input)
+    );
 
-    const result = logDeltaTime(getCombinatoricsCallback)(input);
+    if (validateAdjacentItems) results.forEach(
+        result => forEachAdjacents(result, validateAdjacentItems)
+    );
 
-    if (validateAdjacentItems) forEachAdjacents(result, validateAdjacentItems);
-
-    let formattedResult;
+    let formattedResults;
 
     if (outputFile) {
-        formattedResult ??= formatCombinatorics(result);
-        writeFileSync(outputFile, formattedResult);
+        formattedResults ??= formatCombinatorics(results);
+        writeFileSync(outputFile, formattedResults);
         console.log(`Output written to "${outputFile}"\n`);
     }
 
     if (compareFile) {
-        formattedResult ??= formatCombinatorics(result);
-        logDeltaTime(compareDataToFile)(formattedResult, compareFile);
+        formattedResults ??= formatCombinatorics(results);
+        logDeltaTime(compareDataToFile)(formattedResults, compareFile);
     }
 }
 
-function formatCombinatorics(combinatorics) {
-    return combinatorics.map(combinatoric => combinatoric.join(' ')).join('\n');
+function formatCombinatorics(combinatoricsList) {
+    return combinatoricsList.map(
+        combinatorics => combinatorics.map(
+            combinatoric => combinatoric.join(' ')
+        ).join('\n')
+    ).join('\n\n');
 }
 
 export function validateAdjacencyDiff(desiredAmount) {
