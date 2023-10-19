@@ -8,8 +8,8 @@ const DIRNAME = getDirname(import.meta.url);
 
 testCombinatorics({
     inputs: [ccs('A', 9)],
-    outputFile: join(DIRNAME, 'output.txt'),
-    compareFile: join(DIRNAME, 'output copy.txt'),
+    outputFile: join(DIRNAME, 'permutationsOptimization.txt'),
+    compareFile: join(DIRNAME, 'permutationsOptimization copy.txt'),
     getCombinatoricsCallback: getMinDiffPermutations,
     validateAdjacentItems: validateAdjacencyDiff(2)
 });

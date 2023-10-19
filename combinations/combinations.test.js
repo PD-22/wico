@@ -8,7 +8,7 @@ const DIRNAME = getDirname(import.meta.url);
 
 testCombinatorics({
     inputs: [[ccs('A', 2), ccs('a', 2)]],
-    outputFile: join(DIRNAME, 'output.txt'),
-    compareFile: join(DIRNAME, 'output copy.txt'),
+    outputFile: join(DIRNAME, 'combinatorics.txt'),
+    compareFile: join(DIRNAME, 'combinatorics copy.txt'),
     getCombinatoricsCallback: getCombinations
 });
