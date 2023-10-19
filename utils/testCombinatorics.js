@@ -2,22 +2,16 @@ import { readFileSync, writeFileSync } from "fs";
 import { createProgressBar, getDeltaTime } from "./debug.js";
 import { compareFileContents, countListDiff, forEachAdjacents } from "./general.js";
 
+const PROGRESS_BAR_WIDTH = 20;
+
 export default function testCombinatorics({
     inputs,
     getCombinatoricsCallback,
     validateAdjacentItems,
     outputFile,
-    compareFile,
-    progressBarWidth = 20
+    compareFile
 }) {
-    console.log(`${getCombinatoricsCallback.name}...`);
-    const progressBar = createProgressBar(inputs.length, progressBarWidth);
-    const [deltaTime, outputList] = getDeltaTime(() => inputs.map(input => {
-        const result = getCombinatoricsCallback(input);
-        progressBar.increment();
-        return result;
-    }));
-    console.log(`${deltaTime.toFixed()} ms\n`);
+    const outputList = processCombinatorics(inputs, getCombinatoricsCallback)
 
     if (validateAdjacentItems) outputList.forEach(output => forEachAdjacents(output, validateAdjacentItems));
 
@@ -37,6 +31,21 @@ export default function testCombinatorics({
         const matches = compareFileContents(formattedCompareData, formattedOutputList);
         console.log(`Match: ${matches}`)
     }
+}
+
+function processCombinatorics(inputs, getCombinatoricsCallback) {
+    console.log(`${getCombinatoricsCallback.name}...`);
+    const progressBar = createProgressBar(inputs.length, PROGRESS_BAR_WIDTH);
+    const [deltaTime, outputList] = getDeltaTime(() =>
+        inputs.map(input => {
+            const result = getCombinatoricsCallback(input);
+            progressBar.increment();
+            return result;
+        })
+    );
+
+    console.log(`${deltaTime.toFixed()} ms\n`);
+    return outputList;
 }
 
 function formatCombinatorics(combinatoricsList) {
