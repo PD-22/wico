@@ -1,7 +1,5 @@
-import { readFileSync } from "fs";
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { compareFileContents } from "./general.js";
 
 export function createProgressBar(total, width) {
     let completed, prevProgressWidth, overflow;
@@ -72,17 +70,6 @@ export async function getDeltaTimeAsync(asyncCallback) {
     const result = await asyncCallback();
     const deltaTime = performance.now() - startTime;
     return [deltaTime, result];
-}
-
-export async function compareDataToFile(data, compareFile) {
-    try {
-        const backupData = readFileSync(compareFile, 'utf8');
-        const matches = compareFileContents(backupData, data);
-        console.log(`File content matches: ${matches}`);
-    } catch (error) {
-        if (error.code !== 'ENOENT') throw error;
-        console.log(`File not found: "${compareFile}`);
-    }
 }
 
 export function comparePerfomance(time1, time2) {
