@@ -11,13 +11,17 @@ export default function testCombinatorics({
     outputFile,
     compareFile
 }) {
-    const outputList = processCombinatorics(inputs, getCombinatoricsCallback)
-
+    const outputList = processCombinatorics(inputs, getCombinatoricsCallback);
     if (validateAdjacentItems) validateOutputList(outputList, validateAdjacentItems);
-
     if (outputFile) writeOutputToFile(outputList, outputFile);
-
     if (compareFile) compareOutputToFile(outputList, compareFile);
+}
+
+export function validateAdjacencyDiff(desiredAmount) {
+    return (v1, v2) => {
+        if (countListDiff(v1, v2) === desiredAmount) return;
+        throw new Error('Invalid adjacency');
+    };
 }
 
 function processCombinatorics(inputs, getCombinatoricsCallback) {
@@ -60,11 +64,4 @@ function formatCombinatorics(combinatoricsList) {
             combinatoric => combinatoric.join(' ')
         ).join('\n')
     ).join('\n\n');
-}
-
-export function validateAdjacencyDiff(desiredAmount) {
-    return (v1, v2) => {
-        if (countListDiff(v1, v2) === desiredAmount) return;
-        throw new Error('Invalid adjacency');
-    };
 }
