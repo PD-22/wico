@@ -17,13 +17,7 @@ export default function testCombinatorics({
 
     if (outputFile) writeOutputToFile(outputList, outputFile);
 
-    if (compareFile) {
-        console.log(`Compare output to "${compareFile}"...`);
-        formattedOutputList ??= formatCombinatorics(outputList);
-        const formattedCompareData = readFileSync(compareFile, 'utf8');
-        const matches = compareFileContents(formattedCompareData, formattedOutputList);
-        console.log(`Match: ${matches}`)
-    }
+    if (compareFile) compareOutputToFile(outputList, compareFile);
 }
 
 function processCombinatorics(inputs, getCombinatoricsCallback) {
@@ -50,6 +44,14 @@ function writeOutputToFile(outputList, outputFile) {
     const formattedOutputList = formatCombinatorics(outputList);
     writeFileSync(outputFile, formattedOutputList);
     console.log(`Done\n`);
+}
+
+function compareOutputToFile(outputList, compareFile) {
+    console.log(`Compare output to "${compareFile}"...`);
+    const formattedOutputList = formatCombinatorics(outputList);
+    const formattedCompareData = readFileSync(compareFile, 'utf8');
+    const matches = compareFileContents(formattedCompareData, formattedOutputList);
+    console.log(`Match: ${matches}`);
 }
 
 function formatCombinatorics(combinatoricsList) {
