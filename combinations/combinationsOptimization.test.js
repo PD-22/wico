@@ -1,5 +1,6 @@
 import { join } from "path";
-import testCombinatorics, { validateAdjacencyDiff } from "../utils/testCombinatorics.js";
+import testCombinatorics from "../debug-combinatorics/testCombinatorics.js";
+import validateAdjacencyDiff from "../debug-combinatorics/validateAdjacencyDiff.js";
 import getDirname from '../debug/getDirname.js';
 import { createCharSequence as ccs } from "../utils/general.js";
 import getMinDiffCombinations from "./combinationsOptimization.js";
