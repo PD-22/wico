@@ -15,14 +15,7 @@ export default function testCombinatorics({
 
     if (validateAdjacentItems) validateOutputList(outputList, validateAdjacentItems);
 
-    let formattedOutputList;
-
-    if (outputFile) {
-        console.log(`Writing output to "${outputFile}"...`);
-        formattedOutputList ??= formatCombinatorics(outputList);
-        writeFileSync(outputFile, formattedOutputList);
-        console.log(`Done\n`);
-    }
+    if (outputFile) writeOutputToFile(outputList, outputFile);
 
     if (compareFile) {
         console.log(`Compare output to "${compareFile}"...`);
@@ -50,6 +43,13 @@ function processCombinatorics(inputs, getCombinatoricsCallback) {
 
 function validateOutputList(outputList, validateAdjacentItems) {
     outputList.forEach(output => forEachAdjacents(output, validateAdjacentItems));
+}
+
+function writeOutputToFile(outputList, outputFile) {
+    console.log(`Writing output to "${outputFile}"...`);
+    const formattedOutputList = formatCombinatorics(outputList);
+    writeFileSync(outputFile, formattedOutputList);
+    console.log(`Done\n`);
 }
 
 function formatCombinatorics(combinatoricsList) {
