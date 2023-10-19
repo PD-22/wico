@@ -7,5 +7,5 @@ export default function compareOutputToFile(outputList, compareFile) {
     const formattedOutputList = formatCombinatorics(outputList);
     const formattedCompareData = readFileSync(compareFile, 'utf8');
     const matches = compareFileContents(formattedCompareData, formattedOutputList);
-    console.log(`Match: ${matches}`);
+    console.log(`Match: ${matches}\n`);
 }

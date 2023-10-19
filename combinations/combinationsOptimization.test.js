@@ -2,13 +2,13 @@ import { join } from "path";
 import testCombinatorics from "../debug-combinatorics/testCombinatorics.js";
 import validateAdjacencyDiff from "../debug-combinatorics/validateAdjacencyDiff.js";
 import getDirname from '../debug/getDirname.js';
-import { createCharSequence as ccs } from "../utils/general.js";
+import { range } from "../utils/general.js";
 import getMinDiffCombinations from "./combinationsOptimization.js";
 
 const DIRNAME = getDirname(import.meta.url);
 
 testCombinatorics({
-    inputs: [[ccs('A', 4), ccs('a', 5)]],
+    inputs: Array(20).fill(Array(4).fill(range(1, 20))),
     outputFile: join(DIRNAME, 'combinationsOptimization.txt'),
     compareFile: join(DIRNAME, 'combinationsOptimization copy.txt'),
     getCombinatoricsCallback: getMinDiffCombinations,
