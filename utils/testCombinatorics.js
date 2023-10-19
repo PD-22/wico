@@ -1,6 +1,6 @@
-import { writeFileSync } from "fs";
-import { compareDataToFile, logDeltaTime } from "./debug.js";
-import { countListDiff, forEachAdjacents } from "./general.js";
+import { readFileSync, writeFileSync } from "fs";
+import { createProgressBar, getDeltaTime } from "./debug.js";
+import { compareFileContents, countListDiff, forEachAdjacents } from "./general.js";
 
 export default function testCombinatorics({
     inputs,
@@ -8,10 +8,21 @@ export default function testCombinatorics({
     validateAdjacentItems,
     outputFile,
     compareFile,
+    progressBarWidth = 20
 }) {
-    const results = inputs.map(
-        input => logDeltaTime(getCombinatoricsCallback)(input)
-    );
+    const progressBar = createProgressBar(inputs.length, progressBarWidth);
+
+    const results = [];
+    let totalDeltaTime = 0;
+
+    console.log(`${getCombinatoricsCallback.name}...`);
+    inputs.map(input => {
+        const [deltaTime, result] = getDeltaTime(() => getCombinatoricsCallback(input))
+        progressBar.increment();
+        results.push(result);
+        totalDeltaTime += deltaTime;
+    });
+    console.log(`${totalDeltaTime.toFixed()} ms\n`);
 
     if (validateAdjacentItems) results.forEach(
         result => forEachAdjacents(result, validateAdjacentItems)
@@ -20,14 +31,18 @@ export default function testCombinatorics({
     let formattedResults;
 
     if (outputFile) {
+        console.log(`Writing output to "${outputFile}"...`);
         formattedResults ??= formatCombinatorics(results);
         writeFileSync(outputFile, formattedResults);
-        console.log(`Output written to "${outputFile}"\n`);
+        console.log(`Done\n`);
     }
 
     if (compareFile) {
+        console.log(`Compare output to "${compareFile}"...`);
         formattedResults ??= formatCombinatorics(results);
-        logDeltaTime(compareDataToFile)(formattedResults, compareFile);
+        const formattedCompareData = readFileSync(compareFile, 'utf8');
+        const matches = compareFileContents(formattedCompareData, formattedResults);
+        console.log(`Match: ${matches}`)
     }
 }
 
