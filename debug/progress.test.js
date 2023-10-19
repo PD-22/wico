@@ -1,4 +1,4 @@
-import { createProgressBar } from "./debug.js";
+import createProgressBar from "./createProgressBar.js";
 
 testProgressBar();
 

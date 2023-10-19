@@ -1,5 +1,6 @@
 import { readFileSync, writeFileSync } from "fs";
-import { createProgressBar, getDeltaTime } from "./debug.js";
+import { getDeltaTime } from "../debug/perfomance.js";
+import createProgressBar from '../debug/createProgressBar.js';
 import { compareFileContents, countListDiff, forEachAdjacents } from "./general.js";
 
 const PROGRESS_BAR_WIDTH = 20;
@@ -22,6 +23,14 @@ export function validateAdjacencyDiff(desiredAmount) {
         if (countListDiff(v1, v2) === desiredAmount) return;
         throw new Error('Invalid adjacency');
     };
+}
+
+export function formatCombinatorics(combinatoricsList) {
+    return combinatoricsList.map(
+        combinatorics => combinatorics.map(
+            combinatoric => combinatoric.join(' ')
+        ).join('\n')
+    ).join('\n\n');
 }
 
 function processCombinatorics(inputs, getCombinatoricsCallback) {
@@ -56,12 +65,4 @@ function compareOutputToFile(outputList, compareFile) {
     const formattedCompareData = readFileSync(compareFile, 'utf8');
     const matches = compareFileContents(formattedCompareData, formattedOutputList);
     console.log(`Match: ${matches}`);
-}
-
-function formatCombinatorics(combinatoricsList) {
-    return combinatoricsList.map(
-        combinatorics => combinatorics.map(
-            combinatoric => combinatoric.join(' ')
-        ).join('\n')
-    ).join('\n\n');
 }

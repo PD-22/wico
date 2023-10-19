@@ -1,5 +1,5 @@
 import { join } from "path";
-import { getDirname } from "../utils/debug.js";
+import getDirname from "../debug/getDirname.js";
 import testWiring from "./utils/testWiring.js";
 
 const DIRNAME = getDirname(import.meta.url);
