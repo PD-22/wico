@@ -1,7 +1,6 @@
 import { writeFileSync } from "fs";
-import { compareDataToFile, logDeltaTime } from "../utils/debug.js";
-import { forEachAdjacents } from "../utils/general.js";
-import formatArrayList from "./formatArrayList.js";
+import { compareDataToFile, logDeltaTime } from "./debug.js";
+import { countListDiff, forEachAdjacents } from "./general.js";
 
 export default function testCombinatorics({
     input,
@@ -19,13 +18,24 @@ export default function testCombinatorics({
     let formattedResult;
 
     if (outputFile) {
-        formattedResult ??= formatArrayList(result);
+        formattedResult ??= formatCombinatorics(result);
         writeFileSync(outputFile, formattedResult);
         console.log(`Output written to "${outputFile}"\n`);
     }
 
     if (compareFile) {
-        formattedResult ??= formatArrayList(result);
+        formattedResult ??= formatCombinatorics(result);
         logDeltaTime(compareDataToFile)(formattedResult, compareFile);
     }
+}
+
+function formatCombinatorics(combinatorics) {
+    return combinatorics.map(combinatoric => combinatoric.join(' ')).join('\n');
+}
+
+export function validateAdjacencyDiff(desiredAmount) {
+    return (v1, v2) => {
+        if (countListDiff(v1, v2) === desiredAmount) return;
+        throw new Error('Invalid adjacency');
+    };
 }

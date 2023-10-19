@@ -1,5 +1,5 @@
 import { join } from "path";
-import testCombinatorics from "../combinatorics-debug/testCombinatorics.js";
+import testCombinatorics from "../utils/testCombinatorics.js";
 import { getDirname } from "../utils/debug.js";
 import { createCharSequence } from "../utils/general.js";
 import getPermutations from "./permutations.js";
