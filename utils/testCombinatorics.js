@@ -12,31 +12,29 @@ export default function testCombinatorics({
 }) {
     console.log(`${getCombinatoricsCallback.name}...`);
     const progressBar = createProgressBar(inputs.length, progressBarWidth);
-    const [deltaTime, results] = getDeltaTime(() => inputs.map(input => {
+    const [deltaTime, outputList] = getDeltaTime(() => inputs.map(input => {
         const result = getCombinatoricsCallback(input);
         progressBar.increment();
         return result;
     }));
     console.log(`${deltaTime.toFixed()} ms\n`);
 
-    if (validateAdjacentItems) results.forEach(
-        result => forEachAdjacents(result, validateAdjacentItems)
-    );
+    if (validateAdjacentItems) outputList.forEach(output => forEachAdjacents(output, validateAdjacentItems));
 
-    let formattedResults;
+    let formattedOutputList;
 
     if (outputFile) {
         console.log(`Writing output to "${outputFile}"...`);
-        formattedResults ??= formatCombinatorics(results);
-        writeFileSync(outputFile, formattedResults);
+        formattedOutputList ??= formatCombinatorics(outputList);
+        writeFileSync(outputFile, formattedOutputList);
         console.log(`Done\n`);
     }
 
     if (compareFile) {
         console.log(`Compare output to "${compareFile}"...`);
-        formattedResults ??= formatCombinatorics(results);
+        formattedOutputList ??= formatCombinatorics(outputList);
         const formattedCompareData = readFileSync(compareFile, 'utf8');
-        const matches = compareFileContents(formattedCompareData, formattedResults);
+        const matches = compareFileContents(formattedCompareData, formattedOutputList);
         console.log(`Match: ${matches}`)
     }
 }
