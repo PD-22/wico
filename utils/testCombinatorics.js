@@ -10,19 +10,14 @@ export default function testCombinatorics({
     compareFile,
     progressBarWidth = 20
 }) {
-    const progressBar = createProgressBar(inputs.length, progressBarWidth);
-
-    const results = [];
-    let totalDeltaTime = 0;
-
     console.log(`${getCombinatoricsCallback.name}...`);
-    inputs.map(input => {
-        const [deltaTime, result] = getDeltaTime(() => getCombinatoricsCallback(input))
+    const progressBar = createProgressBar(inputs.length, progressBarWidth);
+    const [deltaTime, results] = getDeltaTime(() => inputs.map(input => {
+        const result = getCombinatoricsCallback(input);
         progressBar.increment();
-        results.push(result);
-        totalDeltaTime += deltaTime;
-    });
-    console.log(`${totalDeltaTime.toFixed()} ms\n`);
+        return result;
+    }));
+    console.log(`${deltaTime.toFixed()} ms\n`);
 
     if (validateAdjacentItems) results.forEach(
         result => forEachAdjacents(result, validateAdjacentItems)
