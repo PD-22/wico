@@ -1,37 +1,42 @@
 import { indentText, mapObject } from "../utils/general.js";
 
-export default function formatWiringCombinations(wiringCombinations) {
-    const formattedCombinationSegments = wiringCombinations.map(formatCombination);
+export default function formatWiringCombinations(combList) {
+    const combinations = combList.map((comb, index) =>
+        formatCombinationEntry(comb, index, combList)
+    );
 
-    return `${formattedCombinationSegments.join('\n')}\n`;
+    return lines(...combinations) + '\n';
 }
 
-function formatCombination(comb, index, combList) {
+function formatCombinationEntry(comb, index, combList) {
     const nextComb = combList[index + 1];
 
-    const headerline = `#${index + 1}:`;
-
-    const wiringSegments = mapObject(comb,
-        (wires, wiringName) => getWiringSegment(wires, wiringName, nextComb?.[wiringName])
+    const wiringSegments = mapObject(comb, (wires, wiringName) =>
+        formatWiringSegment(wires, wiringName, nextComb)
     );
 
-    return headerline + '\n' + indent(wiringSegments.join('\n'));
+    return lines(`#${index + 1}:`, indent(lines(...wiringSegments)));
 }
 
-function getWiringSegment(wires, wiringName, nextWires) {
-    const wiringHeaderLine = `${wiringName}:`;
-    const wiringLines = mapObject(wires,
-        (wire, joint) => getWiringLine(wire, joint, nextWires?.[joint])
+function formatWiringSegment(wires, wiringName, nextComb) {
+    const nextWires = nextComb?.[wiringName];
+
+    const wiringLines = mapObject(wires, (wire, joint) =>
+        formatWireLine(wire, joint, nextWires)
     );
 
-    return wiringHeaderLine + '\n' + indent(wiringLines.join('\n'));
+    return lines(`${wiringName}:`, indent(lines(...wiringLines)));
 }
 
-function getWiringLine(wire, joint, nextWire) {
-    let result = `${joint} - ${wire}`;
-    if (nextWire && wire !== nextWire) result += ` -> ${nextWire}`;
+function formatWireLine(wire, joint, nextWires) {
+    const nextWire = nextWires?.[joint];
+    const wireChanges = nextWire && wire !== nextWire;
 
-    return result;
+    return `${joint} - ${wire}${wireChanges ? ` -> ${nextWire}` : ''}`;
+}
+
+function lines(...strList) {
+    return strList.join('\n');
 }
 
 function indent(text) {
