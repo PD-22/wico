@@ -50,11 +50,15 @@ export function mapObject(obj, callbackfn) {
     return Object.entries(obj).map(([k, v], i) => callbackfn(v, k, i, obj));
 }
 
-export function indentText(text, indentation) {
+export function indent(text, indentation = '  ') {
     return text.replaceAll(
         /(^|\n)(?=.*?\S.*?(\n|$))/g,
         (_match, newline) => (newline ? '\n' : '') + indentation
     );
+}
+
+export function lines(...stringList) {
+    return stringList.join('\n');
 }
 
 export function swap(arr, i, j) {
