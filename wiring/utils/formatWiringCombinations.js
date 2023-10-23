@@ -4,17 +4,13 @@ import enrichWiringCombinations from "./enrichWiringCombinations.js";
 export default function formatWiringCombinations(wiringCombinations) {
     const enrichedCombination = enrichWiringCombinations(wiringCombinations);
 
-    const totalDiffs = enrichedCombination.map(x => x.diff).reduce((a, b) => a + b);
-    const formattedDiffs = `total diffs: ${totalDiffs}`;
-
     const formattedCombinationSegments = enrichedCombination.map(formatEnrichedCombination);
-    const formattedCombinations = `combinations:\n${indent(formattedCombinationSegments.join('\n'))}\n`;
 
-    return `${formattedDiffs}\n\n${formattedCombinations}`;
+    return `${formattedCombinationSegments.join('\n')}\n`;
 }
 
-function formatEnrichedCombination({ comb, diff }, index) {
-    const headerline = `#${index + 1} (${diff}):`;
+function formatEnrichedCombination(comb, index) {
+    const headerline = `#${index + 1}:`;
     const wiringSegments = mapObject(comb, getWiringSegment);
 
     return headerline + '\n' + indent(wiringSegments.join('\n'));
@@ -28,10 +24,10 @@ function getWiringSegment(wires, wiringName) {
 }
 
 function getWiringLine(enrichedWire, joint) {
-    const { value: wire, next, nextNumber } = enrichedWire;
+    const { value: wire, next } = enrichedWire;
 
     let result = `${joint} - ${wire}`;
-    if (next) result += ` -> ${next} (${nextNumber})`;
+    if (next) result += ` -> ${next}`;
 
     return result;
 }
