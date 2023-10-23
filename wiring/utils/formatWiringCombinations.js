@@ -1,33 +1,35 @@
 import { indentText, mapObject } from "../../utils/general.js";
-import enrichWiringCombinations from "./enrichWiringCombinations.js";
 
 export default function formatWiringCombinations(wiringCombinations) {
-    const enrichedCombination = enrichWiringCombinations(wiringCombinations);
-
-    const formattedCombinationSegments = enrichedCombination.map(formatEnrichedCombination);
+    const formattedCombinationSegments = wiringCombinations.map(formatCombination);
 
     return `${formattedCombinationSegments.join('\n')}\n`;
 }
 
-function formatEnrichedCombination(comb, index) {
+function formatCombination(comb, index, combList) {
+    const nextComb = combList[index + 1];
+
     const headerline = `#${index + 1}:`;
-    const wiringSegments = mapObject(comb, getWiringSegment);
+
+    const wiringSegments = mapObject(comb,
+        (wires, wiringName) => getWiringSegment(wires, wiringName, nextComb?.[wiringName])
+    );
 
     return headerline + '\n' + indent(wiringSegments.join('\n'));
 }
 
-function getWiringSegment(wires, wiringName) {
+function getWiringSegment(wires, wiringName, nextWires) {
     const wiringHeaderLine = `${wiringName}:`;
-    const wiringLines = mapObject(wires, getWiringLine);
+    const wiringLines = mapObject(wires,
+        (wire, joint) => getWiringLine(wire, joint, nextWires?.[joint])
+    );
 
     return wiringHeaderLine + '\n' + indent(wiringLines.join('\n'));
 }
 
-function getWiringLine(enrichedWire, joint) {
-    const { value: wire, next } = enrichedWire;
-
+function getWiringLine(wire, joint, nextWire) {
     let result = `${joint} - ${wire}`;
-    if (next) result += ` -> ${next}`;
+    if (nextWire && wire !== nextWire) result += ` -> ${nextWire}`;
 
     return result;
 }
