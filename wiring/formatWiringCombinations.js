@@ -1,4 +1,4 @@
-import { indentText, mapObject } from "../../utils/general.js";
+import { indentText, mapObject } from "../utils/general.js";
 
 export default function formatWiringCombinations(wiringCombinations) {
     const formattedCombinationSegments = wiringCombinations.map(formatCombination);
