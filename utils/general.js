@@ -47,7 +47,7 @@ export function transformObject(obj, callbackfn) {
 }
 
 export function mapObject(obj, callbackfn) {
-    return Object.entries(obj).map(([k, v], i) => callbackfn(v, k, i));
+    return Object.entries(obj).map(([k, v], i) => callbackfn(v, k, i, obj));
 }
 
 export function indentText(text, indentation) {
@@ -104,17 +104,17 @@ export function* rangeGenerator(start, end, step = 1) {
 
 export function mapValues(obj, callback) {
     if (Array.isArray(obj)) return obj.map((value, index) =>
-        callback(value, index, index)
+        callback(value, index, index, obj)
     );
 
     return transformObject(obj, (value, key, index) =>
-        [key, callback(value, key, index)]
+        [key, callback(value, key, index, obj)]
     );
 }
 
 export function mapKeys(obj, callback) {
     return transformObject(obj, (value, key, index) =>
-        [callback(value, key, index), value]
+        [callback(value, key, index, obj), value]
     );
 }
 
@@ -148,7 +148,7 @@ export function forEachAdjacents(array, callback) {
         if (i2 === 0) return;
         const i1 = i2 - 1;
         const v1 = array[i1];
-        return callback(v1, v2, i1, i2);
+        return callback(v1, v2, i1, i2, array);
     });
 }
 
@@ -156,7 +156,7 @@ export function mapAdjacents(array, callback) {
     const result = Array(array.length - 1);
 
     forEachAdjacents(array, (v1, v2, i1, i2) => {
-        result[i1] = callback(v1, v2, i1, i2)
+        result[i1] = callback(v1, v2, i1, i2, array)
     })
 
     return result;
