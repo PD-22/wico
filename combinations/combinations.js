@@ -1,5 +1,5 @@
+import product from "../utils/product.js";
 import combineDict from "../utils/combineDict.js";
-import { product } from "../utils/general.js";
 
 export function getKeyValueCombinations(arrays) {
     return combineDict(arrays, getCombinations);

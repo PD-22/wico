@@ -1,4 +1,4 @@
-import { createObject } from "./general.js";
+import createObject from "../utils/createObject.js";
 
 // NOTE: combinations dictionary support util
 export default function combineDict(dictionary, getValuesList) {

@@ -1,5 +1,7 @@
 import getCombinations from "../combinations/combinations.js";
-import { createCharSequence, createNumSequence, zip } from "./general.js";
+import createCharSequence from "../utils/createCharSequence.js";
+import createNumSequence from "../utils/createNumSequence.js";
+import zip from "../utils/zip.js";
 
 export default function getSequenceVariants(firstItems, possibleLengths, createSequenceCallback) {
     const firstItemsLengthCombinations = getCombinations(

@@ -1,4 +1,4 @@
-import { countListDiff } from "../utils/general.js";
+import countListDiff from "../utils/countListDiff.js";
 
 export default function validateAdjacencyDiff(desiredAmount) {
     return (v1, v2) => {

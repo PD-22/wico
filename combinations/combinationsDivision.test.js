@@ -1,7 +1,8 @@
 import { writeFileSync } from "fs";
 import { join } from "path";
 import getDirname from "../debug/getDirname.js";
-import { deepArrayCompare, range } from "../utils/general.js";
+import deepArrayCompare from "../utils/deepArrayCompare.js";
+import range from "../utils/range.js";
 import getCombinations from "./combinations.js";
 
 /* NOTE: test for division accuracy bug

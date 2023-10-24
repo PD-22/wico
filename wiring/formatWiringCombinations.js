@@ -1,4 +1,6 @@
-import { indent, lines, mapObject } from "../utils/general.js";
+import indent from "../utils/indent.js";
+import lines from "../utils/lines.js";
+import mapObject from "../utils/mapObject.js";
 
 export default function formatWiringCombinations(combList) {
     const combinations = combList.map((comb, index) =>

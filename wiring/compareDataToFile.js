@@ -1,5 +1,5 @@
 import { readFileSync } from "fs";
-import { compareFileContents } from "../utils/general.js";
+import compareFileContents from "../utils/compareFileContents.js";
 
 export default async function compareDataToFile(data, compareFile) {
     try {

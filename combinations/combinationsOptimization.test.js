@@ -2,7 +2,7 @@ import { join } from "path";
 import testCombinatorics from "../debug-combinatorics/testCombinatorics.js";
 import validateAdjacencyDiff from "../debug-combinatorics/validateAdjacencyDiff.js";
 import getDirname from '../debug/getDirname.js';
-import { range } from "../utils/general.js";
+import range from "../utils/range.js";
 import getMinDiffCombinations from "./combinationsOptimization.js";
 
 const DIRNAME = getDirname(import.meta.url);

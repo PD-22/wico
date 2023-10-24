@@ -1,4 +1,4 @@
-import { indent } from "./general";
+import indent from "./indent.js";
 
 test('easy', '-',
     `One

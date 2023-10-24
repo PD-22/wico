@@ -1,5 +1,5 @@
+import factorial from "../utils/factorial.js";
 import combineDict from "../utils/combineDict.js";
-import { factorial } from "../utils/general.js";
 
 export function getKeyValuePermutations(set) {
     return combineDict(set, getPermutations);

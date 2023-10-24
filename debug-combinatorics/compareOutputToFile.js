@@ -1,5 +1,5 @@
 import { readFileSync } from "fs";
-import { compareFileContents } from "../utils/general.js";
+import compareFileContents from "../utils/compareFileContents.js";
 import { formatCombinatorics } from "./formatCombinatorics.js";
 
 export default function compareOutputToFile(outputList, compareFile) {

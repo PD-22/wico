@@ -1,7 +1,7 @@
 import { writeFileSync } from "fs";
 import { getMinDiffKeyValueCombinations } from "../combinations/combinationsOptimization.js";
+import mapValues from "../utils/mapValues.js";
 import { getMinDiffKeyValuePermutations } from "../permutations/permutationsOptimization.js";
-import { mapValues } from "../utils/general.js";
 import compareDataToFile from "./compareDataToFile.js";
 import formatWiringCombinations from "./formatWiringCombinations.js";
 
