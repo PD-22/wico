@@ -1,4 +1,4 @@
-import { indentText } from "./general.js";
+import { indent } from "./general";
 
 test('easy', '-',
     `One
@@ -135,7 +135,7 @@ test('start lines whitespace', '-',
 );
 
 function test(name, indentation, input, shouldBe) {
-    const data = indentText(input, indentation);
+    const data = indent(input, indentation);
     if (data === shouldBe) {
         console.log(`TEST: "${name}": SUCCESS`);
     } else {
