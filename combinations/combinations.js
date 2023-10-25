@@ -1,6 +1,5 @@
+import { getDictCombinatorics } from "../combinatoric-utils/getDictPermutations.js";
 import product from "../utils/product.js";
-import unzip from "../utils/unzip.js";
-import zip from "../utils/zip.js";
 
 export default function getCombinations(arrays) {
     const isArray = Array.isArray(arrays);
@@ -9,8 +8,7 @@ export default function getCombinations(arrays) {
 }
 
 export function getDictCombinations(arraysDict) {
-    const [keys, values] = unzip(Object.entries(arraysDict));
-    return getCombinations(values).map(newValues => Object.fromEntries(zip(keys, newValues)));
+    return getDictCombinatorics(setDict, getCombinations);
 }
 
 export function getArrayCombinations(arraysList) {
