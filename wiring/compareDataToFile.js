@@ -3,6 +3,7 @@ import compareFileContents from "../utils/compareFileContents.js";
 
 export default async function compareDataToFile(data, compareFile) {
     try {
+        console.log(`Compare data to "${compareFile}"...`);
         const backupData = readFileSync(compareFile, 'utf8');
         const matches = compareFileContents(backupData, data);
         console.log(`File content matches: ${matches}`);
