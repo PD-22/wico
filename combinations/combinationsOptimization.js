@@ -1,4 +1,3 @@
-import combineDict from "../utils/combineDict.js";
 import { getCombinationItemIndex, getCombinationsLength, getGroupSize } from "./combinations.js";
 
 export default function getMinDiffCombinations(arrays) {
@@ -8,7 +7,8 @@ export default function getMinDiffCombinations(arrays) {
 }
 
 export function getMinDiffDictCombinations(arraysDict) {
-    return combineDict(arraysDict, getMinDiffCombinations);
+    const [keys, values] = unzip(Object.entries(arraysDict));
+    return getMinDiffCombinations(values).map(newValues => createObject(keys, newValues));
 }
 
 export function getMinDiffArrayCombinations(arraysList) {

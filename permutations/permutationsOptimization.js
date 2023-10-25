@@ -1,4 +1,3 @@
-import combineDict from "../utils/combineDict.js";
 import { getPermutationAtIndex, getPermutationsLength } from "./permutations.js";
 
 export default function getMinDiffPermutations(set) {
@@ -8,7 +7,8 @@ export default function getMinDiffPermutations(set) {
 }
 
 export function getMinDiffDictPermutations(setDict) {
-    return combineDict(setDict, getMinDiffPermutations);
+    const [keys, values] = unzip(Object.entries(setDict));
+    return getMinDiffPermutations(values).map(newValues => createObject(keys, newValues));
 }
 
 export function getMinDiffArrayPermutations(setArray) {

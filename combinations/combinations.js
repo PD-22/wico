@@ -1,4 +1,3 @@
-import combineDict from "../utils/combineDict.js";
 import product from "../utils/product.js";
 
 export default function getCombinations(arrays) {
@@ -8,7 +7,8 @@ export default function getCombinations(arrays) {
 }
 
 export function getDictCombinations(arraysDict) {
-    return combineDict(arraysDict, getCombinations);
+    const [keys, values] = unzip(Object.entries(arraysDict));
+    return getCombinations(values).map(newValues => createObject(keys, newValues));
 }
 
 export function getArrayCombinations(arraysList) {

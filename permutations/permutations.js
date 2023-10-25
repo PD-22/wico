@@ -1,5 +1,4 @@
 import factorial from "../utils/factorial.js";
-import combineDict from "../utils/combineDict.js";
 
 export default function getPermutations(set) {
     const isArray = Array.isArray(set);
@@ -8,7 +7,8 @@ export default function getPermutations(set) {
 }
 
 export function getDictPermutations(setDict) {
-    return combineDict(setDict, getPermutations);
+    const [keys, values] = unzip(Object.entries(setDict));
+    return getPermutations(values).map(newValues => createObject(keys, newValues));
 }
 
 export function getArrayPermutations(setList) {
