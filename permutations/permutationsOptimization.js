@@ -1,3 +1,5 @@
+import unzip from "../utils/unzip.js";
+import zip from "../utils/zip.js";
 import { getPermutationAtIndex, getPermutationsLength } from "./permutations.js";
 
 export default function getMinDiffPermutations(set) {
@@ -8,7 +10,7 @@ export default function getMinDiffPermutations(set) {
 
 export function getMinDiffDictPermutations(setDict) {
     const [keys, values] = unzip(Object.entries(setDict));
-    return getMinDiffPermutations(values).map(newValues => createObject(keys, newValues));
+    return getMinDiffPermutations(values).map(newValues => Object.fromEntries(zip(keys, newValues)));
 }
 
 export function getMinDiffArrayPermutations(setArray) {

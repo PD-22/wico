@@ -1,3 +1,5 @@
+import unzip from "../utils/unzip.js";
+import zip from "../utils/zip.js";
 import { getCombinationItemIndex, getCombinationsLength, getGroupSize } from "./combinations.js";
 
 export default function getMinDiffCombinations(arrays) {
@@ -8,7 +10,7 @@ export default function getMinDiffCombinations(arrays) {
 
 export function getMinDiffDictCombinations(arraysDict) {
     const [keys, values] = unzip(Object.entries(arraysDict));
-    return getMinDiffCombinations(values).map(newValues => createObject(keys, newValues));
+    return getMinDiffCombinations(values).map(newValues => Object.fromEntries(zip(keys, newValues)));
 }
 
 export function getMinDiffArrayCombinations(arraysList) {
