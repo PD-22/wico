@@ -1,10 +1,9 @@
+import { getArrayOrDictCombinatorics } from "../combinatoric-utils/getArrayOrDictCombinatorics.js";
 import { getDictCombinatorics } from "../combinatoric-utils/getDictPermutations.js";
 import factorial from "../utils/factorial.js";
 
 export default function getPermutations(set) {
-    const isArray = Array.isArray(set);
-    const callback = isArray ? getArrayPermutations : getDictPermutations;
-    return callback(set);
+    return getArrayOrDictCombinatorics(set, getArrayPermutations, getDictPermutations);
 }
 
 export function getDictPermutations(setDict) {

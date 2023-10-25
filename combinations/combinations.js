@@ -1,10 +1,9 @@
+import { getArrayOrDictCombinatorics } from "../combinatoric-utils/getArrayOrDictCombinatorics.js";
 import { getDictCombinatorics } from "../combinatoric-utils/getDictPermutations.js";
 import product from "../utils/product.js";
 
 export default function getCombinations(arrays) {
-    const isArray = Array.isArray(arrays);
-    const callback = isArray ? getArrayCombinations : getDictCombinations;
-    return callback(arrays);
+    return getArrayOrDictCombinatorics(arrays, getArrayCombinations, getDictCombinations);
 }
 
 export function getDictCombinations(arraysDict) {

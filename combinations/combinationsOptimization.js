@@ -1,10 +1,9 @@
+import { getArrayOrDictCombinatorics } from "../combinatoric-utils/getArrayOrDictCombinatorics.js";
 import { getDictCombinatorics } from "../combinatoric-utils/getDictPermutations.js";
 import { getCombinationItemIndex, getCombinationsLength, getGroupSize } from "./combinations.js";
 
 export default function getMinDiffCombinations(arrays) {
-    const isArray = Array.isArray(arrays);
-    const callback = isArray ? getMinDiffArrayCombinations : getMinDiffDictCombinations;
-    return callback(arrays);
+    return getArrayOrDictCombinatorics(arrays, getMinDiffArrayCombinations, getMinDiffDictCombinations);
 }
 
 export function getMinDiffDictCombinations(arraysDict) {
