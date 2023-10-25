@@ -1,12 +1,18 @@
 import combineDict from "../utils/combineDict.js";
 import { getPermutationAtIndex, getPermutationsLength } from "./permutations.js";
 
-export function getMinDiffKeyValuePermutations(set) {
-    return combineDict(set, getMinDiffPermutations);
+export default function getMinDiffPermutations(set) {
+    const isArray = Array.isArray(set);
+    const callback = isArray ? getMinDiffArrayPermutations : getMinDiffDictPermutations;
+    return callback(set);
 }
 
-export default function getMinDiffPermutations(set) {
-    return Array.from(getMinDiffPermutationsGenerator(set));
+export function getMinDiffDictPermutations(setDict) {
+    return combineDict(setDict, getMinDiffPermutations);
+}
+
+export function getMinDiffArrayPermutations(setArray) {
+    return Array.from(getMinDiffPermutationsGenerator(setArray));
 }
 
 export function* getMinDiffPermutationsGenerator(set) {

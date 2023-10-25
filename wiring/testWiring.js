@@ -1,13 +1,13 @@
 import { writeFileSync } from "fs";
-import { getMinDiffKeyValueCombinations } from "../combinations/combinationsOptimization.js";
+import { getMinDiffDictCombinations } from "../combinations/combinationsOptimization.js";
 import mapValues from "../utils/mapValues.js";
-import { getMinDiffKeyValuePermutations } from "../permutations/permutationsOptimization.js";
+import { getMinDiffDictPermutations } from "../permutations/permutationsOptimization.js";
 import compareDataToFile from "./compareDataToFile.js";
 import formatWiringCombinations from "./formatWiringCombinations.js";
 
 export default function testWiring({ wiringSettings, outputFile, outputCompareFile }) {
-    const wiringCombinations = getMinDiffKeyValueCombinations(
-        mapValues(wiringSettings, getMinDiffKeyValuePermutations)
+    const wiringCombinations = getMinDiffDictCombinations(
+        mapValues(wiringSettings, getMinDiffDictPermutations)
     );
 
     const formattedCombinations = formatWiringCombinations(wiringCombinations);

@@ -1,12 +1,18 @@
-import product from "../utils/product.js";
 import combineDict from "../utils/combineDict.js";
-
-export function getKeyValueCombinations(arrays) {
-    return combineDict(arrays, getCombinations);
-}
+import product from "../utils/product.js";
 
 export default function getCombinations(arrays) {
-    return Array.from(getCombinationsGenerator(arrays));
+    const isArray = Array.isArray(arrays);
+    const callback = isArray ? getArrayCombinations : getDictCombinations;
+    return callback(arrays);
+}
+
+export function getDictCombinations(arraysDict) {
+    return combineDict(arraysDict, getCombinations);
+}
+
+export function getArrayCombinations(arraysList) {
+    return Array.from(getCombinationsGenerator(arraysList));
 }
 
 export function* getCombinationsGenerator(arrays) {

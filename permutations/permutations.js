@@ -1,12 +1,18 @@
 import factorial from "../utils/factorial.js";
 import combineDict from "../utils/combineDict.js";
 
-export function getKeyValuePermutations(set) {
-    return combineDict(set, getPermutations);
+export default function getPermutations(set) {
+    const isArray = Array.isArray(set);
+    const callback = isArray ? getArrayPermutations : getDictPermutations;
+    return callback(set);
 }
 
-export default function getPermutations(set) {
-    return Array.from(getPermutationsGenerator(set));
+export function getDictPermutations(setDict) {
+    return combineDict(setDict, getPermutations);
+}
+
+export function getArrayPermutations(setList) {
+    return Array.from(getPermutationsGenerator(setList));
 }
 
 export function* getPermutationsGenerator(set) {
