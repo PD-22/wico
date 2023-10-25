@@ -6,7 +6,7 @@ export default function getCombinations(arrays) {
     return getArrayOrDictCombinatorics(arrays, getArrayCombinations, getDictCombinations);
 }
 
-export function getDictCombinations(arraysDict) {
+export function getDictCombinations(setDict) {
     return getDictCombinatorics(setDict, getCombinations);
 }
 
