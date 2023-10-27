@@ -134,11 +134,8 @@ test('start lines whitespace', '-',
 -  Three`
 );
 
-function test(name, indentation, input, shouldBe) {
-    const data = indent(input, indentation);
-    if (data === shouldBe) {
-        console.log(`TEST: "${name}": SUCCESS`);
-    } else {
-        console.error(`TEST: "${name}": FAILURE:\n  got:\n\`${data}\`\n  expected:\n\`${shouldBe}\``);
-    }
+function test(description, indentation, input, expected) {
+    const result = indent(input, indentation);
+    if (result === expected) return;
+    console.error(`Fail: Expected ${JSON.stringify(expected)}, Got ${JSON.stringify(result)} in "${description}"`);
 }
