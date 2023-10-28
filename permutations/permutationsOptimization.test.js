@@ -1,6 +1,6 @@
 import { join } from "path";
-import testCombinatorics from "../debug-combinatorics/testCombinatorics.js";
-import validateAdjacencyDiff from "../debug-combinatorics/validateAdjacencyDiff.js";
+import testCombinatorics from "../combinatorics-debug/testCombinatorics.js";
+import validateAdjacencyDiff from "../combinatorics-debug/validateAdjacencyDiff.js";
 import getDirname from '../debug/getDirname.js';
 import range from "../utils/range.js";
 import getMinDiffPermutations from "./permutationsOptimization.js";

@@ -1,5 +1,5 @@
 import { writeFileSync } from "fs";
-import { formatCombinatorics } from "./formatCombinatorics.js";
+import formatCombinatorics from "./formatCombinatorics.js";
 
 export default function writeOutputToFile(outputList, outputFile) {
     console.log(`Writing output to "${outputFile}"...`);

@@ -1,5 +1,5 @@
 import { join } from "path";
-import testCombinatorics from "../debug-combinatorics/testCombinatorics.js";
+import testCombinatorics from "../combinatorics-debug/testCombinatorics.js";
 import getDirname from '../debug/getDirname.js';
 import range from "../utils/range.js";
 import getCombinations from "./combinations.js";

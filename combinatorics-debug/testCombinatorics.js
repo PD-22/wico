@@ -1,7 +1,8 @@
+import compareDataToFile from "../wiring/compareDataToFile.js";
+import formatCombinatorics from "./formatCombinatorics.js";
 import processCombinatorics from "./processCombinatorics.js";
 import validateOutputList from "./validateOutputList.js";
 import writeOutputToFile from "./writeOutputToFile.js";
-import compareDataToFile from "../wiring/compareDataToFile.js";
 
 export const PROGRESS_BAR_WIDTH = 20;
 

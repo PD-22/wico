@@ -1,4 +1,4 @@
-export function formatCombinatorics(combinatoricsList) {
+export default function formatCombinatorics(combinatoricsList) {
     return combinatoricsList.map(
         combinatorics => combinatorics.map(
             combinatoric => combinatoric.join(' ')
