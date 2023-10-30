@@ -2,13 +2,20 @@ import factorial from "../utils/factorial.js";
 import unzip from "../utils/unzip.js";
 import zip from "../utils/zip.js";
 
+export default function getPermutations(set) {
+    const callback = Array.isArray(set) ?
+        getArrayPermutations :
+        getDictPermutations;
+    return callback(set);
+}
+
 export function getDictPermutations(setDict) {
     const [keys, values] = unzip(Object.entries(setDict));
     return getPermutations(values).map(newValues => Object.fromEntries(zip(keys, newValues)));
 }
 
-export default function getPermutations(set) {
-    return Array.from(getPermutationsGenerator(set));
+export function getArrayPermutations(setArray) {
+    return Array.from(getPermutationsGenerator(setArray));
 }
 
 export function* getPermutationsGenerator(set) {
