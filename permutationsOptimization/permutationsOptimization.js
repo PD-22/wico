@@ -1,6 +1,6 @@
 import unzip from "../utils/unzip.js";
 import zip from "../utils/zip.js";
-import { getPermutationAtIndex, getPermutationsLength } from "./permutations.js";
+import { getPermutationAtIndex, getPermutationsLength } from "../permutations/permutations.js";
 
 export default function getMinDiffPermutations(set) {
     const callback = Array.isArray(set) ?

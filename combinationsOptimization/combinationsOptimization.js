@@ -1,6 +1,6 @@
 import unzip from "../utils/unzip.js";
 import zip from "../utils/zip.js";
-import { getCombinationItemIndex, getCombinationsLength, getGroupSize } from "./combinations.js";
+import { getCombinationItemIndex, getCombinationsLength, getGroupSize } from "../combinations/combinations.js";
 
 export default function getMinDiffCombinations(arrays) {
     const callback = Array.isArray(arrays) ?
