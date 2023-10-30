@@ -1,4 +1,4 @@
-import compareDataToFile from "../wiring/compareDataToFile.js";
+import compareDataToFile from "../debug/compareDataToFile.js";
 import formatCombinatorics from "./formatCombinatorics.js";
 import measureCombinatoricsPerfomance from "./processCombinatorics.js";
 import validateOutputList from "./validateOutputList.js";
