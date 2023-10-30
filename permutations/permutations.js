@@ -1,17 +1,14 @@
-import { getArrayOrDictCombinatorics } from "../combinatoric-utils/getArrayOrDictCombinatorics.js";
-import { getDictCombinatorics } from "../combinatoric-utils/getDictCombinatorics.js";
 import factorial from "../utils/factorial.js";
-
-export default function getPermutations(set) {
-    return getArrayOrDictCombinatorics(set, getArrayPermutations, getDictPermutations);
-}
+import unzip from "../utils/unzip.js";
+import zip from "../utils/zip.js";
 
 export function getDictPermutations(setDict) {
-    return getDictCombinatorics(setDict, getPermutations);
+    const [keys, values] = unzip(Object.entries(setDict));
+    return getPermutations(values).map(newValues => Object.fromEntries(zip(keys, newValues)));
 }
 
-export function getArrayPermutations(setList) {
-    return Array.from(getPermutationsGenerator(setList));
+export default function getPermutations(set) {
+    return Array.from(getPermutationsGenerator(set));
 }
 
 export function* getPermutationsGenerator(set) {

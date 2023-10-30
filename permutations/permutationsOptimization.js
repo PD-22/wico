@@ -1,17 +1,14 @@
-import { getArrayOrDictCombinatorics } from "../combinatoric-utils/getArrayOrDictCombinatorics.js";
-import { getDictCombinatorics } from "../combinatoric-utils/getDictCombinatorics.js";
+import unzip from "../utils/unzip.js";
+import zip from "../utils/zip.js";
 import { getPermutationAtIndex, getPermutationsLength } from "./permutations.js";
 
-export default function getMinDiffPermutations(set) {
-    return getArrayOrDictCombinatorics(set, getMinDiffArrayPermutations, getMinDiffDictPermutations);
-}
-
 export function getMinDiffDictPermutations(setDict) {
-    return getDictCombinatorics(setDict, getMinDiffPermutations);
+    const [keys, values] = unzip(Object.entries(setDict));
+    return getMinDiffPermutations(values).map(newValues => Object.fromEntries(zip(keys, newValues)));
 }
 
-export function getMinDiffArrayPermutations(setArray) {
-    return Array.from(getMinDiffPermutationsGenerator(setArray));
+export default function getMinDiffPermutations(set) {
+    return Array.from(getMinDiffPermutationsGenerator(set));
 }
 
 export function* getMinDiffPermutationsGenerator(set) {
