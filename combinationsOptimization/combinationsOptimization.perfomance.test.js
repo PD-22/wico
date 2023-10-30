@@ -1,7 +1,7 @@
 import { join } from "path";
-import testCombinatoricsPerfomance from "../combinatorics-debug/testCombinatorics.js";
-import validateAdjacencyDiff from "../combinatorics-debug/validateAdjacencyDiff.js";
 import getDirname from '../debug/getDirname.js';
+import testCombinatoricsPerfomance from "../debug/testCombinatoricsPerfomance.js";
+import countListDiff from "../utils/countListDiff.js";
 import range from "../utils/range.js";
 import getMinDiffCombinations from "./combinationsOptimization.js";
 
@@ -12,5 +12,5 @@ testCombinatoricsPerfomance({
     outputFile: join(DIRNAME, 'combinationsOptimization.txt'),
     compareFile: join(DIRNAME, 'combinationsOptimization copy.txt'),
     getCombinatoricsCallback: getMinDiffCombinations,
-    validateAdjacentItems: validateAdjacencyDiff(1)
+    validateAdjacentItems: (v1, v2) => countListDiff(v1, v2) === 1
 });
