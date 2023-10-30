@@ -1,5 +1,5 @@
 import { getArrayOrDictCombinatorics } from "../combinatoric-utils/getArrayOrDictCombinatorics.js";
-import { getDictCombinatorics } from "../combinatoric-utils/getDictPermutations.js";
+import { getDictCombinatorics } from "../combinatoric-utils/getDictCombinatorics.js";
 import factorial from "../utils/factorial.js";
 
 export default function getPermutations(set) {

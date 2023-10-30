@@ -1,5 +1,5 @@
 import { getArrayOrDictCombinatorics } from "../combinatoric-utils/getArrayOrDictCombinatorics.js";
-import { getDictCombinatorics } from "../combinatoric-utils/getDictPermutations.js";
+import { getDictCombinatorics } from "../combinatoric-utils/getDictCombinatorics.js";
 import { getPermutationAtIndex, getPermutationsLength } from "./permutations.js";
 
 export default function getMinDiffPermutations(set) {
