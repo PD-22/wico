@@ -3,12 +3,12 @@ import getMinDiffCombinations from "../combinationsOptimization/combinationsOpti
 import getMinDiffPermutations from "../permutationsOptimization/permutationsOptimization.js";
 import mapValues from "../utils/mapValues.js";
 import compareDataToFile from "../debug/compareDataToFile.js";
-import formatWiringCombinations from "./formatWiringCombinations.js";
+import formatWiring from "./formatWiring.js";
 
 export default function testWiring({ wiringSettings, outputFile, outputCompareFile }) {
     const wiringCombinations = getMinDiffCombinations(mapValues(wiringSettings, getMinDiffPermutations));
 
-    const formattedCombinations = formatWiringCombinations(wiringCombinations);
+    const formattedCombinations = formatWiring(wiringCombinations);
 
     writeFileSync(outputFile, formattedCombinations);
     console.log(`result: "${outputFile}"`);

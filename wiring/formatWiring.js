@@ -2,7 +2,7 @@ import indent from "../utils/indent.js";
 import lines from "../utils/lines.js";
 import mapObject from "../utils/mapObject.js";
 
-export default function formatWiringCombinations(combList) {
+export default function formatWiring(combList) {
     const combinations = combList.map((comb, index) =>
         formatCombinationEntry(comb, index, combList)
     );
