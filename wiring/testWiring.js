@@ -6,10 +6,9 @@ import compareDataToFile from "./compareDataToFile.js";
 import formatWiringCombinations from "./formatWiringCombinations.js";
 
 export default function testWiring({ wiringSettings, outputFile, outputCompareFile }) {
-    const minDiffPermutations = mapValues(wiringSettings, getMinDiffPermutations);
-    const minDiffCombinations = getMinDiffCombinations(minDiffPermutations);
+    const wiringCombinations = getMinDiffCombinations(mapValues(wiringSettings, getMinDiffPermutations));
 
-    const formattedCombinations = formatWiringCombinations(minDiffCombinations);
+    const formattedCombinations = formatWiringCombinations(wiringCombinations);
 
     writeFileSync(outputFile, formattedCombinations);
     console.log(`result: "${outputFile}"`);

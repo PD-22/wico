@@ -26,10 +26,10 @@ function formatWiringSegment(wires, wiringName, nextComb) {
 }
 
 function formatWireLine(wire, joint, nextWires) {
-    return `${joint} - ${wire}` + getMextWireSuffix(wire, joint, nextWires);
+    return `${joint} - ${wire}` + getNextWireSuffix(wire, joint, nextWires);
 }
 
-function getMextWireSuffix(wire, joint, nextWires) {
+function getNextWireSuffix(wire, joint, nextWires) {
     const nextWire = nextWires?.[joint];
     const wireChanges = nextWire && wire !== nextWire;
     return wireChanges ? ` -> ${nextWire}` : '';
