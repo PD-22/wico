@@ -18,6 +18,6 @@ testWiring({
             l: "green",
         }
     },
-    outputFile: join(DIRNAME, 'output.txt'),
-    outputCompareFile: join(DIRNAME, 'output copy.txt'),
+    outputFile: join(DIRNAME, 'wiring.txt'),
+    outputCompareFile: join(DIRNAME, 'wiring copy.txt'),
 });
