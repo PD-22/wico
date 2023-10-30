@@ -2,13 +2,20 @@ import product from "../utils/product.js";
 import unzip from "../utils/unzip.js";
 import zip from "../utils/zip.js";
 
+export default function getCombinations(arrays) {
+    const callback = Array.isArray(arrays) ?
+        getArrayCombinations :
+        getDictCombinations;
+    return callback(arrays);
+}
+
 export function getDictCombinations(arraysDict) {
     const [keys, values] = unzip(Object.entries(arraysDict));
     return getCombinations(values).map(newValues => Object.fromEntries(zip(keys, newValues)));
 }
 
-export default function getCombinations(arrays) {
-    return Array.from(getCombinationsGenerator(arrays));
+export function getArrayCombinations(arraysList) {
+    return Array.from(getCombinationsGenerator(arraysList));
 }
 
 export function* getCombinationsGenerator(arrays) {
