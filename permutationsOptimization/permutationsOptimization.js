@@ -24,12 +24,12 @@ export function* getMinDiffPermutationsGenerator(set) {
         yield getMinDiffPermutationAtIndex(set, index, totalLength);
 }
 
-export function getMinDiffPermutationAtIndex(set, index, totalLength = getPermutationsLength(set)) {
+export function getMinDiffPermutationAtIndex(set, index, totalLength = getPermutationsLength(set.length)) {
     const swappedIndex = getMinDiffPermutationSwapIndex(set, index, totalLength);
     return getPermutationAtIndex(set, swappedIndex, totalLength);
 }
 
-export function getMinDiffPermutationSwapIndex(set, index, totalLength = getPermutationsLength(set)) {
+export function getMinDiffPermutationSwapIndex(set, index, totalLength = getPermutationsLength(set.length)) {
     if (index < 0 || index >= totalLength) throw new RangeError();
 
     let length = set.length;
