@@ -2,7 +2,7 @@ import { writeFileSync } from "fs";
 import forEachAdjacents from "../utils/forEachAdjacents.js";
 import compareDataToFile from "./compareDataToFile.js";
 import createProgressBar from './createProgressBar.js';
-import { getDeltaTime } from "./perfomance.js";
+import getDeltaTime from "./getDeltaTime.js";
 
 const PROGRESS_BAR_WIDTH = 20;
 
@@ -24,13 +24,13 @@ export default function testCombinatoricsPerfomance({
 
 function processCombinatorics(inputs, getCombinatoricsCallback) {
     console.log(`${getCombinatoricsCallback.name}...`);
+
     const progressBar = createProgressBar(inputs.length, PROGRESS_BAR_WIDTH);
     const [deltaTime, outputList] = getDeltaTime(() => inputs.map(input => {
         const result = getCombinatoricsCallback(input);
         progressBar.increment();
         return result;
-    })
-    );
+    }));
 
     console.log(`${deltaTime.toFixed()} ms\n`);
     return outputList;
