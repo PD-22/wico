@@ -11,7 +11,7 @@ export default function getCombinations(arrays) {
 
 export function getDictCombinations(arraysDict) {
     const [keys, values] = unzip(Object.entries(arraysDict));
-    return getCombinations(values).map(newValues => Object.fromEntries(zip(keys, newValues)));
+    return getArrayCombinations(values).map(newValues => Object.fromEntries(zip(keys, newValues)));
 }
 
 export function getArrayCombinations(arraysList) {

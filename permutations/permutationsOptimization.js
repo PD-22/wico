@@ -11,7 +11,7 @@ export default function getMinDiffPermutations(set) {
 
 export function getMinDiffDictPermutations(setDict) {
     const [keys, values] = unzip(Object.entries(setDict));
-    return getMinDiffPermutations(values).map(newValues => Object.fromEntries(zip(keys, newValues)));
+    return getMinDiffArrayPermutations(values).map(newValues => Object.fromEntries(zip(keys, newValues)));
 }
 
 export function getMinDiffArrayPermutations(setArray) {

@@ -11,7 +11,7 @@ export default function getPermutations(set) {
 
 export function getDictPermutations(setDict) {
     const [keys, values] = unzip(Object.entries(setDict));
-    return getPermutations(values).map(newValues => Object.fromEntries(zip(keys, newValues)));
+    return getArrayPermutations(values).map(newValues => Object.fromEntries(zip(keys, newValues)));
 }
 
 export function getArrayPermutations(setArray) {

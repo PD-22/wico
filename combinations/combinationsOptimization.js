@@ -11,7 +11,7 @@ export default function getMinDiffCombinations(arrays) {
 
 export function getMinDiffDictCombinations(arraysDict) {
     const [keys, values] = unzip(Object.entries(arraysDict));
-    return getMinDiffCombinations(values).map(newValues => Object.fromEntries(zip(keys, newValues)));
+    return getMinDiffArrayCombinations(values).map(newValues => Object.fromEntries(zip(keys, newValues)));
 }
 
 export function getMinDiffArrayCombinations(arraysList) {
