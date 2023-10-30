@@ -1,6 +1,6 @@
-import getMinDiffCombinations from "./combinationsOptimization.js";
+import { getMinDiffArrayCombinations } from "./combinationsOptimization.js";
 
-const combinations = getMinDiffCombinations([[1, 2, 3], ['a', 'b', 'c'], ['A', 'B', 'C']]);
+const combinations = getMinDiffArrayCombinations([[1, 2, 3], ['a', 'b', 'c'], ['A', 'B', 'C']]);
 console.log(combinations.map(arr => arr.join(' ')).join('\n'));
 /*
 1 a A

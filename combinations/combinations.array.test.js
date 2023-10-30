@@ -1,6 +1,6 @@
-import getCombinations from "./combinations.js";
+import { getArrayCombinations } from "./combinations.js";
 
-const combinations = getCombinations([[1, 2, 3], ['a', 'b', 'c'], ['A', 'B', 'C']]);
+const combinations = getArrayCombinations([[1, 2, 3], ['a', 'b', 'c'], ['A', 'B', 'C']]);
 console.log(combinations.map(arr => arr.join(' ')).join('\n'));
 /*
 1 a A
