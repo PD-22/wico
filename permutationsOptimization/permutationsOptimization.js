@@ -25,22 +25,24 @@ export function* getMinDiffPermutationsGenerator(set) {
 }
 
 export function getMinDiffPermutationAtIndex(set, index, totalLength = getPermutationsLength(set)) {
-    return getPermutationAtIndex(set, getMinDiffPermutationSwapIndex(set.length, index, totalLength));
+    const swappedIndex = getMinDiffPermutationSwapIndex(set, index, totalLength);
+    return getPermutationAtIndex(set, swappedIndex, totalLength);
 }
 
-export function getMinDiffPermutationSwapIndex(length, index, totalLength = getPermutationsLength(set)) {
+export function getMinDiffPermutationSwapIndex(set, index, totalLength = getPermutationsLength(set)) {
     if (index < 0 || index >= totalLength) throw new RangeError();
 
-    let height = totalLength / length--;
+    let length = set.length;
+    totalLength /= length--;
     let offset = 0;
 
     while (length > 1) {
-        const leftover = Math.floor(index / height);
+        const leftover = Math.floor(index / totalLength);
         const isOdd = leftover % 2 === 1;
-        offset += leftover * height;
-        index %= height;
-        if (isOdd) index = height - index - 1;
-        height /= length--;
+        offset += leftover * totalLength;
+        index %= totalLength;
+        if (isOdd) index = totalLength - index - 1;
+        totalLength /= length--;
     }
 
     return index + offset;
