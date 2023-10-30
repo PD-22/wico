@@ -29,8 +29,6 @@ export function getPermutationsLength(setLength) {
 }
 
 export function getPermutationAtIndex(set, index, totalLength = getPermutationsLength(set.length)) {
-    if (index < 0 || index >= totalLength) throw new RangeError();
-
     let remainingSet = set.slice();
     let result = [];
 

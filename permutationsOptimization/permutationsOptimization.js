@@ -30,8 +30,6 @@ export function getMinDiffPermutationAtIndex(set, index, totalLength = getPermut
 }
 
 export function getMinDiffPermutationSwapIndex(set, index, totalLength = getPermutationsLength(set.length)) {
-    if (index < 0 || index >= totalLength) throw new RangeError();
-
     let length = set.length;
     totalLength /= length--;
     let offset = 0;
