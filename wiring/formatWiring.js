@@ -1,6 +1,6 @@
 import indent from "../utils/indent.js";
 import lines from "../utils/lines.js";
-import mapObject from "../utils/mapObject.js";
+import map from "../utils/map.js";
 
 export default function formatWiring(combList) {
     const combinations = combList.map((comb, index) =>
@@ -11,7 +11,7 @@ export default function formatWiring(combList) {
 
 function formatCombinationEntry(comb, index, combList) {
     const nextComb = combList[index + 1];
-    const wiringSegments = mapObject(comb, (wires, wiringName) =>
+    const wiringSegments = map(comb, (wires, wiringName) =>
         formatWiringSegment(wires, wiringName, nextComb)
     );
     return lines(`#${index + 1}:`, indent(lines(...wiringSegments)));
@@ -19,7 +19,7 @@ function formatCombinationEntry(comb, index, combList) {
 
 function formatWiringSegment(wires, wiringName, nextComb) {
     const nextWires = nextComb?.[wiringName];
-    const wiringLines = mapObject(wires, (wire, joint) =>
+    const wiringLines = map(wires, (wire, joint) =>
         formatWireLine(wire, joint, nextWires)
     );
     return lines(`${wiringName}:`, indent(lines(...wiringLines)));
@@ -34,3 +34,4 @@ function getNextWireSuffix(wire, joint, nextWires) {
     const wireChanges = nextWire && wire !== nextWire;
     return wireChanges ? ` -> ${nextWire}` : '';
 }
+

@@ -1,8 +1,8 @@
 import { writeFileSync } from "fs";
 import getMinDiffCombinations from "../combinationsOptimization/combinationsOptimization.js";
+import compareDataToFile from "../debug/compareDataToFile.js";
 import getMinDiffPermutations from "../permutationsOptimization/permutationsOptimization.js";
 import mapValues from "../utils/mapValues.js";
-import compareDataToFile from "../debug/compareDataToFile.js";
 import formatWiring from "./formatWiring.js";
 
 export default function testWiring({ wiringSettings, outputFile, outputCompareFile }) {

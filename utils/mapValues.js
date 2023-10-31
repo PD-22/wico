@@ -1,11 +1,5 @@
-import transformObject from "./transformObject.js";
-
-export default function mapValues(obj, callback) {
-    if (Array.isArray(obj)) return obj.map((value, index) =>
-        callback(value, index, index, obj)
-    );
-
-    return transformObject(obj, (value, key, index) =>
-        [key, callback(value, key, index, obj)]
-    );
+export default function mapValues(object, callback) {
+    return Object.fromEntries(Object.entries(object).map(([key, value], index) =>
+        [key, callback(value, key, index, object)]
+    ));
 }
