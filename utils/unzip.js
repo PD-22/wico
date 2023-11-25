@@ -1,3 +1,8 @@
+/**
+ * @example
+ * unzip([["A", "X"], ["B", "Y"], ["C", "Z"]]);
+ * // [["A", "B", "C"], ["X", "Y", "Z"]]
+ */
 export default function unzip(zippedArray) {
     const maxLength = Math.max(...zippedArray.map(arr => arr.length));
     const unzipped = [];

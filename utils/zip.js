@@ -1,3 +1,8 @@
+/**
+ * @example
+ * zip(['A', 'B', 'C'], ['X', 'Y', 'Z']);
+ * // [['A', 'X'], ['B', 'Y'], ['C', 'Z']]
+ */
 export default function zip(...arrays) {
     const maxLength = Math.max(...arrays.map(arr => arr.length));
     const zipped = [];
