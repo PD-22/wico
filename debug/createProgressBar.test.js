@@ -2,6 +2,20 @@ import createProgressBar from "./createProgressBar.js";
 
 testProgressBar();
 
+function testProgressBar() {
+    const totalSteps = 20;
+    const progressBarWidth = 20;
+    const progressBar = createProgressBar(totalSteps, progressBarWidth);
+
+    console.log('Simulating progress:');
+    simulateProgress(progressBar, totalSteps, 50);
+}
+
+/**
+ * @param {{ increment: () => any; }} progressBar
+ * @param {number} totalSteps
+ * @param {number} interval
+ */
 function simulateProgress(progressBar, totalSteps, interval) {
     let currentStep = 0;
 
@@ -13,13 +27,4 @@ function simulateProgress(progressBar, totalSteps, interval) {
             clearInterval(progressInterval);
         }
     }, interval);
-}
-
-function testProgressBar() {
-    const totalSteps = 20;
-    const progressBarWidth = 20;
-    const progressBar = createProgressBar(totalSteps, progressBarWidth);
-
-    console.log('Simulating progress:');
-    simulateProgress(progressBar, totalSteps, 50);
 }
