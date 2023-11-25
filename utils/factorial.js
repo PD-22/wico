@@ -1,4 +1,7 @@
 /**
+ * @param {number} n 
+ * @returns {number}
+ * 
  * @example
  * factorial(4); // 24
  */

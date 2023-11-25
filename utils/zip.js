@@ -1,14 +1,13 @@
 /**
+ * @template T
+ * @param {...T[]} arrays
+ * @returns {T[][]}
+ * 
  * @example
  * zip(['A', 'B', 'C'], ['X', 'Y', 'Z']);
  * // [['A', 'X'], ['B', 'Y'], ['C', 'Z']]
  */
 export default function zip(...arrays) {
-    const maxLength = Math.max(...arrays.map(arr => arr.length));
-    const zipped = [];
-
-    for (let i = 0; i < maxLength; i++)
-        zipped.push(arrays.map(arr => arr[i]));
-
-    return zipped;
+    const minLength = Math.min(...arrays.map(arr => arr.length));
+    return Array.from({ length: minLength }, (_, i) => arrays.map(arr => arr[i]));
 }

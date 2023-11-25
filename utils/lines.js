@@ -1,4 +1,7 @@
 /**
+ * @param {...string} stringList
+ * @returns {string}
+ * 
  * @example
  * lines('alpha', 'beta', 'charlie'); // "alpha\nbeta\ncharlie"
  */

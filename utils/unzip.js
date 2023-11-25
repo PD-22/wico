@@ -1,15 +1,13 @@
 /**
+ * @template T
+ * @param {T[][]} zippedArray 
+ * @returns {T[][]}
+ * 
  * @example
- * unzip([["A", "X"], ["B", "Y"], ["C", "Z"]]);
+ * unzip([["A", "X", "W"], ["B", "Y"], ["C", "Z"]]);
  * // [["A", "B", "C"], ["X", "Y", "Z"]]
  */
 export default function unzip(zippedArray) {
-    const maxLength = Math.max(...zippedArray.map(arr => arr.length));
-    const unzipped = [];
-
-    for (let i = 0; i < maxLength; i++) {
-        unzipped.push(zippedArray.map(arr => (i < arr.length ? arr[i] : undefined)));
-    }
-
-    return unzipped;
+    const minLength = Math.min(...zippedArray.map(arr => arr.length));
+    return Array.from({ length: minLength }, (_, i) => zippedArray.map(arr => arr[i]));
 }

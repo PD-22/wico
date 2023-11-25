@@ -74,6 +74,12 @@ test(
   "-  One\n-  Two\n-  Three"
 );
 
+/**
+ * @param {string} description
+ * @param {string} input
+ * @param {string} expected
+ * @returns {void}
+ */
 function test(description, input, expected) {
   const result = indent(input, IDENT);
   if (result === expected)

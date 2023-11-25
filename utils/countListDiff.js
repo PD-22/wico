@@ -1,4 +1,8 @@
 /**
+ * @param {any[]} arr1 
+ * @param {any[]} arr2 
+ * @returns {number}
+ * 
  * @example
  * countListDiff([1, 2, 3, 4, 5], [1, 2, 0, 0, 5]); // 2
  */

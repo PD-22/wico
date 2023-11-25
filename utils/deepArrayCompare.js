@@ -1,8 +1,7 @@
 /**
- * @example
- * const array1 = [1, 2, [3, 4, [5, 6]]];
- * deepArrayCompare(array1, [1, 2, [3, 4, [5, 6]]]); // true
- * deepArrayCompare(array1, [1, 2, [3, 4, [5, 7]]]); // false
+ * @param {any[]} arr1
+ * @param {any[]} arr2
+ * @returns {boolean}
  */
 export default function deepArrayCompare(arr1, arr2) {
     if (arr1.length !== arr2.length) {
