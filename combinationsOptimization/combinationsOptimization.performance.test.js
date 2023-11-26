@@ -1,13 +1,13 @@
 import { join } from "path";
 import getDirname from '../debug/getDirname.js';
-import testCombinatoricsPerfomance from "../debug/testCombinatoricsPerfomance.js";
+import testCombinatoricsPerformance from "../debug/testCombinatoricsPerformance.js";
 import countListDiff from "../utils/countListDiff.js";
 import range from "../utils/range.js";
 import getMinDiffCombinations from "./combinationsOptimization.js";
 
 const DIRNAME = getDirname(import.meta.url);
 
-testCombinatoricsPerfomance({
+testCombinatoricsPerformance({
     inputs: Array(20).fill(Array(4).fill(range(1, 20))),
     outputFile: join(DIRNAME, 'combinationsOptimization.txt'),
     compareFile: join(DIRNAME, 'combinationsOptimization copy.txt'),

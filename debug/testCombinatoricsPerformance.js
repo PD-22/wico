@@ -6,7 +6,7 @@ import getDeltaTime from "./getDeltaTime.js";
 
 const PROGRESS_BAR_WIDTH = 20;
 
-export default function testCombinatoricsPerfomance({
+export default function testCombinatoricsPerformance({
     inputs,
     getCombinatoricsCallback,
     validateAdjacentItems,
