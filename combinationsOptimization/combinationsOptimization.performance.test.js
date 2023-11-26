@@ -8,7 +8,7 @@ import getMinDiffCombinations from "./combinationsOptimization.js";
 const DIRNAME = getDirname(import.meta.url);
 
 testCombinatoricsPerformance({
-    inputs: Array(20).fill(Array(4).fill(range(1, 20))),
+    inputs: range(20).map(() => range(4).map(() => range(20))),
     outputFile: join(DIRNAME, 'combinationsOptimization.txt'),
     compareFile: join(DIRNAME, 'combinationsOptimization copy.txt'),
     getCombinatoricsCallback: getMinDiffCombinations,

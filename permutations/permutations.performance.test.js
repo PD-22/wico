@@ -7,7 +7,7 @@ import getPermutations from "./permutations.js";
 const DIRNAME = getDirname(import.meta.url);
 
 testCombinatoricsPerformance({
-    inputs: Array(20).fill(range(1, 8)),
+    inputs: range(20).map(() => range(8)),
     outputFile: join(DIRNAME, 'permutations.txt'),
     compareFile: join(DIRNAME, 'permutations copy.txt'),
     getCombinatoricsCallback: getPermutations
