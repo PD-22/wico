@@ -1,6 +1,5 @@
+import mapValues from "../utils/mapValues.js";
 import product from "../utils/product.js";
-import unzip from "../utils/unzip.js";
-import zip from "../utils/zip.js";
 
 export default function getCombinations(arrays) {
     const callback = Array.isArray(arrays) ?
@@ -10,8 +9,9 @@ export default function getCombinations(arrays) {
 }
 
 export function getDictCombinations(arraysDict) {
-    const [keys, values] = unzip(Object.entries(arraysDict));
-    return getArrayCombinations(values).map(newValues => Object.fromEntries(zip(keys, newValues)));
+    return getArrayCombinations(Object.values(arraysDict)).map(newValues =>
+        mapValues(arraysDict, (_v, _k, i) => newValues[i])
+    );
 }
 
 export function getArrayCombinations(arraysList) {

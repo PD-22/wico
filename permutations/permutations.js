@@ -1,6 +1,5 @@
 import factorial from "../utils/factorial.js";
-import unzip from "../utils/unzip.js";
-import zip from "../utils/zip.js";
+import mapValues from "../utils/mapValues.js";
 
 export default function getPermutations(set) {
     const callback = Array.isArray(set) ?
@@ -10,8 +9,9 @@ export default function getPermutations(set) {
 }
 
 export function getDictPermutations(setDict) {
-    const [keys, values] = unzip(Object.entries(setDict));
-    return getArrayPermutations(values).map(newValues => Object.fromEntries(zip(keys, newValues)));
+    return getArrayPermutations(Object.values(setDict)).map(
+        newValues => mapValues(setDict, (_v, _k, i) => newValues[i])
+    );
 }
 
 export function getArrayPermutations(setArray) {
