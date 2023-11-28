@@ -1,6 +1,6 @@
-import { getMinDiffArrayPermutations } from "./permutationsOptimization.js";
+import getMinDiffPermutations from "./permutationsOptimization.js";
 
-const permutations = getMinDiffArrayPermutations([1, 2, 3, 4]);
+const permutations = getMinDiffPermutations([1, 2, 3, 4]);
 console.log(permutations.map(arr => arr.join(' ')).join('\n'));
 /*
 1 2 3 4

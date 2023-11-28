@@ -1,6 +1,6 @@
-import { getDictPermutations } from "./permutations.js";
+import getPermutations from "./permutations.js";
 
-const permutations = getDictPermutations({ A: 1, B: 2, C: 3, D: 4 });
+const permutations = getPermutations({ A: 1, B: 2, C: 3, D: 4 });
 console.log(permutations.map(dict => Object.entries(dict).map(entry => entry.join(': ')).join(', ')).join('\n'));
 /*
 A: 1, B: 2, C: 3, D: 4

@@ -1,6 +1,6 @@
-import { getArrayPermutations } from "./permutations.js";
+import getPermutations from "./permutations.js";
 
-const permutations = getArrayPermutations([1, 2, 3, 4]);
+const permutations = getPermutations([1, 2, 3, 4]);
 console.log(permutations.map(arr => arr.join(' ')).join('\n'));
 /*
 1 2 3 4

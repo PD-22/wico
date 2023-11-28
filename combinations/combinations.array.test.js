@@ -1,33 +1,33 @@
-import { getArrayCombinations } from "./combinations.js";
+import getCombinations from "./combinations.js";
 
-const combinations = getArrayCombinations([[1, 2, 3], ['a', 'b', 'c'], ['A', 'B', 'C']]);
+const combinations = getCombinations([[1, 2, 3], [10, 20, 30], [100, 200, 300]]);
 console.log(combinations.map(arr => arr.join(' ')).join('\n'));
 /*
-1 a A
-1 a B
-1 a C
-1 b A
-1 b B
-1 b C
-1 c A
-1 c B
-1 c C
-2 a A
-2 a B
-2 a C
-2 b A
-2 b B
-2 b C
-2 c A
-2 c B
-2 c C
-3 a A
-3 a B
-3 a C
-3 b A
-3 b B
-3 b C
-3 c A
-3 c B
-3 c C
+1 10 100
+1 10 200
+1 10 300
+1 20 100
+1 20 200
+1 20 300
+1 30 100
+1 30 200
+1 30 300
+2 10 100
+2 10 200
+2 10 300
+2 20 100
+2 20 200
+2 20 300
+2 30 100
+2 30 200
+2 30 300
+3 10 100
+3 10 200
+3 10 300
+3 20 100
+3 20 200
+3 20 300
+3 30 100
+3 30 200
+3 30 300
 */
