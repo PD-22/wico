@@ -1,29 +1,68 @@
 import { getCombinationItemIndex, getCombinationsLength, getGroupSize } from "../combinations/combinations.js";
 import mapValues from "../utils/mapValues.js";
 
+/**
+ * @template T
+ * @overload
+ * @param {T[][]} arraysList
+ * @returns {T[][]}
+ */
+
+/**
+ * @template T
+ * @overload
+ * @param {Record<string, T[]>} arraysDict
+ * @returns {Record<string, T>[]}
+ */
+
+/**
+ * @template T
+ * @param {T[][] | Record<string, T[]>} arrays
+ */
 export default function getMinDiffCombinations(arrays) {
-    const callback = Array.isArray(arrays) ?
-        getMinDiffArrayCombinations :
-        getMinDiffDictCombinations;
-    return callback(arrays);
+    return Array.isArray(arrays) ?
+        getMinDiffArrayCombinations(arrays) :
+        getMinDiffDictCombinations(arrays);
 }
 
+/**
+ * @template T
+ * @param {Record<string, T[]>} arraysDict
+ * @returns {Record<string, T>[]}
+ */
 export function getMinDiffDictCombinations(arraysDict) {
     return getMinDiffArrayCombinations(Object.values(arraysDict)).map(newValues =>
         mapValues(arraysDict, (_v, _k, i) => newValues[i])
     );
 }
 
+/**
+ * @template T
+ * @param {T[][]} arraysList
+ * @returns {T[][]}
+ */
 export function getMinDiffArrayCombinations(arraysList) {
     return Array.from(getMinDiffCombinationsGenerator(arraysList));
 }
 
+/**
+ * @template T
+ * @param {T[][]} arrays
+ * @yields {T[]}
+ */
 export function* getMinDiffCombinationsGenerator(arrays) {
     const combinationsLength = getCombinationsLength(arrays);
     for (let i = 0; i < combinationsLength; i++)
         yield getMinDiffCombinationAtIndex(arrays, i, combinationsLength);
 }
 
+/**
+ * @template T
+ * @param {T[][]} arrays
+ * @param {number} combIndex
+ * @param {number} combinationsLength
+ * @returns {T[]}
+ */
 export function getMinDiffCombinationAtIndex(
     arrays, combIndex,
     combinationsLength = getCombinationsLength(arrays)
@@ -36,6 +75,14 @@ export function getMinDiffCombinationAtIndex(
     });
 }
 
+/**
+ * @template T
+ * @param {T[][]} arrays
+ * @param {number} combIndex
+ * @param {number} itemIndex
+ * @param {number} groupSize
+ * @returns {T}
+ */
 export function getMinDiffCombinationItem(
     arrays, combIndex, itemIndex,
     groupSize = getGroupSize(arrays, itemIndex)
@@ -45,6 +92,14 @@ export function getMinDiffCombinationItem(
     return array[resultIndex];
 }
 
+/**
+ * @template T
+ * @param {T[][]} arrays
+ * @param {number} combIndex
+ * @param {number} itemIndex
+ * @param {number} groupSize
+ * @returns {number}
+ */
 export function getMinDiffCombinationItemIndex(
     arrays, combIndex, itemIndex,
     groupSize = getGroupSize(arrays, itemIndex)
@@ -56,6 +111,14 @@ export function getMinDiffCombinationItemIndex(
     return shouldReverse ? array.length - 1 - resultIndex : resultIndex;
 }
 
+/**
+ * @template T
+ * @param {T[][]} arrays
+ * @param {number} combIndex
+ * @param {number} itemIndex
+ * @param {number} groupSizeCache
+ * @returns {boolean}
+ */
 export function checkShouldReverseGroup(
     arrays, combIndex, itemIndex,
     groupSizeCache = getGroupSize(arrays, itemIndex)
