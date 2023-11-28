@@ -1,7 +1,7 @@
 /**
  * @template Value, NewValue
- * @param {Record<any, Value>} object
- * @param {(value: Value, key: string, index: number, object: Record<any, Value>) => NewValue} callbackfn
+ * @param {Record<string, Value>} object
+ * @param {(value: Value, key: string, index: number, object: Record<string, Value>) => NewValue} callbackfn
  * @returns {Array<NewValue>}
  * 
  * @example

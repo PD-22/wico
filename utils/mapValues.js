@@ -1,8 +1,8 @@
 /**
  * @template Value, NewValue
- * @param {Record<any, Value>} object
- * @param {(value: Value, key: string, index: number, object: Record<any, Value>) => NewValue} callback
- * @returns {Record<any, NewValue>}
+ * @param {Record<string, Value>} object
+ * @param {(value: Value, key: string, index: number, object: Record<string, Value>) => NewValue} callback
+ * @returns {Record<string, NewValue>}
  * 
  * @example
  * mapValues({ A: 1, B: 2, C: 3 }, (v, k, i) => [v, k, i].join(' '));
