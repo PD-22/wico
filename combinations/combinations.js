@@ -1,33 +1,77 @@
 import mapValues from "../utils/mapValues.js";
 import product from "../utils/product.js";
 
+/**
+ * @template T
+ * @overload
+ * @param {T[][]} arraysList
+ * @returns {T[][]}
+ */
+
+/**
+ * @template T
+ * @overload
+ * @param {Record<string, T[]>} arraysDict
+ * @returns {Record<string, T>[]}
+ */
+
+/**
+ * @template T
+ * @param {T[][] | Record<string, T[]>} arrays
+ */
 export default function getCombinations(arrays) {
-    const callback = Array.isArray(arrays) ?
-        getArrayCombinations :
-        getDictCombinations;
-    return callback(arrays);
+    return Array.isArray(arrays) ?
+        getArrayCombinations(arrays) :
+        getDictCombinations(arrays);
 }
 
+/**
+ * @template T
+ * @param {Record<string, T[]>} arraysDict
+ * @returns {Record<string, T>[]}
+ */
 export function getDictCombinations(arraysDict) {
     return getArrayCombinations(Object.values(arraysDict)).map(newValues =>
         mapValues(arraysDict, (_v, _k, i) => newValues[i])
     );
 }
 
+/**
+ * @template T
+ * @param {T[][]} arraysList
+ * @returns {T[][]}
+ */
 export function getArrayCombinations(arraysList) {
     return Array.from(getCombinationsGenerator(arraysList));
 }
 
+/**
+ * @template T
+ * @param {T[][]} arrays
+ * @yields {T[]}
+ */
 export function* getCombinationsGenerator(arrays) {
     const combinationsLength = getCombinationsLength(arrays);
     for (let i = 0; i < combinationsLength; i++)
         yield getCombinationAtIndex(arrays, i, combinationsLength);
 }
 
+/**
+ * @template T
+ * @param {T[][]} arrays
+ * @returns {number}
+ */
 export function getCombinationsLength(arrays) {
     return product(arrays.map(x => x.length));
 }
 
+/**
+ * @template T
+ * @param {T[][]} arrays
+ * @param {number} combIndex
+ * @param {number} combinationsLength
+ * @returns {T[]}
+ */
 export function getCombinationAtIndex(
     arrays, combIndex,
     combinationsLength = getCombinationsLength(arrays)
@@ -40,6 +84,15 @@ export function getCombinationAtIndex(
     });
 }
 
+
+/**
+ * @template T
+ * @param {T[][]} arrays
+ * @param {number} combIndex
+ * @param {number} itemIndex
+ * @param {number} groupSize
+ * @returns {T}
+ */
 export function getCombinationItem(
     arrays, combIndex, itemIndex,
     groupSize = getGroupSize(arrays, itemIndex)
@@ -49,6 +102,14 @@ export function getCombinationItem(
     return array[resultIndex];
 }
 
+/**
+ * @template T
+ * @param {T[][]} arrays
+ * @param {number} combIndex
+ * @param {number} itemIndex
+ * @param {number} groupSize
+ * @returns {number}
+ */
 export function getCombinationItemIndex(
     arrays, combIndex, itemIndex,
     groupSize = getGroupSize(arrays, itemIndex)
@@ -58,6 +119,12 @@ export function getCombinationItemIndex(
     return Math.floor(combIndex * array.length / groupSize) % array.length;
 }
 
+/**
+ * @template T
+ * @param {T[][]} arrays
+ * @param {number} itemIndex
+ * @returns {number}
+ */
 export function getGroupSize(arrays, itemIndex) {
     return getCombinationsLength(arrays.slice(itemIndex));
 }
