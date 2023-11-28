@@ -1,6 +1,6 @@
 /**
- * @param {any[]} arr1
- * @param {any[]} arr2
+ * @param {unknown[]} arr1
+ * @param {unknown[]} arr2
  * @returns {boolean}
  */
 export default function deepArrayCompare(arr1, arr2) {

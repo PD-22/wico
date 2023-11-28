@@ -1,6 +1,7 @@
 /**
  * @param {number} total
  * @param {number} width
+ * @returns {{ increment: () => void; reset: () => void; }}
  */
 export default function createProgressBar(total, width) {
     let completed, prevProgressWidth, overflow;

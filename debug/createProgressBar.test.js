@@ -12,7 +12,7 @@ function testProgressBar() {
 }
 
 /**
- * @param {{ increment: () => any; }} progressBar
+ * @param {{ increment: (...args: unknown[]) => void; }} progressBar
  * @param {number} totalSteps
  * @param {number} interval
  */
