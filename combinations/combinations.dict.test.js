@@ -1,6 +1,6 @@
-import getCombinations from "./combinations.js";
+import { getDictCombinations } from "./combinations.js";
 
-const combinations = getCombinations({ A: [1, 2, 3], B: [10, 20, 30], C: [100, 200, 300] });
+const combinations = getDictCombinations({ A: [1, 2, 3], B: [10, 20, 30], C: [100, 200, 300] });
 console.log(combinations.map(dict => Object.entries(dict).map(entry => entry.join(': ')).join(', ')).join('\n'));
 /*
 A: 1, B: 10, C: 100

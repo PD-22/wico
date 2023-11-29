@@ -3,26 +3,11 @@ import product from "../utils/product.js";
 
 /**
  * @template T
- * @overload
  * @param {T[][]} arraysList
  * @returns {T[][]}
  */
-
-/**
- * @template T
- * @overload
- * @param {Record<string, T[]>} arraysDict
- * @returns {Record<string, T>[]}
- */
-
-/**
- * @template T
- * @param {T[][] | Record<string, T[]>} arrays
- */
-export default function getCombinations(arrays) {
-    return Array.isArray(arrays) ?
-        getArrayCombinations(arrays) :
-        getDictCombinations(arrays);
+export default function getCombinations(arraysList) {
+    return Array.from(getCombinationsGenerator(arraysList));
 }
 
 /**
@@ -31,18 +16,9 @@ export default function getCombinations(arrays) {
  * @returns {Record<string, T>[]}
  */
 export function getDictCombinations(arraysDict) {
-    return getArrayCombinations(Object.values(arraysDict)).map(newValues =>
+    return getCombinations(Object.values(arraysDict)).map(newValues =>
         mapValues(arraysDict, (_v, _k, i) => newValues[i])
     );
-}
-
-/**
- * @template T
- * @param {T[][]} arraysList
- * @returns {T[][]}
- */
-export function getArrayCombinations(arraysList) {
-    return Array.from(getCombinationsGenerator(arraysList));
 }
 
 /**
