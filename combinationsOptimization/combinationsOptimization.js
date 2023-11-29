@@ -3,26 +3,11 @@ import mapValues from "../utils/mapValues.js";
 
 /**
  * @template T
- * @overload
  * @param {T[][]} arraysList
  * @returns {T[][]}
  */
-
-/**
- * @template T
- * @overload
- * @param {Record<string, T[]>} arraysDict
- * @returns {Record<string, T>[]}
- */
-
-/**
- * @template T
- * @param {T[][] | Record<string, T[]>} arrays
- */
-export default function getMinDiffCombinations(arrays) {
-    return Array.isArray(arrays) ?
-        getMinDiffArrayCombinations(arrays) :
-        getMinDiffDictCombinations(arrays);
+export default function getMinDiffCombinations(arraysList) {
+    return Array.from(getMinDiffCombinationsGenerator(arraysList));
 }
 
 /**
@@ -31,18 +16,9 @@ export default function getMinDiffCombinations(arrays) {
  * @returns {Record<string, T>[]}
  */
 export function getMinDiffDictCombinations(arraysDict) {
-    return getMinDiffArrayCombinations(Object.values(arraysDict)).map(newValues =>
+    return getMinDiffCombinations(Object.values(arraysDict)).map(newValues =>
         mapValues(arraysDict, (_v, _k, i) => newValues[i])
     );
-}
-
-/**
- * @template T
- * @param {T[][]} arraysList
- * @returns {T[][]}
- */
-export function getMinDiffArrayCombinations(arraysList) {
-    return Array.from(getMinDiffCombinationsGenerator(arraysList));
 }
 
 /**

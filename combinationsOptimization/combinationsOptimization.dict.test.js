@@ -1,6 +1,6 @@
-import getMinDiffCombinations from "./combinationsOptimization.js";
+import { getMinDiffDictCombinations } from "./combinationsOptimization.js";
 
-const combinations = getMinDiffCombinations({ A: [1, 2, 3], B: [10, 20, 30], C: [100, 200, 300] });
+const combinations = getMinDiffDictCombinations({ A: [1, 2, 3], B: [10, 20, 30], C: [100, 200, 300] });
 console.log(combinations.map(dict => Object.entries(dict).map(entry => entry.join(': ')).join(', ')).join('\n'));
 /*
 Z: 1, X: a, Y: A
