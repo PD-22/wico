@@ -13,6 +13,7 @@ export default async function compareDataToFile(data, compareFile) {
         const matches = compareFileContents(backupData, data);
         console.log(`File content matches: ${matches}`);
     } catch (error) {
+        // @ts-ignore
         if (error.code !== 'ENOENT') throw error;
         console.log(`File not found: "${compareFile}`);
     }
