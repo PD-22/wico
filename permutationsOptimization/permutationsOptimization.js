@@ -3,27 +3,11 @@ import mapValues from "../utils/mapValues.js";
 
 /**
  * @template T
- * @overload
  * @param {T[]} setArray 
  * @returns {T[][]}
  */
-
-/**
- * @template T
- * @overload
- * @param {Record<string, T>} setDict 
- * @returns {Record<string, T>[]}
- */
-
-/**
- * @template T
- * @param {T[] | Record<string, T>} set
- * @returns {(T[] | Record<string, T>)[]}
- */
-export default function getMinDiffPermutations(set) {
-    return Array.isArray(set) ?
-        getMinDiffArrayPermutations(set) :
-        getMinDiffDictPermutations(set);
+export default function getMinDiffPermutations(setArray) {
+    return Array.from(getMinDiffPermutationsGenerator(setArray));
 }
 
 /**
@@ -32,18 +16,9 @@ export default function getMinDiffPermutations(set) {
  * @returns {Record<string, T>[]}
  */
 export function getMinDiffDictPermutations(setDict) {
-    return getMinDiffArrayPermutations(Object.values(setDict)).map(
+    return getMinDiffPermutations(Object.values(setDict)).map(
         newValues => mapValues(setDict, (_v, _k, i) => newValues[i])
     );
-}
-
-/**
- * @template T
- * @param {T[]} setArray 
- * @returns {T[][]}
- */
-export function getMinDiffArrayPermutations(setArray) {
-    return Array.from(getMinDiffPermutationsGenerator(setArray));
 }
 
 /**
