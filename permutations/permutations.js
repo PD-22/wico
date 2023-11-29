@@ -3,27 +3,11 @@ import mapValues from "../utils/mapValues.js";
 
 /**
  * @template T
- * @overload
  * @param {T[]} setArray 
  * @returns {T[][]}
  */
-
-/**
- * @template T
- * @overload
- * @param {Record<string, T>} setDict 
- * @returns {Record<string, T>[]}
- */
-
-/**
- * @template T
- * @param {T[] | Record<string, T>} set
- * @returns {(T[] | Record<string, T>)[]}
- */
-export default function getPermutations(set) {
-    return Array.isArray(set) ?
-        getArrayPermutations(set) :
-        getDictPermutations(set);
+export default function getPermutations(setArray) {
+    return Array.from(getPermutationsGenerator(setArray));
 }
 
 /**
@@ -32,18 +16,9 @@ export default function getPermutations(set) {
  * @returns {Record<string, T>[]}
  */
 export function getDictPermutations(setDict) {
-    return getArrayPermutations(Object.values(setDict)).map(
+    return getPermutations(Object.values(setDict)).map(
         newValues => mapValues(setDict, (_v, _k, i) => newValues[i])
     );
-}
-
-/**
- * @template T
- * @param {T[]} setArray 
- * @returns {T[][]}
- */
-export function getArrayPermutations(setArray) {
-    return Array.from(getPermutationsGenerator(setArray));
 }
 
 /**
