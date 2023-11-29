@@ -4,8 +4,8 @@ import testWiring from "./testWiring.js";
 
 const DIRNAME = getDirname(import.meta.url);
 
-testWiring({
-    wiringSettings: {
+testWiring(
+    {
         aux: {
             m: "blue",
             r: "red",
@@ -18,6 +18,6 @@ testWiring({
             l: "green",
         }
     },
-    outputFile: join(DIRNAME, 'wiring.txt'),
-    outputCompareFile: join(DIRNAME, 'wiring copy.txt'),
-});
+    join(DIRNAME, 'wiring.txt'),
+    join(DIRNAME, 'wiring copy.txt'),
+);

@@ -5,7 +5,12 @@ import { getMinDiffDictPermutations } from "../permutationsOptimization/permutat
 import mapValues from "../utils/mapValues.js";
 import formatWiring from "./formatWiring.js";
 
-export default function testWiring({ wiringSettings, outputFile, outputCompareFile }) {
+/**
+ * @param {Record<string, Record<string, string>>} wiringSettings
+ * @param {import("fs").PathOrFileDescriptor} outputFile
+ * @param {import("fs").PathOrFileDescriptor} outputCompareFile
+ */
+export default function testWiring(wiringSettings, outputFile, outputCompareFile) {
     const wiringCombinations = getMinDiffDictCombinations(mapValues(wiringSettings, getMinDiffDictPermutations));
 
     const formattedCombinations = formatWiring(wiringCombinations);
