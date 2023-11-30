@@ -1,34 +1,35 @@
+import checkMatch from "../debug/checkMatch.js";
 import { getMinDiffDictCombinations } from "./combinationsOptimization.js";
 
-const combinations = getMinDiffDictCombinations({ A: [1, 2, 3], B: [10, 20, 30], C: [100, 200, 300] });
-console.log(combinations.map(dict => Object.entries(dict).map(entry => entry.join(': ')).join(', ')).join('\n'));
-/*
-Z: 1, X: a, Y: A
-Z: 1, X: a, Y: B
-Z: 1, X: a, Y: C
-Z: 1, X: b, Y: C
-Z: 1, X: b, Y: B
-Z: 1, X: b, Y: A
-Z: 1, X: c, Y: A
-Z: 1, X: c, Y: B
-Z: 1, X: c, Y: C
-Z: 2, X: c, Y: C
-Z: 2, X: c, Y: B
-Z: 2, X: c, Y: A
-Z: 2, X: b, Y: A
-Z: 2, X: b, Y: B
-Z: 2, X: b, Y: C
-Z: 2, X: a, Y: C
-Z: 2, X: a, Y: B
-Z: 2, X: a, Y: A
-Z: 3, X: a, Y: A
-Z: 3, X: a, Y: B
-Z: 3, X: a, Y: C
-Z: 3, X: b, Y: C
-Z: 3, X: b, Y: B
-Z: 3, X: b, Y: A
-Z: 3, X: c, Y: A
-Z: 3, X: c, Y: B
-Z: 3, X: c, Y: C
-*/
-// difference between every adjacent combination is only 1
+const result = getMinDiffDictCombinations({ A: [1, 2, 3], B: [10, 20, 30], C: [100, 200, 300] });
+const expected = [
+    { A: 1, B: 10, C: 100 },
+    { A: 1, B: 10, C: 200 },
+    { A: 1, B: 10, C: 300 },
+    { A: 1, B: 20, C: 300 },
+    { A: 1, B: 20, C: 200 },
+    { A: 1, B: 20, C: 100 },
+    { A: 1, B: 30, C: 100 },
+    { A: 1, B: 30, C: 200 },
+    { A: 1, B: 30, C: 300 },
+    { A: 2, B: 30, C: 300 },
+    { A: 2, B: 30, C: 200 },
+    { A: 2, B: 30, C: 100 },
+    { A: 2, B: 20, C: 100 },
+    { A: 2, B: 20, C: 200 },
+    { A: 2, B: 20, C: 300 },
+    { A: 2, B: 10, C: 300 },
+    { A: 2, B: 10, C: 200 },
+    { A: 2, B: 10, C: 100 },
+    { A: 3, B: 10, C: 100 },
+    { A: 3, B: 10, C: 200 },
+    { A: 3, B: 10, C: 300 },
+    { A: 3, B: 20, C: 300 },
+    { A: 3, B: 20, C: 200 },
+    { A: 3, B: 20, C: 100 },
+    { A: 3, B: 30, C: 100 },
+    { A: 3, B: 30, C: 200 },
+    { A: 3, B: 30, C: 300 }
+]
+// difference between every adjacent combination should be only 1
+checkMatch(result, expected);
