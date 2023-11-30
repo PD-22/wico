@@ -1,5 +1,5 @@
-import checkMatch from "../debug/checkMatch.js";
-import getMinDiffPermutations from "./permutationsOptimization.js";
+import checkMatch from "../../debug/checkMatch.js";
+import getMinDiffPermutations from "../../combinatorics/permutationsOptimization.js";
 
 const result = getMinDiffPermutations([1, 2, 3, 4]);
 const expected = [

@@ -1,6 +1,6 @@
-import checkMatch from "../debug/checkMatch.js";
-import range from "../utils/range.js";
-import getCombinations from "./combinations.js";
+import checkMatch from "../../debug/checkMatch.js";
+import range from "../../utils/range.js";
+import getCombinations from "../../combinatorics/combinations.js";
 
 /* NOTE: test for division accuracy bug
 2 / 98 * 49 = 0.9999999999999999

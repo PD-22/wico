@@ -1,5 +1,5 @@
-import checkMatch from "../debug/checkMatch.js";
-import getPermutations from "./permutations.js";
+import checkMatch from "../../debug/checkMatch.js";
+import getPermutations from "../../combinatorics/permutations.js";
 
 const result = getPermutations([1, 2, 3, 4]);
 const expected = [

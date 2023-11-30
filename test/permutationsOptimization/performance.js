@@ -1,12 +1,11 @@
 import { join } from "path";
-import compareDataToFile from "../debug/compareDataToFile.js";
-import getDirname from '../debug/getDirname.js';
-import { formatCombinatorics, processCombinatorics, validateOutputList, writeOutputToFile } from "../debug/testCombinatoricsPerformance.js";
-import countListDiff from "../utils/countListDiff.js";
-import range from "../utils/range.js";
-import getMinDiffPermutations from "./permutationsOptimization.js";
+import getMinDiffPermutations from "../../combinatorics/permutationsOptimization.js";
+import compareDataToFile from "../../debug/compareDataToFile.js";
+import { formatCombinatorics, processCombinatorics, validateOutputList, writeOutputToFile } from "../../debug/testCombinatoricsPerformance.js";
+import countListDiff from "../../utils/countListDiff.js";
+import range from "../../utils/range.js";
 
-const DIRNAME = getDirname(import.meta.url);
+const DIRNAME = 'temp';
 
 const inputs = range(20).map(() => range(8));
 const outputFile = join(DIRNAME, 'permutationsOptimization.txt');

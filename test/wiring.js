@@ -1,13 +1,12 @@
-import { join } from "path";
-import getDirname from "../debug/getDirname.js";
 import { writeFileSync } from "fs";
-import { getMinDiffDictCombinations } from "../combinationsOptimization/combinationsOptimization.js";
+import { join } from "path";
+import { getMinDiffDictCombinations } from "../combinatorics/combinationsOptimization.js";
+import { getMinDiffDictPermutations } from "../combinatorics/permutationsOptimization.js";
 import compareDataToFile from "../debug/compareDataToFile.js";
-import { getMinDiffDictPermutations } from "../permutationsOptimization/permutationsOptimization.js";
+import formatWiring from "../debug/formatWiring.js";
 import mapValues from "../utils/mapValues.js";
-import formatWiring from "./formatWiring.js";
 
-const DIRNAME = getDirname(import.meta.url);
+const DIRNAME = 'temp';
 
 const outputFile = join(DIRNAME, 'wiring.txt');
 const outputCompareFile = join(DIRNAME, 'wiring copy.txt');

@@ -1,5 +1,5 @@
-import checkMatch from "../debug/checkMatch.js";
-import { getDictCombinations } from "./combinations.js";
+import checkMatch from "../../debug/checkMatch.js";
+import { getDictCombinations } from "../../combinatorics/combinations.js";
 
 const result = getDictCombinations({ A: [1, 2, 3], B: [10, 20, 30], C: [100, 200, 300] });
 const expected = [

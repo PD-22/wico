@@ -1,4 +1,4 @@
-import createProgressBar from "./createProgressBar.js";
+import createProgressBar from "../debug/createProgressBar.js";
 
 const num = 20;
 

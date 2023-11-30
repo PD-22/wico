@@ -4,11 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test-combinatorics": "npm run test-permutations && npm run test-permutations-optimization && npm run test-combinations && npm run test-combinations-optimization",
-    "test-permutations": "node ./permutations/permutations.performance.test.js",
-    "test-permutations-optimization": "node ./permutationsOptimization/permutationsOptimization.performance.test.js",
-    "test-combinations": "node ./combinations/combinations.performance.test.js",
-    "test-combinations-optimization": "node ./combinationsOptimization/combinationsOptimization.performance.test.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",

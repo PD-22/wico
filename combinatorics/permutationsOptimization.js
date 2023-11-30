@@ -1,4 +1,4 @@
-import { getPermutationAtIndex, getPermutationsLength } from "../permutations/permutations.js";
+import { getPermutationAtIndex, getPermutationsLength } from "./permutations.js";
 import mapValues from "../utils/mapValues.js";
 
 /**

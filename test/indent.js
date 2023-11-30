@@ -1,4 +1,4 @@
-import indent from "./indent.js";
+import indent from "../utils/indent.js";
 
 const IDENT = '-';
 

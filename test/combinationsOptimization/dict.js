@@ -1,5 +1,5 @@
-import checkMatch from "../debug/checkMatch.js";
-import { getMinDiffDictCombinations } from "./combinationsOptimization.js";
+import checkMatch from "../../debug/checkMatch.js";
+import { getMinDiffDictCombinations } from "../../combinatorics/combinationsOptimization.js";
 
 const result = getMinDiffDictCombinations({ A: [1, 2, 3], B: [10, 20, 30], C: [100, 200, 300] });
 const expected = [

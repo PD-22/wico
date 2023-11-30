@@ -1,11 +1,10 @@
 import { join } from "path";
-import compareDataToFile from "../debug/compareDataToFile.js";
-import getDirname from '../debug/getDirname.js';
-import { formatCombinatorics, processCombinatorics, writeOutputToFile } from "../debug/testCombinatoricsPerformance.js";
-import range from "../utils/range.js";
-import getPermutations from "./permutations.js";
+import getPermutations from "../../combinatorics/permutations.js";
+import compareDataToFile from "../../debug/compareDataToFile.js";
+import { formatCombinatorics, processCombinatorics, writeOutputToFile } from "../../debug/testCombinatoricsPerformance.js";
+import range from "../../utils/range.js";
 
-const DIRNAME = getDirname(import.meta.url);
+const DIRNAME = 'temp';
 
 const inputs = range(20).map(() => range(8));
 const outputFile = join(DIRNAME, 'permutations.txt');
