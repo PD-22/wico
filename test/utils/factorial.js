@@ -1,3 +1,6 @@
+import assert from "assert";
 import factorial from "../../utils/factorial.js";
 
-console.log(factorial(4)); // 24
+assert.strictEqual(factorial(4), 24);
+
+console.log('PASS');
