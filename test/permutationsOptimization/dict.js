@@ -1,4 +1,4 @@
-import checkMatch from "../../debug/checkMatch.js";
+import assert from "assert";
 import { getMinDiffDictPermutations } from "../../combinatorics/permutationsOptimization.js";
 
 const result = getMinDiffDictPermutations({ A: 1, B: 2, C: 3, D: 4 });
@@ -29,4 +29,6 @@ const expected = [
     { A: 4, B: 1, C: 2, D: 3 }
 ];
 // difference between every adjacent permutation is only 2
-checkMatch(result, expected);
+
+assert.deepEqual(result, expected);
+console.log('PASS');

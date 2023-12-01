@@ -1,4 +1,4 @@
-import checkMatch from "../../debug/checkMatch.js";
+import assert from "assert";
 import { getDictPermutations } from "../../combinatorics/permutations.js";
 
 const result = getDictPermutations({ A: 1, B: 2, C: 3, D: 4 });
@@ -28,4 +28,6 @@ const expected = [
     { A: 4, B: 3, C: 1, D: 2 },
     { A: 4, B: 3, C: 2, D: 1 }
 ];
-checkMatch(result, expected);
+
+assert.deepEqual(result, expected);
+console.log('PASS');

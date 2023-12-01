@@ -1,4 +1,4 @@
-import checkMatch from "../../debug/checkMatch.js";
+import assert from "assert";
 import getCombinations from "../../combinatorics/combinations.js";
 
 const result = getCombinations([[1, 2, 3], [10, 20, 30], [100, 200, 300]]);
@@ -31,4 +31,6 @@ const expected = [
     [3, 30, 200],
     [3, 30, 300]
 ];
-checkMatch(result, expected);
+
+assert.deepEqual(result, expected);
+console.log('PASS');
