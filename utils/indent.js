@@ -2,9 +2,6 @@
  * @param {string} text 
  * @param {string} indentation 
  * @returns {string}
- * 
- * @example
- * indent("A\nB\nC", '-'); // "-A\n-B\n-C"
  */
 export default function indent(text, indentation = '  ') {
     return text.replaceAll(
