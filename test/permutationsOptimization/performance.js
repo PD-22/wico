@@ -15,4 +15,7 @@ const outputs = processCombinatorics(inputs, getMinDiffPermutations);
 validateOutputList(outputs, (v1, v2) => countListDiff(v1, v2) === 2);
 const formattedOutputs = formatCombinatorics(outputs);
 writeOutputToFile(formattedOutputs, outputFile);
+
+console.log(`Assert file Content "${compareFile}"...`);
 assertFileContent(compareFile, formattedOutputs);
+console.log(`PASS`);

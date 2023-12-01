@@ -13,4 +13,7 @@ const compareFile = join(DIRNAME, 'permutations-backup.txt');
 const outputs = processCombinatorics(inputs, getPermutations);
 const formattedOutputs = formatCombinatorics(outputs);
 writeOutputToFile(formattedOutputs, outputFile);
+
+console.log(`Assert file Content "${compareFile}"...`);
 assertFileContent(compareFile, formattedOutputs);
+console.log(`PASS`);
