@@ -1,6 +1,6 @@
 import { join } from "path";
 import getPermutations from "../../combinatorics/permutations.js";
-import compareDataToFile from "../../debug/compareDataToFile.js";
+import assertFileContent from "../../debug/assertFileContent.js";
 import { formatCombinatorics, processCombinatorics, writeOutputToFile } from "../../debug/testCombinatoricsPerformance.js";
 import range from "../../utils/range.js";
 
@@ -13,4 +13,4 @@ const compareFile = join(DIRNAME, 'permutations-backup.txt');
 const outputs = processCombinatorics(inputs, getPermutations);
 const formattedOutputs = formatCombinatorics(outputs);
 writeOutputToFile(formattedOutputs, outputFile);
-compareDataToFile(formattedOutputs, compareFile);
+assertFileContent(compareFile, formattedOutputs);

@@ -1,6 +1,6 @@
 import { join } from "path";
 import getMinDiffCombinations from "../../combinatorics/combinationsOptimization.js";
-import compareDataToFile from "../../debug/compareDataToFile.js";
+import assertFileContent from "../../debug/assertFileContent.js";
 import { formatCombinatorics, processCombinatorics, validateOutputList, writeOutputToFile } from "../../debug/testCombinatoricsPerformance.js";
 import countListDiff from "../../utils/countListDiff.js";
 import range from "../../utils/range.js";
@@ -15,4 +15,4 @@ const outputs = processCombinatorics(inputs, getMinDiffCombinations);
 validateOutputList(outputs, (v1, v2) => countListDiff(v1, v2) === 1);
 const formattedOutputs = formatCombinatorics(outputs);
 writeOutputToFile(formattedOutputs, outputFile);
-compareDataToFile(formattedOutputs, compareFile);
+assertFileContent(compareFile, formattedOutputs);
