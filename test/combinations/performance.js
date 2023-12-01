@@ -8,7 +8,7 @@ const DIRNAME = 'output';
 
 const inputs = range(20).map(() => range(4).map(() => range(20)));
 const outputFile = join(DIRNAME, 'combinations.txt');
-const compareFile = join(DIRNAME, 'combinations copy.txt');
+const compareFile = join(DIRNAME, 'combinations-backup.txt');
 
 const outputs = processCombinatorics(inputs, getCombinations);
 const formattedOutputs = formatCombinatorics(outputs);

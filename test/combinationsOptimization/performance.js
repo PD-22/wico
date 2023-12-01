@@ -9,7 +9,7 @@ const DIRNAME = 'output';
 
 const inputs = range(20).map(() => range(4).map(() => range(20)));
 const outputFile = join(DIRNAME, 'combinationsOptimization.txt');
-const compareFile = join(DIRNAME, 'combinationsOptimization copy.txt');
+const compareFile = join(DIRNAME, 'combinationsOptimization-backup.txt');
 
 const outputs = processCombinatorics(inputs, getMinDiffCombinations);
 validateOutputList(outputs, (v1, v2) => countListDiff(v1, v2) === 1);

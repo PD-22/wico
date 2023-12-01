@@ -9,7 +9,7 @@ import mapValues from "../utils/mapValues.js";
 const DIRNAME = 'output';
 
 const outputFile = join(DIRNAME, 'wiring.txt');
-const outputCompareFile = join(DIRNAME, 'wiring copy.txt');
+const outputCompareFile = join(DIRNAME, 'wiring-backup.txt');
 const wiringSettings = {
     aux: { m: "blue", r: "red", l: "green", g: "copper" },
     sound: { r: "red", g: "copper", l: "green" }
