@@ -3,7 +3,7 @@ import compareFileContents from "../utils/compareFileContents.js";
 
 /**
  * @param {string} data
- * @param {import("fs").PathOrFileDescriptor} compareFile
+ * @param {import("fs").PathLike} compareFile
  * @throws {Error}
  */
 export default async function compareDataToFile(data, compareFile) {

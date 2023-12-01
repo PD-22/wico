@@ -38,7 +38,7 @@ export function validateOutputList(outputList, validateAdjacentItems) {
 
 /**
  * @param {string} formattedOutputList
- * @param {import("fs").PathOrFileDescriptor} outputFile
+ * @param {import("fs").PathLike} outputFile
  */
 export function writeOutputToFile(formattedOutputList, outputFile) {
     console.log(`Writing output to "${outputFile}"...`);
