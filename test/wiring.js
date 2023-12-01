@@ -15,10 +15,12 @@ const wiringSettings = {
     sound: { r: "red", g: "copper", l: "green" }
 };
 
-const wiringCombinations = getMinDiffDictCombinations(mapValues(wiringSettings, getMinDiffDictPermutations));
+const wiringPermutations = mapValues(wiringSettings, getMinDiffDictPermutations);
+const wiringCombinations = getMinDiffDictCombinations(wiringPermutations);
+
 const formattedCombinations = formatWiring(wiringCombinations);
 
 writeFileSync(outputFile, formattedCombinations);
 console.log(`result: "${outputFile}"`);
 
-if (outputCompareFile) compareDataToFile(formattedCombinations, outputCompareFile);
+compareDataToFile(formattedCombinations, outputCompareFile);
