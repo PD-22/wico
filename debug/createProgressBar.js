@@ -1,43 +1,33 @@
 /**
  * @param {number} total
  * @param {number} width
- * @returns {{ increment: () => void; reset: () => void; }}
+ * @returns {{ increment: () => void; }}
  */
 export default function createProgressBar(total, width) {
-    let state = initState();
+    let completed = 0;
+    let prevProgressWidth = -1;
+    let overflow = false;
 
-    return { increment, reset };
+    return { increment };
 
     function increment() {
-        if (state.overflow) return;
-        state.completed++;
+        if (overflow) return;
+        completed++;
 
-        if (state.completed > total) {
-            state.overflow = true;
+        if (completed > total) {
+            overflow = true;
             console.warn('Progress bar overflow!\n');
             return;
         }
 
-        const progressWidth = Math.floor(state.completed * width / total);
+        const progressWidth = Math.floor(completed * width / total);
 
-        if (progressWidth === state.prevProgressWidth) return;
+        if (progressWidth === prevProgressWidth) return;
 
         process.stdout.write(`\rProgress: [${'='.repeat(progressWidth)}${' '.repeat(width - progressWidth)}]`);
 
-        state.prevProgressWidth = progressWidth;
+        prevProgressWidth = progressWidth;
 
-        if (state.completed === total) process.stdout.write(`\n`);
-    }
-
-    function reset() {
-        state = initState();
-    }
-
-    function initState() {
-        return {
-            completed: 0,
-            prevProgressWidth: -1,
-            overflow: false
-        }
+        if (completed === total) process.stdout.write(`\n`);
     }
 }
