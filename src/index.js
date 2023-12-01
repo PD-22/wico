@@ -3,7 +3,7 @@ import { join } from "path";
 import { getMinDiffDictCombinations } from "../combinatorics/combinationsOptimization.js";
 import { getMinDiffDictPermutations } from "../combinatorics/permutationsOptimization.js";
 import compareDataToFile from "../debug/compareDataToFile.js";
-import formatWiring from "../debug/formatWiring.js";
+import formatWiring from "./format.js";
 import mapValues from "../utils/mapValues.js";
 
 const DIRNAME = 'output';
