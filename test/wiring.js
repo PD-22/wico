@@ -6,7 +6,7 @@ import compareDataToFile from "../debug/compareDataToFile.js";
 import formatWiring from "../debug/formatWiring.js";
 import mapValues from "../utils/mapValues.js";
 
-const DIRNAME = 'temp';
+const DIRNAME = 'output';
 
 const outputFile = join(DIRNAME, 'wiring.txt');
 const outputCompareFile = join(DIRNAME, 'wiring copy.txt');

@@ -4,7 +4,7 @@ import compareDataToFile from "../../debug/compareDataToFile.js";
 import { formatCombinatorics, processCombinatorics, writeOutputToFile } from "../../debug/testCombinatoricsPerformance.js";
 import range from "../../utils/range.js";
 
-const DIRNAME = 'temp';
+const DIRNAME = 'output';
 
 const inputs = range(20).map(() => range(8));
 const outputFile = join(DIRNAME, 'permutations.txt');
