@@ -1,6 +1,5 @@
 import assert from "assert";
+import simpleAssert from "../../debug/simpleAssert.js";
 import factorial from "../../utils/factorial.js";
 
-assert.strictEqual(factorial(4), 24);
-
-console.log('PASS');
+simpleAssert(() => assert.strictEqual(factorial(4), 24));
