@@ -12,7 +12,6 @@ export default function simpleAssert(assertCallback, text) {
         console.log(`PASS${textAppend}`);
     } catch (error) {
         if (error instanceof AssertionError) {
-            // TODO: add text
             console.error(`FAIL${textAppend}: ${error.message}`)
         } else {
             console.error(error);
