@@ -4,30 +4,15 @@ import simpleAssert from "../debug/simpleAssert.js";
 import simulateProgress from "../debug/simulateProgress.js";
 import normalizeEOL from "../utils/normalizeEOL.js";
 
-const total = 20;
-const width = 20;
+const total = 5;
+const width = 10;
 const interval = 50;
 const expected = `
-Progress: [=                   ]
-Progress: [==                  ]
-Progress: [===                 ]
-Progress: [====                ]
-Progress: [=====               ]
-Progress: [======              ]
-Progress: [=======             ]
-Progress: [========            ]
-Progress: [=========           ]
-Progress: [==========          ]
-Progress: [===========         ]
-Progress: [============        ]
-Progress: [=============       ]
-Progress: [==============      ]
-Progress: [===============     ]
-Progress: [================    ]
-Progress: [=================   ]
-Progress: [==================  ]
-Progress: [=================== ]
-Progress: [====================]
+Progress: [==        ]
+Progress: [====      ]
+Progress: [======    ]
+Progress: [========  ]
+Progress: [==========]
 Progress bar overflow!
 `;
 
