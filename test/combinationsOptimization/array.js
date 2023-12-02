@@ -33,5 +33,5 @@ const expected = [
 ];
 // difference between every adjacent combination should be only 1
 
-assert.deepEqual(result, expected);
+assert.deepStrictEqual(result, expected);
 console.log('PASS');

@@ -32,5 +32,5 @@ const expected = [
     { A: 3, B: 30, C: 300 }
 ];
 
-assert.deepEqual(result, expected);
+assert.deepStrictEqual(result, expected);
 console.log('PASS');

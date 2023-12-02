@@ -30,5 +30,5 @@ const expected = [
 ];
 // difference between every adjacent permutation is only 2
 
-assert.deepEqual(result, expected);
+assert.deepStrictEqual(result, expected);
 console.log('PASS');

@@ -29,5 +29,5 @@ const expected = [
     { A: 4, B: 3, C: 2, D: 1 }
 ];
 
-assert.deepEqual(result, expected);
+assert.deepStrictEqual(result, expected);
 console.log('PASS');
