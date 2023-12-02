@@ -1,6 +1,7 @@
 import { join } from "path";
 import getMinDiffPermutations from "../../combinatorics/permutationsOptimization.js";
 import assertFileContent from "../../debug/assertFileContent.js";
+import simpleAssert from "../../debug/simpleAssert.js";
 import { formatCombinatorics, processCombinatorics, validateOutputList, writeOutputToFile } from "../../debug/testCombinatoricsPerformance.js";
 import countListDiff from "../../utils/countListDiff.js";
 import range from "../../utils/range.js";
@@ -17,5 +18,4 @@ const formattedOutputs = formatCombinatorics(outputs);
 writeOutputToFile(formattedOutputs, outputFile);
 
 console.log(`Assert file Content "${compareFile}"...`);
-assertFileContent(compareFile, formattedOutputs);
-console.log(`PASS`);
+simpleAssert(() => assertFileContent(compareFile, formattedOutputs));

@@ -1,5 +1,6 @@
 import assert from "assert";
 import { getMinDiffDictCombinations } from "../../combinatorics/combinationsOptimization.js";
+import simpleAssert from "../../debug/simpleAssert.js";
 
 const result = getMinDiffDictCombinations({ A: [1, 2, 3], B: [10, 20, 30], C: [100, 200, 300] });
 const expected = [
@@ -33,5 +34,4 @@ const expected = [
 ]
 // difference between every adjacent combination should be only 1
 
-assert.deepStrictEqual(result, expected);
-console.log('PASS');
+simpleAssert(() => assert.deepStrictEqual(result, expected));

@@ -1,5 +1,6 @@
 import assert from "assert";
 import getMinDiffPermutations from "../../combinatorics/permutationsOptimization.js";
+import simpleAssert from "../../debug/simpleAssert.js";
 
 const result = getMinDiffPermutations([1, 2, 3, 4]);
 const expected = [
@@ -30,5 +31,4 @@ const expected = [
 ];
 // difference between every adjacent permutation is only 2
 
-assert.deepStrictEqual(result, expected);
-console.log('PASS');
+simpleAssert(() => assert.deepStrictEqual(result, expected));

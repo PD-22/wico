@@ -1,6 +1,7 @@
 import assert from "assert";
-import range from "../../utils/range.js";
 import getCombinations from "../../combinatorics/combinations.js";
+import simpleAssert from "../../debug/simpleAssert.js";
+import range from "../../utils/range.js";
 
 /* NOTE: test for division accuracy bug
 2 / 98 * 49 = 0.9999999999999999
@@ -12,5 +13,4 @@ const expected = [[1, 1], [1, 2], [1, 3], [1, 4], [1, 5], [1, 6], [1, 7], [1, 8]
 
 const result = getCombinations(testInput);
 
-assert.deepStrictEqual(result, expected);
-console.log('PASS');
+simpleAssert(() => assert.deepStrictEqual(result, expected));

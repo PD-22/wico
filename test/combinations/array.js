@@ -1,5 +1,6 @@
 import assert from "assert";
 import getCombinations from "../../combinatorics/combinations.js";
+import simpleAssert from "../../debug/simpleAssert.js";
 
 const result = getCombinations([[1, 2, 3], [10, 20, 30], [100, 200, 300]]);
 const expected = [
@@ -32,5 +33,4 @@ const expected = [
     [3, 30, 300]
 ];
 
-assert.deepStrictEqual(result, expected);
-console.log('PASS');
+simpleAssert(() => assert.deepStrictEqual(result, expected));
