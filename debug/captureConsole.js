@@ -1,30 +1,43 @@
+/** @typedef {() => Promise<unknown>} PF */
+/** @typedef {Promise<R>} PR */
+/** @overload @param {PF} callback @returns {PR} */
+
+/** @typedef {() => unknown} F */
+/** @typedef {unknown[]} R */
+/** @overload @param {F} callback @returns {R} */
+
 /**
- * @param {() => void} callback
- * @returns {unknown[]}
+ * @param {PF | F} callback
+ * @returns {PR | R }
  */
 export default function captureConsole(callback) {
-    /** @type {unknown[]} */
-    const capturedLogs = [];
+    /** @type {PR | R} */
+    const result = [];
 
-    const consoleLog = console.log;
-    const consoleError = console.error;
-    const consoleInfo = console.info;
-    const consoleWarn = console.warn;
-    const processStdoutWrite = process.stdout.write;
+    const log = console.log;
+    const error = console.error;
+    const info = console.info;
+    const warn = console.warn;
+    const write = process.stdout.write;
 
-    console.log = (...args) => capturedLogs.push(...args);
-    console.error = (...args) => capturedLogs.push(...args);
-    console.info = (...args) => capturedLogs.push(...args);
-    console.warn = (...args) => capturedLogs.push(...args);
-    process.stdout.write = (...args) => { capturedLogs.push(...args); return false; };
+    console.log = (...args) => result.push(...args);
+    console.error = (...args) => result.push(...args);
+    console.info = (...args) => result.push(...args);
+    console.warn = (...args) => result.push(...args);
+    process.stdout.write = (...args) => { result.push(...args); return false; };
 
-    callback();
+    const maybePromise = callback();
 
-    console.log = consoleLog;
-    console.error = consoleError;
-    console.info = consoleInfo;
-    console.warn = consoleWarn;
-    process.stdout.write = processStdoutWrite;
+    const onfinally = () => {
+        console.log = log;
+        console.error = error;
+        console.info = info;
+        console.warn = warn;
+        process.stdout.write = write;
+    };
 
-    return capturedLogs;
+    if (maybePromise instanceof Promise) return maybePromise.then(() => result).finally(onfinally);
+
+    onfinally();
+    return result;
 }
