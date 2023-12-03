@@ -1,5 +1,5 @@
 import assert from "assert";
-import captureConsoleAsync from "../debug/captureConsoleAsync.js";
+import captureConsole from "../debug/captureConsole.js";
 import simpleAssert from "../debug/simpleAssert.js";
 import simulateProgress from "../debug/simulateProgress.js";
 import normalizeEOL from "../utils/normalizeEOL.js";
@@ -17,7 +17,7 @@ Progress bar overflow!
 `;
 
 (async () => {
-    const captured = await captureConsoleAsync(async () => {
+    const captured = await captureConsole(async () => {
         const progress = await simulateProgress(total, width, interval);
         progress.increment();
     });
