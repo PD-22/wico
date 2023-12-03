@@ -1,4 +1,6 @@
+import assert from "assert";
 import { writeFileSync } from "fs";
+import countListDiff from "../utils/countListDiff.js";
 import forEachAdjacents from "../utils/forEachAdjacents.js";
 import createProgressBar from './createProgressBar.js';
 import getDeltaTime from "./getDeltaTime.js";
@@ -19,21 +21,20 @@ export function processCombinatorics(inputs, getCombinatoricsCallback) {
         return result;
     }));
 
-    console.log(`${deltaTime.toFixed()} ms\n`);
+    console.log(`${deltaTime.toFixed()} ms`);
     return outputList;
 }
 
 /**
  * @template T
- * @param {T[][]} outputList
- * @param {(v1: T, v2: T) => boolean} validateAdjacentItems
- * @throws {Error}
+ * @param {T[][][]} outputList
+ * @param {number} expectedDiffCount
+ * @throws {AssertionError}
  */
-export function validateOutputList(outputList, validateAdjacentItems) {
-    outputList.forEach(output => forEachAdjacents(output, (v1, v2) => {
-        if (validateAdjacentItems(v1, v2)) return;
-        throw new Error('Invalid adjacency');
-    }));
+export function assertCombinatoricsOptimization(outputList, expectedDiffCount) {
+    outputList.forEach(output => forEachAdjacents(output, (v1, v2) =>
+        assert.strictEqual(countListDiff(v1, v2), expectedDiffCount)
+    ))
 }
 
 /**
@@ -43,7 +44,7 @@ export function validateOutputList(outputList, validateAdjacentItems) {
 export function writeOutputToFile(formattedOutputList, outputFile) {
     console.log(`Writing output to "${outputFile}"...`);
     writeFileSync(outputFile, formattedOutputList);
-    console.log(`Done\n`);
+    console.log(`Done`);
 }
 
 /**
