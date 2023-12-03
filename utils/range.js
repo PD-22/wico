@@ -15,7 +15,7 @@
  * @overload
  * @param {number} start
  * @param {number} end
- * @param {number} [step]
+ * @param {number} step
  * @returns {number[]}
  */
 

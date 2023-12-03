@@ -11,18 +11,20 @@ import simpleAssert from "../debug/simpleAssert.js";
         process.stdout.write("Process stdout write");
     });
 
-    simpleAssert(() => assert.deepStrictEqual(captured, [
-        "Hello, World!",
-        "Error message",
-        "Information message",
-        "Warning message",
-        "Process stdout write"
-    ]));
+    simpleAssert(
+        () => assert.deepStrictEqual(captured, [
+            "Hello, World!",
+            "Error message",
+            "Information message",
+            "Warning message",
+            "Process stdout write"
+        ]),
+        "synchronous"
+    );
 })();
 
 (async () => {
-    /** @param {number} [ms] @returns {Promise<void>} */
-    const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+    const delay = (/** @type {number} */ ms) => new Promise(resolve => setTimeout(resolve, ms));
 
     const captured = await captureConsole(async () => {
         await delay(100); console.log("Hello, World!");
@@ -32,11 +34,14 @@ import simpleAssert from "../debug/simpleAssert.js";
         await delay(100); process.stdout.write("Process stdout write");
     });
 
-    simpleAssert(() => assert.deepStrictEqual(captured, [
-        "Hello, World!",
-        "Error message",
-        "Information message",
-        "Warning message",
-        "Process stdout write"
-    ]));
+    simpleAssert(
+        () => assert.deepStrictEqual(captured, [
+            "Hello, World!",
+            "Error message",
+            "Information message",
+            "Warning message",
+            "Process stdout write"
+        ]),
+        "asynchronous"
+    );
 })();
