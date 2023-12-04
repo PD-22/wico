@@ -13,12 +13,12 @@ import range from "../../utils/range.js";
 
 const DIRNAME = 'output';
 if (!existsSync(DIRNAME)) mkdirSync(DIRNAME);
-
-const inputs = range(20).map(() => range(8));
 const outputFile = join(DIRNAME, 'permutationsOptimization.txt');
 const compareFile = join(DIRNAME, 'permutationsOptimization-backup.txt');
 
+const inputs = range(20).map(() => range(8));
 const outputs = processCombinatorics(inputs, getMinDiffPermutations);
+
 const formattedOutputs = formatCombinatorics(outputs);
 writeOutputToFile(formattedOutputs, outputFile);
 

@@ -8,12 +8,12 @@ import range from "../../utils/range.js";
 
 const DIRNAME = 'output';
 if (!existsSync(DIRNAME)) mkdirSync(DIRNAME);
-
-const inputs = range(20).map(() => range(8));
 const outputFile = join(DIRNAME, 'permutations.txt');
 const compareFile = join(DIRNAME, 'permutations-backup.txt');
 
+const inputs = range(20).map(() => range(8));
 const outputs = processCombinatorics(inputs, getPermutations);
+
 const formattedOutputs = formatCombinatorics(outputs);
 writeOutputToFile(formattedOutputs, outputFile);
 
