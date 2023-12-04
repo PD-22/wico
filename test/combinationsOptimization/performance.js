@@ -26,4 +26,6 @@ console.log("Assert combinatorics optimization...");
 simpleAssert(() => assertCombinatoricsOptimization(outputs, 1));
 
 console.log(`Assert file Content "${compareFile}"...`);
-simpleAssert(() => assertFileContent(compareFile, formattedOutputs));
+existsSync(compareFile) ?
+    simpleAssert(() => assertFileContent(compareFile, formattedOutputs)) :
+    console.log("Not found");

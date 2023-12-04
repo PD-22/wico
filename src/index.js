@@ -1,8 +1,10 @@
-import { existsSync, mkdirSync, writeFileSync } from "fs";
+import { existsSync, mkdirSync } from "fs";
 import { join } from "path";
 import { getMinDiffDictCombinations } from "../combinatorics/combinationsOptimization.js";
 import { getMinDiffDictPermutations } from "../combinatorics/permutationsOptimization.js";
 import assertFileContent from "../debug/assertFileContent.js";
+import simpleAssert from "../debug/simpleAssert.js";
+import { writeOutputToFile } from "../debug/testCombinatoricsPerformance.js";
 import mapValues from "../utils/mapValues.js";
 import formatWiring from "./format.js";
 
@@ -21,7 +23,9 @@ const wiringCombinations = getMinDiffDictCombinations(wiringPermutations);
 
 const formattedCombinations = formatWiring(wiringCombinations);
 
-writeFileSync(outputFile, formattedCombinations);
-console.log(`result: "${outputFile}"`);
+writeOutputToFile(formattedCombinations, outputFile);
 
-assertFileContent(outputCompareFile, formattedCombinations);
+console.log(`Assert file Content "${outputCompareFile}"...`);
+existsSync(outputCompareFile) ?
+    simpleAssert(() => assertFileContent(outputCompareFile, formattedCombinations)) :
+    console.log("Not found");

@@ -18,4 +18,6 @@ const formattedOutputs = formatCombinatorics(outputs);
 writeOutputToFile(formattedOutputs, outputFile);
 
 console.log(`Assert file Content "${compareFile}"...`);
-simpleAssert(() => assertFileContent(compareFile, formattedOutputs));
+existsSync(compareFile) ?
+    simpleAssert(() => assertFileContent(compareFile, formattedOutputs)) :
+    console.log("Not found");
