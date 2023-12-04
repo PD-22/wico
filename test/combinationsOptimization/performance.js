@@ -1,3 +1,4 @@
+import { existsSync, mkdirSync } from "fs";
 import { join } from "path";
 import getMinDiffCombinations from "../../combinatorics/combinationsOptimization.js";
 import assertFileContent from "../../debug/assertFileContent.js";
@@ -11,6 +12,7 @@ import {
 import range from "../../utils/range.js";
 
 const DIRNAME = 'output';
+if (!existsSync(DIRNAME)) mkdirSync(DIRNAME);
 
 const inputs = range(20).map(() => range(4).map(() => range(20)));
 const outputFile = join(DIRNAME, 'combinationsOptimization.txt');

@@ -1,4 +1,4 @@
-import { writeFileSync } from "fs";
+import { existsSync, mkdirSync, writeFileSync } from "fs";
 import { join } from "path";
 import { getMinDiffDictCombinations } from "../combinatorics/combinationsOptimization.js";
 import { getMinDiffDictPermutations } from "../combinatorics/permutationsOptimization.js";
@@ -7,6 +7,7 @@ import mapValues from "../utils/mapValues.js";
 import formatWiring from "./format.js";
 
 const DIRNAME = 'output';
+if (!existsSync(DIRNAME)) mkdirSync(DIRNAME);
 
 const outputFile = join(DIRNAME, 'wiring.txt');
 const outputCompareFile = join(DIRNAME, 'wiring-backup.txt');

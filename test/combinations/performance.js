@@ -1,3 +1,4 @@
+import { existsSync, mkdirSync } from "fs";
 import { join } from "path";
 import getCombinations from "../../combinatorics/combinations.js";
 import assertFileContent from "../../debug/assertFileContent.js";
@@ -6,6 +7,7 @@ import { formatCombinatorics, processCombinatorics, writeOutputToFile } from "..
 import range from "../../utils/range.js";
 
 const DIRNAME = 'output';
+if (!existsSync(DIRNAME)) mkdirSync(DIRNAME);
 
 const inputs = range(20).map(() => range(4).map(() => range(20)));
 const outputFile = join(DIRNAME, 'combinations.txt');
