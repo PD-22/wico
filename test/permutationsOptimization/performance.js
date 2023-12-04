@@ -1,6 +1,5 @@
 import { existsSync, mkdirSync } from "fs";
 import { join } from "path";
-import getMinDiffPermutations from "../../combinatorics/permutationsOptimization.js";
 import assertFileContent from "../../debug/assertFileContent.js";
 import simpleAssert from "../../debug/simpleAssert.js";
 import {
@@ -9,6 +8,7 @@ import {
     processCombinatorics,
     writeOutputToFile
 } from "../../debug/testCombinatoricsPerformance.js";
+import getMinDiffPermutations from "../../src/permutationsOptimization.js";
 import range from "../../utils/range.js";
 
 const DIRNAME = 'output';

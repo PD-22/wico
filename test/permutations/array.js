@@ -1,6 +1,6 @@
 import assert from "assert";
-import getPermutations from "../../combinatorics/permutations.js";
 import simpleAssert from "../../debug/simpleAssert.js";
+import getPermutations from "../../src/permutations.js";
 
 const result = getPermutations([1, 2, 3, 4]);
 const expected = [

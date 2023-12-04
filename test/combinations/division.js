@@ -1,6 +1,6 @@
 import assert from "assert";
-import getCombinations from "../../combinatorics/combinations.js";
 import simpleAssert from "../../debug/simpleAssert.js";
+import getCombinations from "../../src/combinations.js";
 import range from "../../utils/range.js";
 
 /* NOTE: test for division accuracy bug

@@ -1,9 +1,9 @@
 import { existsSync, mkdirSync } from "fs";
 import { join } from "path";
-import getPermutations from "../../combinatorics/permutations.js";
 import assertFileContent from "../../debug/assertFileContent.js";
 import simpleAssert from "../../debug/simpleAssert.js";
 import { formatCombinatorics, processCombinatorics, writeOutputToFile } from "../../debug/testCombinatoricsPerformance.js";
+import getPermutations from "../../src/permutations.js";
 import range from "../../utils/range.js";
 
 const DIRNAME = 'output';
