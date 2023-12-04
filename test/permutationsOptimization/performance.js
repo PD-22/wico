@@ -28,4 +28,4 @@ simpleAssert(() => assertCombinatoricsOptimization(outputs, 2));
 console.log(`Assert file Content "${compareFile}"...`);
 existsSync(compareFile) ?
     simpleAssert(() => assertFileContent(compareFile, formattedOutputs)) :
-    console.log("Not found");
+    console.log("NOT FOUND");

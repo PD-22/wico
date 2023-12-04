@@ -28,4 +28,4 @@ writeOutputToFile(formattedCombinations, outputFile);
 console.log(`Assert file Content "${outputCompareFile}"...`);
 existsSync(outputCompareFile) ?
     simpleAssert(() => assertFileContent(outputCompareFile, formattedCombinations)) :
-    console.log("Not found");
+    console.log("NOT FOUND");

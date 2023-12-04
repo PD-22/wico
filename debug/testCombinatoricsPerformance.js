@@ -44,7 +44,7 @@ export function assertCombinatoricsOptimization(outputList, expectedDiffCount) {
 export function writeOutputToFile(formattedOutputList, outputFile) {
     console.log(`Writing output to "${outputFile}"...`);
     writeFileSync(outputFile, formattedOutputList);
-    console.log(`Done`);
+    console.log(`DONE`);
 }
 
 /**
