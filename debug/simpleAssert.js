@@ -3,6 +3,7 @@ import { AssertionError } from "assert";
 /**
  * @param {() => void} assertCallback
  * @param {string} [text]
+ * @throws {AssertionError}
  * @returns {void}
  */
 export default function simpleAssert(assertCallback, text) {

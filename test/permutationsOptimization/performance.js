@@ -23,7 +23,7 @@ const formattedOutputs = formatCombinatorics(outputs);
 writeOutputToFile(formattedOutputs, outputFile);
 
 console.log("Assert combinatorics optimization...");
-simpleAssert(() => assertCombinatoricsOptimization(outputs, 1));
+simpleAssert(() => assertCombinatoricsOptimization(outputs, 2));
 
 console.log(`Assert file Content "${compareFile}"...`);
 simpleAssert(() => assertFileContent(compareFile, formattedOutputs));
