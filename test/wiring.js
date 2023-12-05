@@ -14,8 +14,17 @@ const outputFile = join(DIRNAME, 'wiring.txt');
 const outputCompareFile = join(DIRNAME, 'wiring-backup.txt');
 
 const settings = {
-    aux: { m: "blue", r: "red", l: "green", g: "copper" },
-    sound: { r: "red", g: "copper", l: "green" }
+    Jack: {
+        L: "Green",
+        R: "Red",
+        G: "Copper",
+        M: "Blue"
+    },
+    Speakers: {
+        L: "Green",
+        R: "Red",
+        G: "Copper"
+    }
 };
 
 const permutations = mapValues(settings, getMinDiffDictPermutations);
