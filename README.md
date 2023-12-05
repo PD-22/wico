@@ -93,3 +93,30 @@ const settings = {
     G - Red -> Green
 ... (142 more combinations)
 ```
+
+# File Structure
+### src
+`src` folder contains `index.js` that is the main entry for the app and is used to generate wiring combinations.
+
+`formatWiring.js` is used to make the output generated in `index.js` more readable and highlight the wire switching between every combination.
+
+`src` also contains functions for `combinatorics` calculation: `combinations, combinationsOptimization, permutations, permutationsOptimization`
+
+### utils
+`utils` folder contains simple utility functions
+* Iterating over objects: `forEachAdjacent, map, mapValues`
+* Math: `factorial, product`
+* Formatting: `indent, lines`
+* Other: `countListDiff`, `range`
+
+### test
+`test` folder contains all test files for almost every file that exports a function including `utils`, `combinatorics` files in the [`src`](#testing) folder and some from the `debug` folder.
+
+### debug
+`debug` folder contains methods for testing.
+* `assertion` files to test expected output: `simpleAssert, captureConsole, assertFileContent, normalizeEOL`
+* `timing` files to set time and display progress bar: `getDeltaTime, createProgressBar, simulateProgress`
+* `testCombinatoricsPerformance` file containing multiple functions for testing combinatorics
+
+### output
+`output` is an ignored folder in git that is used for storing temporary `txt` files for tests
