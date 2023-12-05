@@ -1,6 +1,6 @@
 import assert from "assert";
-import normalizeEOL from "../../debug/normalizeEOL.js";
-import simpleAssert from "../../debug/simpleAssert.js";
+import normalizeEOL from "../debug/normalizeEOL.js";
+import simpleAssert from "../debug/simpleAssert.js";
 
 const expected = "A\nB";
 
