@@ -70,7 +70,7 @@ const settings = {
 ```
 
 `output/wiring.txt:`
-```
+```txt
 #1:
   Jack:
     L - Green
@@ -112,6 +112,8 @@ const settings = {
 ### test
 `test` folder contains all test files for almost every file that exports a function including `utils`, `combinatorics` files in the [`src`](#testing) folder and some from the `debug` folder.
 
+For more information about go to [Testing](#testing)
+
 ### debug
 `debug` folder contains methods for testing.
 * `assertion` files to test expected output: `simpleAssert, captureConsole, assertFileContent, normalizeEOL`
@@ -120,3 +122,118 @@ const settings = {
 
 ### output
 `output` is an ignored folder in git that is used for storing temporary `txt` files for tests
+
+# Testing
+It is possible use the following `bash` command to run all the files in the test folder:
+```bash
+find ./test/ -type f -name "*.js" -exec bash -c 'cmd="node {}"; echo "$cmd"; $cmd' \;
+```
+
+## A single test
+### Command
+```bash
+node ./test/combinations/array.js
+```
+### Success output
+```txt
+PASS
+```
+### Failure output
+```txt
+FAIL: Expected values to be strictly deep-equal:
++ actual - expected ... Lines skipped
+
+  [
+    [
+...
+      30,
+      300
++   ],
++   [
++     1,
++     10,
++     100
+    ]
+  ]
+```
+
+## Multiple tests with descriptions
+### Command
+```bash
+node ./test/indent.js
+```
+### Success output
+```txt
+PASS: easy
+PASS: newline middle
+PASS: double newline middle
+PASS: start newline
+PASS: start newline whitespace        
+PASS: start newline whitespace newline
+PASS: start whitespace newline        
+PASS: end newline
+PASS: end newline whitespace
+PASS: end newline whitespace newline  
+PASS: end whitespace newline
+PASS: start lines whitespace
+```
+### Failure output
+```txt
+PASS: easy
+PASS: newline middle
+FAIL: double newline middle: Expected values to be strictly equal:
++ actual - expected
+
++ 'One\nTwo\nThree'
+- '-One\n\n\n-Two\n-Three'
+PASS: start newline
+PASS: start newline whitespace
+PASS: start newline whitespace newline
+PASS: start whitespace newline
+PASS: end newline
+PASS: end newline whitespace
+PASS: end newline whitespace newline
+PASS: end whitespace newline
+PASS: start lines whitespace
+```
+
+## Combinatorics performance
+Command:
+```bash
+node ./test/combinationsOptimization/performance.js
+```
+### Success output
+```txt
+getMinDiffCombinations...
+Progress: [====================]
+1363 ms
+Writing output to "output\combinationsOptimization.txt"...
+DONE
+Assert combinatorics optimization...
+PASS
+Assert file Content "output\combinationsOptimization-backup.txt"...
+PASS
+```
+### Some adjacent combinations did not have expected minimum difference of `1`
+```txt
+... (some lines are skipped)
+
+Assert combinatorics optimization...
+FAIL: Expected values to be strictly equal:
+
+2 !== 1
+```
+### The file for comparing output was not found
+```txt
+... (some lines are skipped)
+
+Assert file Content "output\combinationsOptimization-backups.txt"...
+NOT FOUND
+```
+### Output did not match contents of the comparison fil
+```txt
+... (some lines are skipped)
+
+Assert file Content "output\combinationsOptimization-backup.txt"...
+FAIL: File content does not match
+```
