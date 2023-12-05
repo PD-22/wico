@@ -1,6 +1,6 @@
 import assert, { AssertionError } from "assert";
 import { readFileSync } from "fs";
-import normalizeEOL from "../utils/normalizeEOL.js";
+import normalizeEOL from "./normalizeEOL.js";
 
 /**
  * @param {import("fs").PathLike} actualFile
