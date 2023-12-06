@@ -10,7 +10,9 @@
   - [Naive Solution](#naive-solution)
   - [Optimized Solution](#optimized-solution)
   - [Journey of Improvement](#journey-of-improvement)
-- [File Structure](#file-structure)
+- [Internals](#internals)
+   - [File Structure](#file-structure)
+   - [How it Works](#how-it-works)
 
 ## Installation
 1. Check if Node.js is installed:
@@ -219,41 +221,41 @@ It felt like there were almost unlimited ways to solve programming problems and 
 
 I should focus on the things that matter. My goal is to efficiently write useful programs in the future while avoiding unnecessary distractions.
 
----
+## Internals
 
-## File Structure
-### src
-`src` folder contains `index.js` that is the main entry for the app and is used to generate wiring combinations.
+### File Structure
 
-`formatWiring.js` is used to make the output generated in `index.js` more readable and highlight the wire switching between every combination.
+* `src`
+  * `index.js`
+     * The main entry for the app used to generate wiring combinations.
+  * `formatWiring.js`
+     * Used to make the output generated in `index.js` more readable and highlight the wire switching between every combination.
+  * `combinatorics` functions in `src`
+     * `combinations`
+     * `combinationsOptimization`
+     * `permutations`
+     * `permutationsOptimization`
 
-`src` also contains functions for `combinatorics` calculation: `combinations, combinationsOptimization, permutations, permutationsOptimization`
+* `utils`
+   * Iterating over objects: `forEachAdjacent`, `map`, `mapValues`
+   * Math: `factorial`, `product`
+   * Formatting: `indent`, `lines`
+   * Other: `countListDiff`, `range`
 
-### utils
-`utils` folder contains simple utility functions
-* Iterating over objects: `forEachAdjacent, map, mapValues`
-* Math: `factorial, product`
-* Formatting: `indent, lines`
-* Other: `countListDiff`, `range`
+* `test`
+  * Contains tests for `src`, `utils`, `debug`.
+  * For more information, go to [Testing](#testing)
 
-### test
-`test` folder contains all test files for almost every file that exports a function including `utils`, `combinatorics` files in the [`src`](#testing) folder and some from the `debug` folder.
+* `debug`
+   * Contains utilities for testing.
+   * `assertion` files to test expected output: `simpleAssert`, `captureConsole`, `assertFileContent`, `normalizeEOL`
+   * `timing` files to set time and display progress bar: `getDeltaTime`, `createProgressBar`, `simulateProgress`
+   * `testCombinatoricsPerformance` file containing multiple functions for testing combinatorics
 
-For more information about go to [Testing](#testing)
+* `output`
+   * Ignored folder in git used for storing temporary `txt` files for tests
 
-### debug
-`debug` folder contains methods for testing.
-* `assertion` files to test expected output: `simpleAssert, captureConsole, assertFileContent, normalizeEOL`
-* `timing` files to set time and display progress bar: `getDeltaTime, createProgressBar, simulateProgress`
-* `testCombinatoricsPerformance` file containing multiple functions for testing combinatorics
-
-### output
-`output` is an ignored folder in git that is used for storing temporary `txt` files for tests
-
-
-## TODO
-
-### How it Works
+### How it Works <!-- TODO -->
 The primary functionality of this project is built upon `combination` and `permutation` algorithms.
 
 This combinatoric functions are used to create all possible combinations of wiring earphone components to the circuit.
