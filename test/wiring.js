@@ -1,8 +1,8 @@
 import { existsSync, mkdirSync } from "fs";
 import { join } from "path";
 import assertFileContent from "../debug/assertFileContent.js";
+import writeOutputToFile from "../debug/combinatoricsPerformance/writeOutputToFile.js";
 import simpleAssert from "../debug/simpleAssert.js";
-import { writeOutputToFile } from "../debug/testCombinatoricsPerformance.js";
 import { getMinDiffDictCombinations } from "../src/combinationsOptimization.js";
 import formatIndex from "../src/formatWiring.js";
 import { getMinDiffDictPermutations } from "../src/permutationsOptimization.js";

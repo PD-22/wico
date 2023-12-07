@@ -1,8 +1,10 @@
 import { existsSync, mkdirSync } from "fs";
 import { join } from "path";
 import assertFileContent from "../../debug/assertFileContent.js";
+import formatCombinatorics from "../../debug/combinatoricsPerformance/formatCombinatorics.js";
+import processCombinatorics from "../../debug/combinatoricsPerformance/processCombinatorics.js";
+import writeOutputToFile from "../../debug/combinatoricsPerformance/writeOutputToFile.js";
 import simpleAssert from "../../debug/simpleAssert.js";
-import { formatCombinatorics, processCombinatorics, writeOutputToFile } from "../../debug/testCombinatoricsPerformance.js";
 import getCombinations from "../../src/combinations.js";
 import range from "../../utils/range.js";
 

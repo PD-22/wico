@@ -1,6 +1,6 @@
 import { existsSync, mkdirSync } from "fs";
 import { join } from "path";
-import { writeOutputToFile } from "../debug/testCombinatoricsPerformance.js";
+import writeOutputToFile from "../debug/combinatoricsPerformance/writeOutputToFile.js";
 import mapValues from "../utils/mapValues.js";
 import { getMinDiffDictCombinations } from "./combinationsOptimization.js";
 import formatWiring from "./formatWiring.js";
