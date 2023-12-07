@@ -1,5 +1,6 @@
 import assert from "assert";
 import captureConsole from "../../debug/captureConsole.js";
+import delay from "../../debug/delay.js";
 import simpleAssert from "../../debug/simpleAssert.js";
 
 (() => {
@@ -24,14 +25,12 @@ import simpleAssert from "../../debug/simpleAssert.js";
 })();
 
 (async () => {
-    const delay = (/** @type {number} */ ms) => new Promise(resolve => setTimeout(resolve, ms));
-
     const captured = await captureConsole(async () => {
-        await delay(100); console.log("Hello, World!");
-        await delay(100); console.error("Error message");
-        await delay(100); console.info("Information message");
-        await delay(100); console.warn("Warning message");
-        await delay(100); process.stdout.write("Process stdout write");
+        await delay(50); console.log("Hello, World!");
+        await delay(50); console.error("Error message");
+        await delay(50); console.info("Information message");
+        await delay(50); console.warn("Warning message");
+        await delay(50); process.stdout.write("Process stdout write");
     });
 
     simpleAssert(
