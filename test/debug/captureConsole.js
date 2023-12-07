@@ -1,6 +1,6 @@
 import assert from "assert";
-import captureConsole from "../debug/captureConsole.js";
-import simpleAssert from "../debug/simpleAssert.js";
+import captureConsole from "../../debug/captureConsole.js";
+import simpleAssert from "../../debug/simpleAssert.js";
 
 (() => {
     const captured = captureConsole(() => {
