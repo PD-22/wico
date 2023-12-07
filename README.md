@@ -2,17 +2,19 @@
 
 ### Table of Contents
 
-- [Installation](#installation)
-- [Usage](#usage)
-- [Testing](#testing)
-- [History](#history)
-  - [Origin](#origin)
-  - [Naive Solution](#naive-solution)
-  - [Optimized Solution](#optimized-solution)
-  - [Journey of Improvement](#journey-of-improvement)
-- [Internals](#internals)
-   - [File Structure](#file-structure)
-   - [How it Works](#how-it-works)
+* [Installation](#installation)
+* [Usage](#usage)
+* [Testing](#testing)
+* [History](#history)
+  * [Origin](#origin)
+  * [Naive Solution](#naive-solution)
+  * [Optimized Solution](#optimized-solution)
+  * [Journey of Improvement](#journey-of-improvement)
+* [Internals](#internals)
+  * [File Structure](#file-structure)
+  * [How it Works](#how-it-works)
+  * [Permutations](#permutations)
+  * [Combinations](#combinations)
 
 ## Installation
 1. Check if Node.js is installed:
@@ -35,9 +37,6 @@
    ```
 3. Expected output:
    ```text
-   > wico@1.0.0 start   
-   > node ./src/index.js
-   
    Writing output to "output\wiring.txt"...
    DONE
    ```
@@ -255,39 +254,66 @@ I should focus on the things that matter. My goal is to efficiently write useful
 * `output`
    * Ignored folder in git used for storing temporary `txt` files for tests
 
-### How it Works <!-- TODO -->
-The primary functionality of this project is built upon `combination` and `permutation` algorithms.
+### How it Works
 
-This combinatoric functions are used to create all possible combinations of wiring earphone components to the circuit.
+The program is initiated using `npm start`, which triggers the execution of the `src/index.js` file.
+The program uses the input of the type `Record<string, <Record<string, string>>` from the `settings` JSON object in the file.
 
-The program gets input from `settings` json object in the `src/index.js` file.
-   ```js
-   const settings = {
-     Jack: {
-       L: "Green",
-       R: "Red",
-       G: "Copper",
-       M: "Blue"
-     },
-     Speakers: {
-       L: "Green",
-       R: "Red",
-       G: "Copper"
-     }
-   };
-   ```
-* The `settings` object can contain any amount of `wiring groups`, `wires` and `joints`.
-* The type of the `settings` object is `Record<string, <Record<string, string>>`.
+```js
+const settings = {
+   Jack: { L: "Green", R: "Red", G: "Copper", M: "Blue" },
+   Speakers: { L: "Green", R: "Red", G: "Copper" }
+};
+```
 
-* The current `wirings` object containts `wire groups` for earphone audio jack and speakers that should be connected to the circuit.
-* Each `wiring group` contains key-value pair of `wire` and `joint` that can be soldered together.
+The core functionality of this project is built using combination and permutation algorithms.
+These combinatoric functions are used to generate all possible combinations of wiring earphone components (jack and speakers in our example) to the circuit.
+This is accomplished by combining all possible permutations of each earphone component wiring.
+### Permutations
 
----
+The `mapValues` utility function and `getMinDiffDictPermutations` are used to replace all values in the `settings` object with permutations:
 
-For wiring settings with `4` wirings in the `audio jack` and `3` wirings in `the speakers` there would be `((4! * 3!) - 1) * 2 = 286` amount of resoldering needed to try all combinations with minimum amount of soldering possible.
+```js
+const permutations = {
+   Jack: [
+      { L: "Green", R: "Red", G: "Copper", M: "Blue" },
+      { L: "Green", R: "Red", G: "Blue", M: "Copper" },
+      // ... (22 more permutations)
+   ],
+   Speakers: [
+      { L: "Green", R: "Red", G: "Copper" },
+      { L: "Green", R: "Copper", G: "Red" },
+      // ... (4 more permutations)
+   ]
+}
+```
 
-* `4! * 3! = 144` is amount of combinations.
-* `144 - 1 = 143` is amount of transitions between combinations.
-* `143 * 2 = 286` is amount of resoldering required to transition between all combinations.
+`getMinDiffDictPermutations` looks like the `getPermutations` function with some key differences:
+* **Dict**: It operates on a dictionary (`Dict`) instead of an array.
+The type signature is `(Record<string, T>) => Record<string, T>[]` as opposed to `(T[]) => T[][]` in the array variant (`getPermutations`).
+This allows the use of string names for positions rather than number indices.
+* **MinDiff**: It optimizes the algorithm to minimize the difference between every permutation.
+This optimization is illustrated in the `test/permutations/array.js` and `test/permutationsOptimization/array.js` test files.
 
-Multiplication by `2` accurs because of switching 2 `wires` with places.
+**Result**:
+* `Jack` has `4! = 4 * 3 * 2 * 1 = 24` total permutations because it has `4` values.
+* `Speakers` has `3! = 3 * 2 * 1 = 6` total permutations because it has `3` values.
+### Combinations
+
+Following the permutation stage, the program combines all the wiring `permutations` and uses `getMinDiffDictCombinations` to generate combinations:
+
+`getMinDiffDictCombinations` is like `getCombinations` function with similar differences as `getMinDiffDictPermutations` has with `permutations`:
+
+`getMinDiffDictCombinations` looks like the `getCombinations` function with some key differences:
+* **Dict**: It operates on a dictionary (`Dict`) instead of an array.
+The type signature is `(Record<string, T[]>) => Record<string, T>[]` as opposed to `(T[][]) => T[][]` in the array variant (`getCombinations`).
+This allows the use of string names for positions rather than number indices.
+* **MinDiff**: It optimizes the algorithm to minimize the difference between every permutation.
+This optimization is illustrated in the `test/combinations/array.js` and `test/combinationsOptimization/array.js` test files.
+
+**Result**:
+* In total, `4! * 3! = 24 * 6 = 144` combinations are generated by combining permutations.
+* The `144` combination count means that there are `144 - 1 = 143` transitions between the combinations.
+* The `143` transition count means that `143 * 2 = 286` values are changed to transfer between every combination.
+
+The multiplication by `2` occurs because `2` is the minimum number of values that need to be updated to generate a new permutation by switching `2` values.
