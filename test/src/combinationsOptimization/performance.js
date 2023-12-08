@@ -1,13 +1,13 @@
 import { existsSync, mkdirSync } from "fs";
 import { join } from "path";
-import assertFileContent from "../../debug/assertFileContent.js";
-import assertCombinatoricsOptimization from "../../debug/combinatoricsPerformance/assertCombinatoricsOptimization.js";
-import formatCombinatorics from "../../debug/combinatoricsPerformance/formatCombinatorics.js";
-import processCombinatorics from "../../debug/combinatoricsPerformance/processCombinatorics.js";
-import writeOutputToFile from "../../debug/combinatoricsPerformance/writeOutputToFile.js";
-import simpleAssert from "../../debug/simpleAssert.js";
-import getMinDiffCombinations from "../../src/combinationsOptimization.js";
-import range from "../../utils/range.js";
+import assertFileContent from "../../../debug/assertFileContent.js";
+import assertCombinatoricsOptimization from "../../../debug/combinatoricsPerformance/assertCombinatoricsOptimization.js";
+import formatCombinatorics from "../../../debug/combinatoricsPerformance/formatCombinatorics.js";
+import processCombinatorics from "../../../debug/combinatoricsPerformance/processCombinatorics.js";
+import writeOutputToFile from "../../../debug/combinatoricsPerformance/writeOutputToFile.js";
+import simpleAssert from "../../../debug/simpleAssert.js";
+import getMinDiffCombinations from "../../../src/combinationsOptimization.js";
+import range from "../../../utils/range.js";
 
 const DIRNAME = 'output';
 if (!existsSync(DIRNAME)) mkdirSync(DIRNAME);

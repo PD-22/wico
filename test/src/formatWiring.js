@@ -1,6 +1,6 @@
 import assert from "assert";
-import simpleAssert from "../debug/simpleAssert.js";
-import formatWiring from "../src/formatWiring.js";
+import simpleAssert from "../../debug/simpleAssert.js";
+import formatWiring from "../../src/formatWiring.js";
 
 const input = [
   {

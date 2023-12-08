@@ -1,6 +1,6 @@
 import assert from "assert";
-import simpleAssert from "../../debug/simpleAssert.js";
-import getCombinations from "../../src/combinations.js";
+import simpleAssert from "../../../debug/simpleAssert.js";
+import getCombinations from "../../../src/combinations.js";
 
 const result = getCombinations([[1, 2, 3], [10, 20, 30], [100, 200, 300]]);
 const expected = [

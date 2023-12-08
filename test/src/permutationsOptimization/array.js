@@ -1,6 +1,6 @@
 import assert from "assert";
-import simpleAssert from "../../debug/simpleAssert.js";
-import getMinDiffPermutations from "../../src/permutationsOptimization.js";
+import simpleAssert from "../../../debug/simpleAssert.js";
+import getMinDiffPermutations from "../../../src/permutationsOptimization.js";
 
 const result = getMinDiffPermutations([1, 2, 3, 4]);
 const expected = [

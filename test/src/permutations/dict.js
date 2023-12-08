@@ -1,6 +1,6 @@
 import assert from "assert";
-import simpleAssert from "../../debug/simpleAssert.js";
-import { getDictPermutations } from "../../src/permutations.js";
+import simpleAssert from "../../../debug/simpleAssert.js";
+import { getDictPermutations } from "../../../src/permutations.js";
 
 const result = getDictPermutations({ A: 1, B: 2, C: 3, D: 4 });
 const expected = [
