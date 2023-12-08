@@ -242,14 +242,18 @@ I should focus on the things that matter. My goal is to efficiently write useful
    * Other: `countListDiff`, `range`
 
 * `test`
-  * Contains tests for `src`, `utils`, `debug`.
+  * Contains tests for `debug`, `src`, `utils`.
   * For more information, go to [Testing](#testing)
 
 * `debug`
    * Contains utilities for testing.
-   * `assertion` files to test expected output: `simpleAssert`, `captureConsole`, `assertFileContent`, `normalizeEOL`
-   * `timing` files to set time and display progress bar: `getDeltaTime`, `createProgressBar`, `simulateProgress`
-   * `testCombinatoricsPerformance` file containing multiple functions for testing combinatorics
+   * Expected output assertion: `simpleAssert`, `captureConsole`
+   * File output testing: `assertFileContent`, `normalizeEOL`, `writeOutput`
+   * Set time and display progress bar: `getDeltaTime`, `createProgressBar`, `simulateProgress`
+   * Combinatorics performance testing utilities `combinatoricsPerformance`
+      * `assertCombinatoricsOptimization` - Assert combinatorics output `minDiff` optimization
+      * `formatCombinatorics` - Format output of `processCombinatorics`
+      * `processCombinatorics` - Calculate combinatorics, display progress
 
 * `output`
    * Ignored folder in git used for storing temporary `txt` files for tests
