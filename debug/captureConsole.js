@@ -1,17 +1,20 @@
-/** @typedef {() => Promise<unknown>} PF */
-/** @typedef {Promise<R>} PR */
-/** @overload @param {PF} callback @returns {PR} */
-
-/** @typedef {() => unknown} F */
-/** @typedef {unknown[]} R */
-/** @overload @param {F} callback @returns {R} */
+/**
+ * @overload
+ * @param {() => Promise<unknown>} callback
+ * @returns {Promise<unknown[]>}
+ */
 
 /**
- * @param {PF | F} callback
- * @returns {PR | R }
+ * @overload @param {() => unknown} callback
+ * @returns {unknown[]}
+ */
+
+/**
+ * @param {(() => Promise<unknown>) | (() => unknown)} callback
+ * @returns {Promise<unknown[]> | unknown[] }
  */
 export default function captureConsole(callback) {
-    /** @type {PR | R} */
+    /** @type {Promise<unknown[]> | unknown[]} */
     const result = [];
 
     const log = console.log;
