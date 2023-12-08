@@ -1,6 +1,6 @@
 import { existsSync, mkdirSync } from "fs";
 import { join } from "path";
-import writeOutputToFile from "../debug/combinatoricsPerformance/writeOutputToFile.js";
+import writeOutput from "../debug/writeOutput.js";
 import mapValues from "../utils/mapValues.js";
 import { getMinDiffDictCombinations } from "./combinationsOptimization.js";
 import formatWiring from "./formatWiring.js";
@@ -27,4 +27,4 @@ const settings = {
 const permutations = mapValues(settings, getMinDiffDictPermutations);
 const combinations = getMinDiffDictCombinations(permutations);
 
-writeOutputToFile(formatWiring(combinations), outputFile);
+writeOutput(outputFile, formatWiring(combinations));

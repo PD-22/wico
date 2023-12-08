@@ -1,8 +1,8 @@
 import { existsSync, mkdirSync } from "fs";
 import { join } from "path";
 import assertFileContent from "../../debug/assertFileContent.js";
-import writeOutputToFile from "../../debug/combinatoricsPerformance/writeOutputToFile.js";
 import simpleAssert from "../../debug/simpleAssert.js";
+import writeOutput from "../../debug/writeOutput.js";
 import { getMinDiffDictCombinations } from "../../src/combinationsOptimization.js";
 import formatIndex from "../../src/formatWiring.js";
 import { getMinDiffDictPermutations } from "../../src/permutationsOptimization.js";
@@ -32,7 +32,7 @@ const combinations = getMinDiffDictCombinations(permutations);
 
 const formatted = formatIndex(combinations);
 
-writeOutputToFile(formatted, outputFile);
+writeOutput(outputFile, formatted);
 
 console.log(`Assert file Content "${outputCompareFile}"...`);
 existsSync(outputCompareFile) ?

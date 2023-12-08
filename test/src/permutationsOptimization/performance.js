@@ -4,8 +4,8 @@ import assertFileContent from "../../../debug/assertFileContent.js";
 import assertCombinatoricsOptimization from "../../../debug/combinatoricsPerformance/assertCombinatoricsOptimization.js";
 import formatCombinatorics from "../../../debug/combinatoricsPerformance/formatCombinatorics.js";
 import processCombinatorics from "../../../debug/combinatoricsPerformance/processCombinatorics.js";
-import writeOutputToFile from "../../../debug/combinatoricsPerformance/writeOutputToFile.js";
 import simpleAssert from "../../../debug/simpleAssert.js";
+import writeOutput from "../../../debug/writeOutput.js";
 import getMinDiffPermutations from "../../../src/permutationsOptimization.js";
 import range from "../../../utils/range.js";
 
@@ -18,7 +18,7 @@ const inputs = range(20).map(() => range(8));
 const outputs = processCombinatorics(inputs, getMinDiffPermutations);
 
 const formattedOutputs = formatCombinatorics(outputs);
-writeOutputToFile(formattedOutputs, outputFile);
+writeOutput(outputFile, formattedOutputs);
 
 console.log("Assert combinatorics optimization...");
 simpleAssert(() => assertCombinatoricsOptimization(outputs, 2));
