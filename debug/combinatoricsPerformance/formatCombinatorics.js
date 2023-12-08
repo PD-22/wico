@@ -1,6 +1,5 @@
 /**
- * @template T
- * @param {T[][][]} combinatoricsList
+ * @param {unknown[][][]} combinatoricsList
  * @returns {string}
  */
 export default function formatCombinatorics(combinatoricsList) {
