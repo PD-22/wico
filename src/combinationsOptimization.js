@@ -1,5 +1,5 @@
-import { getCombinationItemIndex, getCombinationsLength, getGroupSize } from "./combinations.js";
 import mapValues from "../utils/mapValues.js";
+import { getCombinationItemIndex, getCombinationsLength, getGroupSize } from "./combinations.js";
 
 /**
  * @template T

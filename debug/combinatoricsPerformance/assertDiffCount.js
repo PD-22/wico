@@ -7,11 +7,12 @@ import forEachAdjacents from "../../utils/forEachAdjacents.js";
  * @param {number} expectedDiffCount
  * @throws {AssertionError}
  */
-export default function assertCombinatoricsOptimization(outputList, expectedDiffCount) {
+export default function assertDiffCount(outputList, expectedDiffCount) {
     outputList.forEach((output, index) => forEachAdjacents(output, (v1, v2, i1, i2) => {
         const diffCount = countListDiff(v1, v2);
 
-        const errorMessage = `Expected the difference between adjacent items in output (at position ${index}) to be ${expectedDiffCount}, but got ${diffCount}.\n` +
+        const errorMessage = `Expected the difference between adjacent items in output ` +
+            `(at position ${index}) to be ${expectedDiffCount}, but got ${diffCount}.\n` +
             `Item 1: ${JSON.stringify(v1)} (at position ${i1})\n` +
             `Item 2: ${JSON.stringify(v2)} (at position ${i2}).`;
 

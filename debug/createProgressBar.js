@@ -24,7 +24,9 @@ export default function createProgressBar(total, width) {
 
         if (progressWidth === prevProgressWidth) return;
 
-        process.stdout.write(`\rProgress: [${'='.repeat(progressWidth)}${' '.repeat(width - progressWidth)}]`);
+        process.stdout.write(
+            `\rProgress: [${'='.repeat(progressWidth)}${' '.repeat(width - progressWidth)}]`
+        );
 
         prevProgressWidth = progressWidth;
 

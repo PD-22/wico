@@ -1,5 +1,5 @@
-import { getPermutationAtIndex, getPermutationsLength } from "./permutations.js";
 import mapValues from "../utils/mapValues.js";
+import { getPermutationAtIndex, getPermutationsLength } from "./permutations.js";
 
 /**
  * @template T
@@ -39,7 +39,9 @@ export function* getMinDiffPermutationsGenerator(set) {
  * @param {number} totalLength 
  * @returns {T[]}
  */
-export function getMinDiffPermutationAtIndex(set, index, totalLength = getPermutationsLength(set.length)) {
+export function getMinDiffPermutationAtIndex(
+    set, index, totalLength = getPermutationsLength(set.length)
+) {
     const swappedIndex = getMinDiffPermutationSwapIndex(set, index, totalLength);
     return getPermutationAtIndex(set, swappedIndex, totalLength);
 }
@@ -49,7 +51,9 @@ export function getMinDiffPermutationAtIndex(set, index, totalLength = getPermut
  * @param {number} index
  * @returns {number}
  */
-export function getMinDiffPermutationSwapIndex(set, index, totalLength = getPermutationsLength(set.length)) {
+export function getMinDiffPermutationSwapIndex(
+    set, index, totalLength = getPermutationsLength(set.length)
+) {
     let length = set.length;
     totalLength /= length--;
     let offset = 0;

@@ -1,6 +1,6 @@
 import assert from "assert";
 import captureConsole from "../../../debug/captureConsole.js";
-import assertCombinatoricsOptimization from "../../../debug/combinatoricsPerformance/assertCombinatoricsOptimization.js";
+import assertDiffCount from "../../../debug/combinatoricsPerformance/assertDiffCount.js";
 import simpleAssert from "../../../debug/simpleAssert.js";
 
 const input = [
@@ -23,11 +23,12 @@ const input = [
 ];
 
 const [logs] = captureConsole(() =>
-    simpleAssert(() => assertCombinatoricsOptimization(input, 2))
+    simpleAssert(() => assertDiffCount(input, 2))
 );
 
-const expectedLogs = `FAIL: Expected the difference between adjacent items in output (at position 1) to be 2, but got 3.
-Item 1: ["B","A","C"] (at position 3)
-Item 2: ["C","B","A"] (at position 4).`
+const expectedLogs = 'FAIL: Expected the difference between adjacent items in output ' +
+    '(at position 1) to be 2, but got 3.' +
+    '\nItem 1: ["B","A","C"] (at position 3)' +
+    '\nItem 2: ["C","B","A"] (at position 4).';
 
 simpleAssert(() => assert.strictEqual(logs.join('\n'), expectedLogs));

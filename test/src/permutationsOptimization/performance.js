@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync } from "fs";
 import { join } from "path";
 import assertFileContent from "../../../debug/assertFileContent.js";
-import assertCombinatoricsOptimization from "../../../debug/combinatoricsPerformance/assertCombinatoricsOptimization.js";
+import assertDiffCount from "../../../debug/combinatoricsPerformance/assertDiffCount.js";
 import formatCombinatorics from "../../../debug/combinatoricsPerformance/formatCombinatorics.js";
 import processCombinatorics from "../../../debug/combinatoricsPerformance/processCombinatorics.js";
 import simpleAssert from "../../../debug/simpleAssert.js";
@@ -21,7 +21,7 @@ const formattedOutputs = formatCombinatorics(outputs);
 writeOutput(outputFile, formattedOutputs);
 
 console.log("Assert combinatorics optimization...");
-simpleAssert(() => assertCombinatoricsOptimization(outputs, 2));
+simpleAssert(() => assertDiffCount(outputs, 2));
 
 console.log(`Assert file Content "${compareFile}"...`);
 existsSync(compareFile) ?

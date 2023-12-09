@@ -1,13 +1,13 @@
 {
-  "name": "wico",
-  "version": "1.0.0",
+  "author": "",
   "description": "",
+  "keywords": [],
+  "license": "ISC",
   "main": "index.js",
+  "name": "wico",
   "scripts": {
     "start": "node ./src/index.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "module"
+  "type": "module",
+  "version": "1.0.0"
 }

@@ -1,6 +1,6 @@
 import assert from "assert";
-import map from "../../utils/map.js";
 import simpleAssert from "../../debug/simpleAssert.js";
+import map from "../../utils/map.js";
 
 simpleAssert(() => assert.deepStrictEqual(
     map({ a: 1, b: 2, c: 3 }, (v, k, i) => [v, k, i].join(' ')),
