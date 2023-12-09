@@ -60,115 +60,118 @@ It is possible use the following `bash` command to run all the files in the test
 ```bash
 find ./test/ -type f -name "*.js" -exec bash -c 'cmd="node {}"; echo "$cmd"; $cmd' \;
 ```
+The performance tests might take longer to execute, so you can exclude them by using the following command:
+```bash
+find ./test/ -type f -name "*.js" ! -name "performance.js" -exec bash -c 'cmd="node {}"; echo "$cmd"; $cmd' \;
+```
 
-### A single test
-1. Command:
-   ```bash
-   node ./test/combinations/array.js
-   ```
-2. Success output:
-   ```txt
-   PASS
-   ```
-3. Failure output:
-   ```txt
-   FAIL: Expected values to be strictly deep-equal:
-   + actual - expected ... Lines skipped
-   
-     [
-       [
-   ...
-         30,
-         300
-   +   ],
-   +   [
-   +     1,
-   +     10,
-   +     100
-       ]
-     ]
-   ```
-
-### Multiple tests with descriptions
-1. Command:
-   ```bash
-   node ./test/indent.js
-   ```
-2. Success output:
-   ```txt
-   PASS: easy
-   PASS: newline middle
-   PASS: double newline middle
-   PASS: start newline
-   PASS: start newline whitespace        
-   PASS: start newline whitespace newline
-   PASS: start whitespace newline        
-   PASS: end newline
-   PASS: end newline whitespace
-   PASS: end newline whitespace newline  
-   PASS: end whitespace newline
-   PASS: start lines whitespace
-   ```
-3. Failure output:
-   ```txt
-   PASS: easy
-   PASS: newline middle
-   FAIL: double newline middle: Expected values to be strictly equal:
-   + actual - expected
-   
-   + 'One\nTwo\nThree'
-   - '-One\n\n\n-Two\n-Three'
-   PASS: start newline
-   PASS: start newline whitespace
-   PASS: start newline whitespace newline
-   PASS: start whitespace newline
-   PASS: end newline
-   PASS: end newline whitespace
-   PASS: end newline whitespace newline
-   PASS: end whitespace newline
-   PASS: start lines whitespace
-   ```
-
-### Combinatorics performance
-1. Command:
-   ```bash
-   node ./test/combinationsOptimization/performance.js
-   ```
-2. Success output:
-   ```txt
-   getMinDiffCombinations...
-   Progress: [====================]
-   1363 ms
-   Writing output to "output\combinationsOptimization.txt"...
-   DONE
-   Assert combinatorics optimization...
-   PASS
-   Assert file Content "output\combinationsOptimization-backup.txt"...
-   PASS
-   ```
-3. Some adjacent combinations did not have expected minimum difference of 1:
-   ```txt
-   ... (some lines are skipped)
-   
-   Assert combinatorics optimization...
-   FAIL: Expected values to be strictly equal:
-   
-   2 !== 1
-   ```
-4. The file for comparing output was not found:
-   ```txt
-   ... (some lines are skipped)
-   
-   Assert file Content "output\combinationsOptimization-backups.txt"...
-   NOT FOUND
-   ```
-5. Output did not match contents of the comparison file:
-   ```txt
-   ... (some lines are skipped)
-   
-   Assert file Content "output\combinationsOptimization-backup.txt"...
-   FAIL: File content does not match
-   ```
+### Test types and output examples
+1. **A single test**: a test file that contains a single test
+   * Command:
+      ```bash
+      node test/src/combinations/array.js
+      ```
+   * Success output:
+      ```txt
+      PASS
+      ```
+   * Failure output:
+      ```txt
+      FAIL: Expected values to be strictly deep-equal:
+      + actual - expected ... Lines skipped
+      
+      [
+         [
+      ...
+            30,
+            300
+      +   ],
+      +   [
+      +     1,
+      +     10,
+      +     100
+         ]
+      ]
+      ```
+2. **Multiple tests with descriptions**:
+   * Command:
+      ```bash
+      node ./test/indent.js
+      ```
+   * Success output:
+      ```txt
+      PASS: easy
+      PASS: newline middle
+      PASS: double newline middle
+      PASS: start newline
+      PASS: start newline whitespace        
+      PASS: start newline whitespace newline
+      PASS: start whitespace newline        
+      PASS: end newline
+      PASS: end newline whitespace
+      PASS: end newline whitespace newline  
+      PASS: end whitespace newline
+      PASS: start lines whitespace
+      ```
+   * Failure output:
+      ```txt
+      PASS: easy
+      PASS: newline middle
+      FAIL: double newline middle: Expected values to be strictly equal:
+      + actual - expected
+      
+      + 'One\nTwo\nThree'
+      - '-One\n\n\n-Two\n-Three'
+      PASS: start newline
+      PASS: start newline whitespace
+      PASS: start newline whitespace newline
+      PASS: start whitespace newline
+      PASS: end newline
+      PASS: end newline whitespace
+      PASS: end newline whitespace newline
+      PASS: end whitespace newline
+      PASS: start lines whitespace
+      ```
+3. **Combinatorics performance**:
+   * Command:
+      ```bash
+      node ./test/combinationsOptimization/performance.js
+      ```
+   * Success output:
+      ```txt
+      getMinDiffCombinations...
+      Progress: [====================]
+      1363 ms
+      Writing output to "output\combinationsOptimization.txt"...
+      DONE
+      Assert combinatorics optimization...
+      PASS
+      Assert file Content "output\combinationsOptimization-backup.txt"...
+      PASS
+      ```
+   * Some adjacent combinations did not have expected minimum difference of 1:
+      ```txt
+      ... (some lines are skipped)
+      
+      Assert combinatorics optimization...
+      FAIL: Expected values to be strictly equal:
+      
+      2 !== 1
+      ```
+   * The file for comparing output was not found:
+      ```txt
+      ... (some lines are skipped)
+      
+      Assert file Content "output\combinationsOptimization-backups.txt"...
+      NOT FOUND
+      ```
+   * Output did not match contents of the comparison file:
+      ```txt
+      ... (some lines are skipped)
+      
+      Assert file Content "output\combinationsOptimization-backup.txt"...
+      FAIL: File content does not match
+      ```
 
 ## History
 
