@@ -22,10 +22,12 @@ const input = [
     ]
 ];
 
-const output = captureConsole(() => simpleAssert(() => assertCombinatoricsOptimization(input, 2)));
+const [logs] = captureConsole(() =>
+    simpleAssert(() => assertCombinatoricsOptimization(input, 2))
+);
 
-const expected = `FAIL: Expected the difference between adjacent items in output (at position 1) to be 2, but got 3.
+const expectedLogs = `FAIL: Expected the difference between adjacent items in output (at position 1) to be 2, but got 3.
 Item 1: ["B","A","C"] (at position 3)
 Item 2: ["C","B","A"] (at position 4).`
 
-simpleAssert(() => assert.strictEqual(output.join('\n'), expected));
+simpleAssert(() => assert.strictEqual(logs.join('\n'), expectedLogs));

@@ -4,16 +4,12 @@ import processCombinatorics from '../../../debug/combinatoricsPerformance/proces
 import simpleAssert from '../../../debug/simpleAssert.js';
 import getMinDiffPermutations from '../../../src/permutationsOptimization.js';
 
-// TODO: i dont like this type, why tuple not working?
 /** @type {(number | string)[][]} */
 const input = [[0, 1, 2], ['A', 'B', 'C']];
 
-// TODO: captureConsole maybe should return the result as well
-/** @type {(string | number)[][][]} */
-let result;
-const logs = captureConsole(() => {
-    result = processCombinatorics(input, getMinDiffPermutations);
-});
+const [logs, result] = captureConsole(() =>
+    processCombinatorics(input, getMinDiffPermutations)
+);
 
 const expectedLogs = [
     "getMinDiffPermutations...",

@@ -11,8 +11,12 @@ const content = 'Lorem ipsum dolor';
 const file = path.join(tmpdir(), 'temp.txt');
 writeFileSync(file, content, 'utf8');
 
+const [logs] = captureConsole(() =>
+    writeOutput(file, content)
+);
+const expectedLogs = [`Writing output to "${file}"...`, 'DONE'];
+
 simpleAssert(() => {
-    const captured = captureConsole(() => writeOutput(file, content));
     assertFileContent(file, content);
-    assert.strictEqual(captured.join('\n'), `Writing output to "${file}"...\nDONE`);
+    assert.deepStrictEqual(logs, expectedLogs);
 });

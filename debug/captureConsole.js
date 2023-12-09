@@ -1,21 +1,34 @@
 /**
+ * @typedef {unknown[]} Logs
+ */
+
+/**
+ * @template T
+ * @typedef {[Logs, T]} LogsAndResult
+ */
+
+/**
+ * @template T
  * @overload
- * @param {() => Promise<unknown>} callback
- * @returns {Promise<unknown[]>}
+ * @param {() => Promise<T>} callback
+ * @returns {Promise<LogsAndResult<T>>}
  */
 
 /**
- * @overload @param {() => unknown} callback
- * @returns {unknown[]}
+ * @template T
+ * @overload
+ * @param {() => T} callback
+ * @returns {LogsAndResult<T>}
  */
 
 /**
- * @param {(() => Promise<unknown>) | (() => unknown)} callback
- * @returns {Promise<unknown[]> | unknown[] }
+ * @template T
+ * @param {(() => Promise<T>) | (() => T)} callback
+ * @returns {Promise<LogsAndResult<T>> | LogsAndResult<T>}
  */
 export default function captureConsole(callback) {
-    /** @type {Promise<unknown[]> | unknown[]} */
-    const result = [];
+    /** @type {Logs} */
+    const logs = [];
 
     const log = console.log;
     const error = console.error;
@@ -23,13 +36,13 @@ export default function captureConsole(callback) {
     const warn = console.warn;
     const write = process.stdout.write;
 
-    console.log = (...args) => result.push(...args);
-    console.error = (...args) => result.push(...args);
-    console.info = (...args) => result.push(...args);
-    console.warn = (...args) => result.push(...args);
-    process.stdout.write = (...args) => { result.push(...args); return false; };
+    console.log = (...args) => logs.push(...args);
+    console.error = (...args) => logs.push(...args);
+    console.info = (...args) => logs.push(...args);
+    console.warn = (...args) => logs.push(...args);
+    process.stdout.write = (...args) => { logs.push(...args); return false; };
 
-    const maybePromise = callback();
+    const resultOrPromise = callback();
 
     const onfinally = () => {
         console.log = log;
@@ -39,8 +52,12 @@ export default function captureConsole(callback) {
         process.stdout.write = write;
     };
 
-    if (maybePromise instanceof Promise) return maybePromise.then(() => result).finally(onfinally);
+    if (resultOrPromise instanceof Promise) {
+        return resultOrPromise
+            .then(/** @returns {LogsAndResult<T>} */result => [logs, result])
+            .finally(onfinally);
+    }
 
     onfinally();
-    return result;
+    return [logs, resultOrPromise];
 }
