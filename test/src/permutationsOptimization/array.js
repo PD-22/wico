@@ -29,6 +29,6 @@ const expected = [
     [4, 1, 3, 2],
     [4, 1, 2, 3]
 ];
-// difference between every adjacent permutation is only 2
+// NOTE: difference between every adjacent permutation is only 2
 
 simpleAssert(() => assert.deepStrictEqual(result, expected));

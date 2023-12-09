@@ -32,6 +32,6 @@ const expected = [
     [3, 30, 200],
     [3, 30, 300]
 ];
-// difference between every adjacent combination should be only 1
+// NOTE: difference between every adjacent combination should be only 1
 
 simpleAssert(() => assert.deepStrictEqual(result, expected));

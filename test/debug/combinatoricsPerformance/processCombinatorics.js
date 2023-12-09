@@ -16,7 +16,7 @@ const expectedLogs = [
     "\rProgress: [==========          ]",
     "\rProgress: [====================]",
     "\n",
-    // "0 ms",
+    "0 ms" // NOTE: not used
 ];
 
 const expectedResult = [
@@ -34,7 +34,10 @@ simpleAssert(() => {
     assert.deepStrictEqual(result, expectedResult);
 
     const lastIndex = logs.length - 1;
-    assert.deepStrictEqual(expectedLogs, logs.toSpliced(lastIndex));
+    assert.deepStrictEqual(
+        expectedLogs.toSpliced(lastIndex),
+        logs.toSpliced(lastIndex)
+    );
 
     const ms = String(logs[lastIndex]);
     assert.match(ms, /\d+ ms/);
