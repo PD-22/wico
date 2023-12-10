@@ -1,3 +1,4 @@
+<!-- TODO: recheck everything -->
 # WICO (Wiring Combinations)
 
 ### Table of Contents
@@ -132,7 +133,7 @@ find ./test/ -type f -name "*.js" ! -name "performance.js" -exec bash -c 'cmd="n
       PASS: end whitespace newline
       PASS: start lines whitespace
       ```
-3. Performance test for combinatorics to optimizee the time
+3. Performance test for combinatorics to optimize the time
    * Command:
       ```bash
       node ./test/combinationsOptimization/performance.js
@@ -183,12 +184,13 @@ The project originated from a practical need to generate wiring combinations for
 2. A pair of speakers with three combined wires (green, red, copper) connecting to Left, Right, and Ground.
 
 ![Earphone Circuit Wiring Diagram](diagram.svg)
+<!-- TODO: add aux and speakers diagram -->
 
 ### Initial Solution
 
 The first version of the code produced 124 possible wiring combinations in a JSON format. This version laid the groundwork for more complex solutions:
 
-```javascript
+```js
 [
   {
     Circuit: { Blue: "G", Red: "M", Green: "R", Copper: "L" },
@@ -228,13 +230,16 @@ The solution's discovery led to an intensive period of code refactoring. The foc
   * Formatting: `indent`, `lines`.
   * Others: `countListDiff`, `range`.
 
-* **`test/`**: Tests for `debug`, `src`, `utils`.
+* **`test/`**: Contains tests for all the exported functions from `debug`, `src` and `utils`.
 
 * **`debug/`**: Debugging tools.
   * Output assertion: `simpleAssert`, `captureConsole`
   * File testing: `assertFileContent`, `normalizeEOL`, `writeOutput`
-  * Time and progress: `getDeltaTime`, `createProgressBar`, `simulateProgress`
-  * Combinatorics performance testing utilities: `assertCombinatoricsOptimization`, `formatCombinatorics`, `processCombinatorics`
+  * Time and progress: `getDeltaTime`, `createProgressBar`
+  * Combinatorics performance testing utilities: `combinatoricsPerformance`
+    * `processCombinatorics` - Calculate combinatorics, display progress
+    * `assertCombinatoricsOptimization` - Assert combinatorics minimum difference optimization
+    * `formatCombinatorics` - Format output of `processCombinatorics`
 
 * **`output/`**: Temp storage for test files, not tracked in git.
 
@@ -272,7 +277,7 @@ const permutations = {
       { L: "Green", R: "Copper", G: "Red" },
       // ... (4 more permutations)
    ]
-}
+};
 ```
 
 `getMinDiffDictPermutations` looks like the `getPermutations` function with some key differences:
@@ -293,6 +298,20 @@ This optimization is illustrated in the `test/permutations/array.js` and `test/p
 Following the permutation stage, the program combines all the wiring `permutations` and uses `getMinDiffDictCombinations` to generate combinations:
 
 `getMinDiffDictCombinations` is like `getCombinations` function with similar differences as `getMinDiffDictPermutations` has with `permutations`:
+
+```js
+const combinations = [
+  {
+    Jack: { L: "Green", R: "Red", G: "Copper", M: "Blue" },
+    Speakers: { L: "Green", R: "Red", G: "Copper" },
+  },
+  {
+    Jack: { L: "Green", R: "Red", G: "Copper", M: "Blue" },
+    Speakers: { L: "Green", R: "Copper", G: "Red" },
+  },
+  // ... (122 more permutations)
+];
+```
 
 `getMinDiffDictCombinations` looks like the `getCombinations` function with some key differences:
 * **Dict**: It operates on a dictionary (`Dict`) instead of an array.
