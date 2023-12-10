@@ -66,7 +66,7 @@ find ./test/ -type f -name "*.js" ! -name "performance.js" -exec bash -c 'cmd="n
 ```
 
 ### Test types and output examples
-1. **A single test**: a test file that contains a single test
+1. Test file that contains a single test
    * Command:
       ```bash
       node test/src/combinations/array.js
@@ -93,7 +93,7 @@ find ./test/ -type f -name "*.js" ! -name "performance.js" -exec bash -c 'cmd="n
          ]
       ]
       ```
-2. **Multiple tests with descriptions**:
+2. Test file that contains multiple tests with description names:
    * Command:
       ```bash
       node ./test/indent.js
@@ -132,7 +132,7 @@ find ./test/ -type f -name "*.js" ! -name "performance.js" -exec bash -c 'cmd="n
       PASS: end whitespace newline
       PASS: start lines whitespace
       ```
-3. **Combinatorics performance**:
+3. Performance test for combinatorics to optimizee the time
    * Command:
       ```bash
       node ./test/combinationsOptimization/performance.js
@@ -177,19 +177,16 @@ find ./test/ -type f -name "*.js" ! -name "performance.js" -exec bash -c 'cmd="n
 
 ### Origin
 
-This started as a quick private project to fix my earphones by resoldering the wires. The challenge was to generate all possible wiring combinations.
+The project originated from a practical need to generate wiring combinations for an earphone repair. It involved dealing with two key components:
 
-My earphones had two main components requiring connection to the circuit:
-
-1. The AUX audio connector jack had 4 wires - green, red, copper, blue - connecting to one side of the circuit with joints named: Left, Right, Ground, Microphone.
-
-2. The pair of speakers had 3 wires combined - green, red, copper - connecting to the other side of the circuit with joints named: Left, Right, Ground.
+1. An AUX audio connector jack with four wires (green, red, copper, blue) for connections like Left, Right, Ground, and Microphone.
+2. A pair of speakers with three combined wires (green, red, copper) connecting to Left, Right, and Ground.
 
 ![Earphone Circuit Wiring Diagram](diagram.svg)
 
-### Naive Solution
+### Initial Solution
 
-The initial version of the code, totaling 50 lines, produced a simple JSON output consisting of 124 possible wiring combinations:
+The first version of the code produced 124 possible wiring combinations in a JSON format. This version laid the groundwork for more complex solutions:
 
 ```javascript
 [
@@ -207,59 +204,39 @@ The initial version of the code, totaling 50 lines, produced a simple JSON outpu
 
 ### Optimized Solution
 
-To enhance efficiency, I calculated the required resoldering by summing up differences between each combination, totaling 392.
+The focus shifted to improving efficiency by reorganizing the wiring combinations.
+This arrangement aimed to minimize the difference between each adjacent combination, ideally reducing it to just 2, the lowest possible change due to wire swapping.
+This approach brought significant optimization, cutting down the total resoldering needed.
+Originally requiring changes in 392 instances, this optimized method reduced the count by 106, bringing the total down to 286.
 
-Motivated to minimize the workload, I spent two weeks researching, experimenting by writing down thoughts on a piece of paper, updating my combinatorics functions, and testing. I developed an algorithm to reduce the difference between every adjacent combination by 2—the minimum physically achievable.
+### Refactoring
 
-This new algorithm resulted in a reduction of 106 in required resoldering, bringing the total down to 286.
-
-### Journey of Improvement
-
-After discovering the solution, I found myself immersed in a continuous cycle of code refactoring. I became interested in improving my skills by creating modular, readable, and testable code.
-
-This journey spanned a couple of months, filled with what felt like endless refactoring sessions. During this time, I had to adjust the structure, group and divide components, extract code segments, write comfortable unit tests, and give meaningful names to common utility functions.
-
-It felt like there were almost unlimited ways to solve programming problems and write code. I learned that perfection is not possible, and there are always some tradeoffs.
-
-I should focus on the things that matter. My goal is to efficiently write useful programs in the future while avoiding unnecessary distractions.
+The solution's discovery led to an intensive period of code refactoring. The focus was on enhancing the code's modularity, readability, and testability. This process, spanning several months, involved numerous refinements: reorganizing the structure, segmenting components, extracting reusable code pieces, and creating effective unit tests. It was a learning experience about the trade-offs in programming and the balance between striving for perfection and practical functionality. The key takeaway was to concentrate on impactful coding practices while trying to avoid overcomplication.
 
 ## Internals
 
 ### File Structure
 
-* `src`
-  * `index.js`
-     * The main entry for the app used to generate wiring combinations.
-  * `formatWiring.js`
-     * Used to make the output generated in `index.js` more readable and highlight the wire switching between every combination.
-  * `combinatorics` functions in `src`
-     * `combinations`
-     * `combinationsOptimization`
-     * `permutations`
-     * `permutationsOptimization`
+* **`src/`**: Core app components.
+  * `index.js`: Generates wiring combinations.
+  * `formatWiring.js`: Improves `index.js` output readability, highlights wire switches.
+  * `combinatorics` functions: `combinations`, `combinationsOptimization`, `permutations`, `permutationsOptimization`
 
-* `utils`
-   * Iterating over objects: `forEachAdjacent`, `map`, `mapValues`
-   * Math: `factorial`, `product`
-   * Formatting: `indent`, `lines`
-   * Other: `countListDiff`, `range`
+* **`utils/`**: Utility functions.
+  * For objects: `forEachAdjacent`, `map`, `mapValues`.
+  * Math: `factorial`, `product`.
+  * Formatting: `indent`, `lines`.
+  * Others: `countListDiff`, `range`.
 
-* `test`
-  * Contains tests for `debug`, `src`, `utils`.
-  * For more information, go to [Testing](#testing)
+* **`test/`**: Tests for `debug`, `src`, `utils`.
 
-* `debug`
-   * Contains utilities for testing.
-   * Expected output assertion: `simpleAssert`, `captureConsole`
-   * File output testing: `assertFileContent`, `normalizeEOL`, `writeOutput`
-   * Set time and display progress bar: `getDeltaTime`, `createProgressBar`, `simulateProgress`
-   * Combinatorics performance testing utilities `combinatoricsPerformance`
-      * `assertCombinatoricsOptimization` - Assert combinatorics output `minDiff` optimization
-      * `formatCombinatorics` - Format output of `processCombinatorics`
-      * `processCombinatorics` - Calculate combinatorics, display progress
+* **`debug/`**: Debugging tools.
+  * Output assertion: `simpleAssert`, `captureConsole`
+  * File testing: `assertFileContent`, `normalizeEOL`, `writeOutput`
+  * Time and progress: `getDeltaTime`, `createProgressBar`, `simulateProgress`
+  * Combinatorics performance testing utilities: `assertCombinatoricsOptimization`, `formatCombinatorics`, `processCombinatorics`
 
-* `output`
-   * Ignored folder in git used for storing temporary `txt` files for tests
+* **`output/`**: Temp storage for test files, not tracked in git.
 
 ### How it Works
 
@@ -273,10 +250,13 @@ const settings = {
 };
 ```
 
-The core functionality of this project is built using combination and permutation algorithms.
+The core functionality of this project is built using `combination` and `permutation` algorithms.
 These combinatoric functions are used to generate all possible combinations of wiring earphone components (jack and speakers in our example) to the circuit.
 This is accomplished by combining all possible permutations of each earphone component wiring.
+
 ### Permutations
+
+[Wikipedia](https://en.wikipedia.org/wiki/Permutation)
 
 The `mapValues` utility function and `getMinDiffDictPermutations` are used to replace all values in the `settings` object with permutations:
 
@@ -305,7 +285,10 @@ This optimization is illustrated in the `test/permutations/array.js` and `test/p
 **Result**:
 * `Jack` has `4! = 4 * 3 * 2 * 1 = 24` total permutations because it has `4` values.
 * `Speakers` has `3! = 3 * 2 * 1 = 6` total permutations because it has `3` values.
+
 ### Combinations
+
+[Wikipedia](https://en.wikipedia.org/wiki/Combination)
 
 Following the permutation stage, the program combines all the wiring `permutations` and uses `getMinDiffDictCombinations` to generate combinations:
 
