@@ -57,13 +57,17 @@
    ```
 
 ## Testing
-It is possible use the following `bash` command to run all the files in the test folder:
+To run all the test files in the test folder, you can use the following bash command:
 ```bash
 find ./test/ -type f -name "*.js" -exec bash -c 'cmd="node {}"; echo "$cmd"; $cmd' \;
 ```
-The performance tests might take longer to execute, so you can exclude them by using the following command:
+If you want to exclude the performance tests, which might take longer to execute, you can use the following command:
 ```bash
 find ./test/ -type f -name "*.js" ! -name "performance.js" -exec bash -c 'cmd="node {}"; echo "$cmd"; $cmd' \;
+```
+For running only the performance tests, use the command below:
+```bash
+find ./test/ -type f -name "performance.js" -exec bash -c 'cmd="node {}"; echo "$cmd"; $cmd' \;
 ```
 
 ### Test types and output examples
