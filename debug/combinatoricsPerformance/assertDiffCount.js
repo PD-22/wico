@@ -14,7 +14,7 @@ export default function assertDiffCount(outputList, expectedDiffCount) {
         const errorMessage = `Expected the difference between adjacent items in output ` +
             `(at position ${index}) to be ${expectedDiffCount}, but got ${diffCount}.\n` +
             `Item 1: ${JSON.stringify(v1)} (at position ${i1})\n` +
-            `Item 2: ${JSON.stringify(v2)} (at position ${i2}).`;
+            `Item 2: ${JSON.stringify(v2)} (at position ${i2})`;
 
         assert.strictEqual(diffCount, expectedDiffCount, errorMessage);
     }));

@@ -29,6 +29,6 @@ const [logs] = captureConsole(() =>
 const expectedLogs = 'FAIL: Expected the difference between adjacent items in output ' +
     '(at position 1) to be 2, but got 3.' +
     '\nItem 1: ["B","A","C"] (at position 3)' +
-    '\nItem 2: ["C","B","A"] (at position 4).';
+    '\nItem 2: ["C","B","A"] (at position 4)';
 
 simpleAssert(() => assert.strictEqual(logs.join('\n'), expectedLogs));
