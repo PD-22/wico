@@ -1,0 +1,1440 @@
+#1:
+  Jack:
+    L - Green
+    R - Red
+    G - Copper
+    M - Blue
+  Speakers:
+    L - Green
+    R - Red -> Copper
+    G - Copper -> Red
+#2:
+  Jack:
+    L - Green
+    R - Red
+    G - Copper
+    M - Blue
+  Speakers:
+    L - Green -> Red
+    R - Copper
+    G - Red -> Green
+#3:
+  Jack:
+    L - Green
+    R - Red
+    G - Copper
+    M - Blue
+  Speakers:
+    L - Red
+    R - Copper -> Green
+    G - Green -> Copper
+#4:
+  Jack:
+    L - Green
+    R - Red
+    G - Copper
+    M - Blue
+  Speakers:
+    L - Red -> Copper
+    R - Green
+    G - Copper -> Red
+#5:
+  Jack:
+    L - Green
+    R - Red
+    G - Copper
+    M - Blue
+  Speakers:
+    L - Copper
+    R - Green -> Red
+    G - Red -> Green
+#6:
+  Jack:
+    L - Green
+    R - Red
+    G - Copper -> Blue
+    M - Blue -> Copper
+  Speakers:
+    L - Copper
+    R - Red
+    G - Green
+#7:
+  Jack:
+    L - Green
+    R - Red
+    G - Blue
+    M - Copper
+  Speakers:
+    L - Copper
+    R - Red -> Green
+    G - Green -> Red
+#8:
+  Jack:
+    L - Green
+    R - Red
+    G - Blue
+    M - Copper
+  Speakers:
+    L - Copper -> Red
+    R - Green
+    G - Red -> Copper
+#9:
+  Jack:
+    L - Green
+    R - Red
+    G - Blue
+    M - Copper
+  Speakers:
+    L - Red
+    R - Green -> Copper
+    G - Copper -> Green
+#10:
+  Jack:
+    L - Green
+    R - Red
+    G - Blue
+    M - Copper
+  Speakers:
+    L - Red -> Green
+    R - Copper
+    G - Green -> Red
+#11:
+  Jack:
+    L - Green
+    R - Red
+    G - Blue
+    M - Copper
+  Speakers:
+    L - Green
+    R - Copper -> Red
+    G - Red -> Copper
+#12:
+  Jack:
+    L - Green
+    R - Red -> Copper
+    G - Blue
+    M - Copper -> Red
+  Speakers:
+    L - Green
+    R - Red
+    G - Copper
+#13:
+  Jack:
+    L - Green
+    R - Copper
+    G - Blue
+    M - Red
+  Speakers:
+    L - Green
+    R - Red -> Copper
+    G - Copper -> Red
+#14:
+  Jack:
+    L - Green
+    R - Copper
+    G - Blue
+    M - Red
+  Speakers:
+    L - Green -> Red
+    R - Copper
+    G - Red -> Green
+#15:
+  Jack:
+    L - Green
+    R - Copper
+    G - Blue
+    M - Red
+  Speakers:
+    L - Red
+    R - Copper -> Green
+    G - Green -> Copper
+#16:
+  Jack:
+    L - Green
+    R - Copper
+    G - Blue
+    M - Red
+  Speakers:
+    L - Red -> Copper
+    R - Green
+    G - Copper -> Red
+#17:
+  Jack:
+    L - Green
+    R - Copper
+    G - Blue
+    M - Red
+  Speakers:
+    L - Copper
+    R - Green -> Red
+    G - Red -> Green
+#18:
+  Jack:
+    L - Green
+    R - Copper
+    G - Blue -> Red
+    M - Red -> Blue
+  Speakers:
+    L - Copper
+    R - Red
+    G - Green
+#19:
+  Jack:
+    L - Green
+    R - Copper
+    G - Red
+    M - Blue
+  Speakers:
+    L - Copper
+    R - Red -> Green
+    G - Green -> Red
+#20:
+  Jack:
+    L - Green
+    R - Copper
+    G - Red
+    M - Blue
+  Speakers:
+    L - Copper -> Red
+    R - Green
+    G - Red -> Copper
+#21:
+  Jack:
+    L - Green
+    R - Copper
+    G - Red
+    M - Blue
+  Speakers:
+    L - Red
+    R - Green -> Copper
+    G - Copper -> Green
+#22:
+  Jack:
+    L - Green
+    R - Copper
+    G - Red
+    M - Blue
+  Speakers:
+    L - Red -> Green
+    R - Copper
+    G - Green -> Red
+#23:
+  Jack:
+    L - Green
+    R - Copper
+    G - Red
+    M - Blue
+  Speakers:
+    L - Green
+    R - Copper -> Red
+    G - Red -> Copper
+#24:
+  Jack:
+    L - Green
+    R - Copper -> Blue
+    G - Red
+    M - Blue -> Copper
+  Speakers:
+    L - Green
+    R - Red
+    G - Copper
+#25:
+  Jack:
+    L - Green
+    R - Blue
+    G - Red
+    M - Copper
+  Speakers:
+    L - Green
+    R - Red -> Copper
+    G - Copper -> Red
+#26:
+  Jack:
+    L - Green
+    R - Blue
+    G - Red
+    M - Copper
+  Speakers:
+    L - Green -> Red
+    R - Copper
+    G - Red -> Green
+#27:
+  Jack:
+    L - Green
+    R - Blue
+    G - Red
+    M - Copper
+  Speakers:
+    L - Red
+    R - Copper -> Green
+    G - Green -> Copper
+#28:
+  Jack:
+    L - Green
+    R - Blue
+    G - Red
+    M - Copper
+  Speakers:
+    L - Red -> Copper
+    R - Green
+    G - Copper -> Red
+#29:
+  Jack:
+    L - Green
+    R - Blue
+    G - Red
+    M - Copper
+  Speakers:
+    L - Copper
+    R - Green -> Red
+    G - Red -> Green
+#30:
+  Jack:
+    L - Green
+    R - Blue
+    G - Red -> Copper
+    M - Copper -> Red
+  Speakers:
+    L - Copper
+    R - Red
+    G - Green
+#31:
+  Jack:
+    L - Green
+    R - Blue
+    G - Copper
+    M - Red
+  Speakers:
+    L - Copper
+    R - Red -> Green
+    G - Green -> Red
+#32:
+  Jack:
+    L - Green
+    R - Blue
+    G - Copper
+    M - Red
+  Speakers:
+    L - Copper -> Red
+    R - Green
+    G - Red -> Copper
+#33:
+  Jack:
+    L - Green
+    R - Blue
+    G - Copper
+    M - Red
+  Speakers:
+    L - Red
+    R - Green -> Copper
+    G - Copper -> Green
+#34:
+  Jack:
+    L - Green
+    R - Blue
+    G - Copper
+    M - Red
+  Speakers:
+    L - Red -> Green
+    R - Copper
+    G - Green -> Red
+#35:
+  Jack:
+    L - Green
+    R - Blue
+    G - Copper
+    M - Red
+  Speakers:
+    L - Green
+    R - Copper -> Red
+    G - Red -> Copper
+#36:
+  Jack:
+    L - Green -> Red
+    R - Blue
+    G - Copper
+    M - Red -> Green
+  Speakers:
+    L - Green
+    R - Red
+    G - Copper
+#37:
+  Jack:
+    L - Red
+    R - Blue
+    G - Copper
+    M - Green
+  Speakers:
+    L - Green
+    R - Red -> Copper
+    G - Copper -> Red
+#38:
+  Jack:
+    L - Red
+    R - Blue
+    G - Copper
+    M - Green
+  Speakers:
+    L - Green -> Red
+    R - Copper
+    G - Red -> Green
+#39:
+  Jack:
+    L - Red
+    R - Blue
+    G - Copper
+    M - Green
+  Speakers:
+    L - Red
+    R - Copper -> Green
+    G - Green -> Copper
+#40:
+  Jack:
+    L - Red
+    R - Blue
+    G - Copper
+    M - Green
+  Speakers:
+    L - Red -> Copper
+    R - Green
+    G - Copper -> Red
+#41:
+  Jack:
+    L - Red
+    R - Blue
+    G - Copper
+    M - Green
+  Speakers:
+    L - Copper
+    R - Green -> Red
+    G - Red -> Green
+#42:
+  Jack:
+    L - Red
+    R - Blue
+    G - Copper -> Green
+    M - Green -> Copper
+  Speakers:
+    L - Copper
+    R - Red
+    G - Green
+#43:
+  Jack:
+    L - Red
+    R - Blue
+    G - Green
+    M - Copper
+  Speakers:
+    L - Copper
+    R - Red -> Green
+    G - Green -> Red
+#44:
+  Jack:
+    L - Red
+    R - Blue
+    G - Green
+    M - Copper
+  Speakers:
+    L - Copper -> Red
+    R - Green
+    G - Red -> Copper
+#45:
+  Jack:
+    L - Red
+    R - Blue
+    G - Green
+    M - Copper
+  Speakers:
+    L - Red
+    R - Green -> Copper
+    G - Copper -> Green
+#46:
+  Jack:
+    L - Red
+    R - Blue
+    G - Green
+    M - Copper
+  Speakers:
+    L - Red -> Green
+    R - Copper
+    G - Green -> Red
+#47:
+  Jack:
+    L - Red
+    R - Blue
+    G - Green
+    M - Copper
+  Speakers:
+    L - Green
+    R - Copper -> Red
+    G - Red -> Copper
+#48:
+  Jack:
+    L - Red
+    R - Blue -> Copper
+    G - Green
+    M - Copper -> Blue
+  Speakers:
+    L - Green
+    R - Red
+    G - Copper
+#49:
+  Jack:
+    L - Red
+    R - Copper
+    G - Green
+    M - Blue
+  Speakers:
+    L - Green
+    R - Red -> Copper
+    G - Copper -> Red
+#50:
+  Jack:
+    L - Red
+    R - Copper
+    G - Green
+    M - Blue
+  Speakers:
+    L - Green -> Red
+    R - Copper
+    G - Red -> Green
+#51:
+  Jack:
+    L - Red
+    R - Copper
+    G - Green
+    M - Blue
+  Speakers:
+    L - Red
+    R - Copper -> Green
+    G - Green -> Copper
+#52:
+  Jack:
+    L - Red
+    R - Copper
+    G - Green
+    M - Blue
+  Speakers:
+    L - Red -> Copper
+    R - Green
+    G - Copper -> Red
+#53:
+  Jack:
+    L - Red
+    R - Copper
+    G - Green
+    M - Blue
+  Speakers:
+    L - Copper
+    R - Green -> Red
+    G - Red -> Green
+#54:
+  Jack:
+    L - Red
+    R - Copper
+    G - Green -> Blue
+    M - Blue -> Green
+  Speakers:
+    L - Copper
+    R - Red
+    G - Green
+#55:
+  Jack:
+    L - Red
+    R - Copper
+    G - Blue
+    M - Green
+  Speakers:
+    L - Copper
+    R - Red -> Green
+    G - Green -> Red
+#56:
+  Jack:
+    L - Red
+    R - Copper
+    G - Blue
+    M - Green
+  Speakers:
+    L - Copper -> Red
+    R - Green
+    G - Red -> Copper
+#57:
+  Jack:
+    L - Red
+    R - Copper
+    G - Blue
+    M - Green
+  Speakers:
+    L - Red
+    R - Green -> Copper
+    G - Copper -> Green
+#58:
+  Jack:
+    L - Red
+    R - Copper
+    G - Blue
+    M - Green
+  Speakers:
+    L - Red -> Green
+    R - Copper
+    G - Green -> Red
+#59:
+  Jack:
+    L - Red
+    R - Copper
+    G - Blue
+    M - Green
+  Speakers:
+    L - Green
+    R - Copper -> Red
+    G - Red -> Copper
+#60:
+  Jack:
+    L - Red
+    R - Copper -> Green
+    G - Blue
+    M - Green -> Copper
+  Speakers:
+    L - Green
+    R - Red
+    G - Copper
+#61:
+  Jack:
+    L - Red
+    R - Green
+    G - Blue
+    M - Copper
+  Speakers:
+    L - Green
+    R - Red -> Copper
+    G - Copper -> Red
+#62:
+  Jack:
+    L - Red
+    R - Green
+    G - Blue
+    M - Copper
+  Speakers:
+    L - Green -> Red
+    R - Copper
+    G - Red -> Green
+#63:
+  Jack:
+    L - Red
+    R - Green
+    G - Blue
+    M - Copper
+  Speakers:
+    L - Red
+    R - Copper -> Green
+    G - Green -> Copper
+#64:
+  Jack:
+    L - Red
+    R - Green
+    G - Blue
+    M - Copper
+  Speakers:
+    L - Red -> Copper
+    R - Green
+    G - Copper -> Red
+#65:
+  Jack:
+    L - Red
+    R - Green
+    G - Blue
+    M - Copper
+  Speakers:
+    L - Copper
+    R - Green -> Red
+    G - Red -> Green
+#66:
+  Jack:
+    L - Red
+    R - Green
+    G - Blue -> Copper
+    M - Copper -> Blue
+  Speakers:
+    L - Copper
+    R - Red
+    G - Green
+#67:
+  Jack:
+    L - Red
+    R - Green
+    G - Copper
+    M - Blue
+  Speakers:
+    L - Copper
+    R - Red -> Green
+    G - Green -> Red
+#68:
+  Jack:
+    L - Red
+    R - Green
+    G - Copper
+    M - Blue
+  Speakers:
+    L - Copper -> Red
+    R - Green
+    G - Red -> Copper
+#69:
+  Jack:
+    L - Red
+    R - Green
+    G - Copper
+    M - Blue
+  Speakers:
+    L - Red
+    R - Green -> Copper
+    G - Copper -> Green
+#70:
+  Jack:
+    L - Red
+    R - Green
+    G - Copper
+    M - Blue
+  Speakers:
+    L - Red -> Green
+    R - Copper
+    G - Green -> Red
+#71:
+  Jack:
+    L - Red
+    R - Green
+    G - Copper
+    M - Blue
+  Speakers:
+    L - Green
+    R - Copper -> Red
+    G - Red -> Copper
+#72:
+  Jack:
+    L - Red -> Copper
+    R - Green
+    G - Copper -> Red
+    M - Blue
+  Speakers:
+    L - Green
+    R - Red
+    G - Copper
+#73:
+  Jack:
+    L - Copper
+    R - Green
+    G - Red
+    M - Blue
+  Speakers:
+    L - Green
+    R - Red -> Copper
+    G - Copper -> Red
+#74:
+  Jack:
+    L - Copper
+    R - Green
+    G - Red
+    M - Blue
+  Speakers:
+    L - Green -> Red
+    R - Copper
+    G - Red -> Green
+#75:
+  Jack:
+    L - Copper
+    R - Green
+    G - Red
+    M - Blue
+  Speakers:
+    L - Red
+    R - Copper -> Green
+    G - Green -> Copper
+#76:
+  Jack:
+    L - Copper
+    R - Green
+    G - Red
+    M - Blue
+  Speakers:
+    L - Red -> Copper
+    R - Green
+    G - Copper -> Red
+#77:
+  Jack:
+    L - Copper
+    R - Green
+    G - Red
+    M - Blue
+  Speakers:
+    L - Copper
+    R - Green -> Red
+    G - Red -> Green
+#78:
+  Jack:
+    L - Copper
+    R - Green
+    G - Red -> Blue
+    M - Blue -> Red
+  Speakers:
+    L - Copper
+    R - Red
+    G - Green
+#79:
+  Jack:
+    L - Copper
+    R - Green
+    G - Blue
+    M - Red
+  Speakers:
+    L - Copper
+    R - Red -> Green
+    G - Green -> Red
+#80:
+  Jack:
+    L - Copper
+    R - Green
+    G - Blue
+    M - Red
+  Speakers:
+    L - Copper -> Red
+    R - Green
+    G - Red -> Copper
+#81:
+  Jack:
+    L - Copper
+    R - Green
+    G - Blue
+    M - Red
+  Speakers:
+    L - Red
+    R - Green -> Copper
+    G - Copper -> Green
+#82:
+  Jack:
+    L - Copper
+    R - Green
+    G - Blue
+    M - Red
+  Speakers:
+    L - Red -> Green
+    R - Copper
+    G - Green -> Red
+#83:
+  Jack:
+    L - Copper
+    R - Green
+    G - Blue
+    M - Red
+  Speakers:
+    L - Green
+    R - Copper -> Red
+    G - Red -> Copper
+#84:
+  Jack:
+    L - Copper
+    R - Green -> Red
+    G - Blue
+    M - Red -> Green
+  Speakers:
+    L - Green
+    R - Red
+    G - Copper
+#85:
+  Jack:
+    L - Copper
+    R - Red
+    G - Blue
+    M - Green
+  Speakers:
+    L - Green
+    R - Red -> Copper
+    G - Copper -> Red
+#86:
+  Jack:
+    L - Copper
+    R - Red
+    G - Blue
+    M - Green
+  Speakers:
+    L - Green -> Red
+    R - Copper
+    G - Red -> Green
+#87:
+  Jack:
+    L - Copper
+    R - Red
+    G - Blue
+    M - Green
+  Speakers:
+    L - Red
+    R - Copper -> Green
+    G - Green -> Copper
+#88:
+  Jack:
+    L - Copper
+    R - Red
+    G - Blue
+    M - Green
+  Speakers:
+    L - Red -> Copper
+    R - Green
+    G - Copper -> Red
+#89:
+  Jack:
+    L - Copper
+    R - Red
+    G - Blue
+    M - Green
+  Speakers:
+    L - Copper
+    R - Green -> Red
+    G - Red -> Green
+#90:
+  Jack:
+    L - Copper
+    R - Red
+    G - Blue -> Green
+    M - Green -> Blue
+  Speakers:
+    L - Copper
+    R - Red
+    G - Green
+#91:
+  Jack:
+    L - Copper
+    R - Red
+    G - Green
+    M - Blue
+  Speakers:
+    L - Copper
+    R - Red -> Green
+    G - Green -> Red
+#92:
+  Jack:
+    L - Copper
+    R - Red
+    G - Green
+    M - Blue
+  Speakers:
+    L - Copper -> Red
+    R - Green
+    G - Red -> Copper
+#93:
+  Jack:
+    L - Copper
+    R - Red
+    G - Green
+    M - Blue
+  Speakers:
+    L - Red
+    R - Green -> Copper
+    G - Copper -> Green
+#94:
+  Jack:
+    L - Copper
+    R - Red
+    G - Green
+    M - Blue
+  Speakers:
+    L - Red -> Green
+    R - Copper
+    G - Green -> Red
+#95:
+  Jack:
+    L - Copper
+    R - Red
+    G - Green
+    M - Blue
+  Speakers:
+    L - Green
+    R - Copper -> Red
+    G - Red -> Copper
+#96:
+  Jack:
+    L - Copper
+    R - Red -> Blue
+    G - Green
+    M - Blue -> Red
+  Speakers:
+    L - Green
+    R - Red
+    G - Copper
+#97:
+  Jack:
+    L - Copper
+    R - Blue
+    G - Green
+    M - Red
+  Speakers:
+    L - Green
+    R - Red -> Copper
+    G - Copper -> Red
+#98:
+  Jack:
+    L - Copper
+    R - Blue
+    G - Green
+    M - Red
+  Speakers:
+    L - Green -> Red
+    R - Copper
+    G - Red -> Green
+#99:
+  Jack:
+    L - Copper
+    R - Blue
+    G - Green
+    M - Red
+  Speakers:
+    L - Red
+    R - Copper -> Green
+    G - Green -> Copper
+#100:
+  Jack:
+    L - Copper
+    R - Blue
+    G - Green
+    M - Red
+  Speakers:
+    L - Red -> Copper
+    R - Green
+    G - Copper -> Red
+#101:
+  Jack:
+    L - Copper
+    R - Blue
+    G - Green
+    M - Red
+  Speakers:
+    L - Copper
+    R - Green -> Red
+    G - Red -> Green
+#102:
+  Jack:
+    L - Copper
+    R - Blue
+    G - Green -> Red
+    M - Red -> Green
+  Speakers:
+    L - Copper
+    R - Red
+    G - Green
+#103:
+  Jack:
+    L - Copper
+    R - Blue
+    G - Red
+    M - Green
+  Speakers:
+    L - Copper
+    R - Red -> Green
+    G - Green -> Red
+#104:
+  Jack:
+    L - Copper
+    R - Blue
+    G - Red
+    M - Green
+  Speakers:
+    L - Copper -> Red
+    R - Green
+    G - Red -> Copper
+#105:
+  Jack:
+    L - Copper
+    R - Blue
+    G - Red
+    M - Green
+  Speakers:
+    L - Red
+    R - Green -> Copper
+    G - Copper -> Green
+#106:
+  Jack:
+    L - Copper
+    R - Blue
+    G - Red
+    M - Green
+  Speakers:
+    L - Red -> Green
+    R - Copper
+    G - Green -> Red
+#107:
+  Jack:
+    L - Copper
+    R - Blue
+    G - Red
+    M - Green
+  Speakers:
+    L - Green
+    R - Copper -> Red
+    G - Red -> Copper
+#108:
+  Jack:
+    L - Copper -> Blue
+    R - Blue -> Copper
+    G - Red
+    M - Green
+  Speakers:
+    L - Green
+    R - Red
+    G - Copper
+#109:
+  Jack:
+    L - Blue
+    R - Copper
+    G - Red
+    M - Green
+  Speakers:
+    L - Green
+    R - Red -> Copper
+    G - Copper -> Red
+#110:
+  Jack:
+    L - Blue
+    R - Copper
+    G - Red
+    M - Green
+  Speakers:
+    L - Green -> Red
+    R - Copper
+    G - Red -> Green
+#111:
+  Jack:
+    L - Blue
+    R - Copper
+    G - Red
+    M - Green
+  Speakers:
+    L - Red
+    R - Copper -> Green
+    G - Green -> Copper
+#112:
+  Jack:
+    L - Blue
+    R - Copper
+    G - Red
+    M - Green
+  Speakers:
+    L - Red -> Copper
+    R - Green
+    G - Copper -> Red
+#113:
+  Jack:
+    L - Blue
+    R - Copper
+    G - Red
+    M - Green
+  Speakers:
+    L - Copper
+    R - Green -> Red
+    G - Red -> Green
+#114:
+  Jack:
+    L - Blue
+    R - Copper
+    G - Red -> Green
+    M - Green -> Red
+  Speakers:
+    L - Copper
+    R - Red
+    G - Green
+#115:
+  Jack:
+    L - Blue
+    R - Copper
+    G - Green
+    M - Red
+  Speakers:
+    L - Copper
+    R - Red -> Green
+    G - Green -> Red
+#116:
+  Jack:
+    L - Blue
+    R - Copper
+    G - Green
+    M - Red
+  Speakers:
+    L - Copper -> Red
+    R - Green
+    G - Red -> Copper
+#117:
+  Jack:
+    L - Blue
+    R - Copper
+    G - Green
+    M - Red
+  Speakers:
+    L - Red
+    R - Green -> Copper
+    G - Copper -> Green
+#118:
+  Jack:
+    L - Blue
+    R - Copper
+    G - Green
+    M - Red
+  Speakers:
+    L - Red -> Green
+    R - Copper
+    G - Green -> Red
+#119:
+  Jack:
+    L - Blue
+    R - Copper
+    G - Green
+    M - Red
+  Speakers:
+    L - Green
+    R - Copper -> Red
+    G - Red -> Copper
+#120:
+  Jack:
+    L - Blue
+    R - Copper -> Red
+    G - Green
+    M - Red -> Copper
+  Speakers:
+    L - Green
+    R - Red
+    G - Copper
+#121:
+  Jack:
+    L - Blue
+    R - Red
+    G - Green
+    M - Copper
+  Speakers:
+    L - Green
+    R - Red -> Copper
+    G - Copper -> Red
+#122:
+  Jack:
+    L - Blue
+    R - Red
+    G - Green
+    M - Copper
+  Speakers:
+    L - Green -> Red
+    R - Copper
+    G - Red -> Green
+#123:
+  Jack:
+    L - Blue
+    R - Red
+    G - Green
+    M - Copper
+  Speakers:
+    L - Red
+    R - Copper -> Green
+    G - Green -> Copper
+#124:
+  Jack:
+    L - Blue
+    R - Red
+    G - Green
+    M - Copper
+  Speakers:
+    L - Red -> Copper
+    R - Green
+    G - Copper -> Red
+#125:
+  Jack:
+    L - Blue
+    R - Red
+    G - Green
+    M - Copper
+  Speakers:
+    L - Copper
+    R - Green -> Red
+    G - Red -> Green
+#126:
+  Jack:
+    L - Blue
+    R - Red
+    G - Green -> Copper
+    M - Copper -> Green
+  Speakers:
+    L - Copper
+    R - Red
+    G - Green
+#127:
+  Jack:
+    L - Blue
+    R - Red
+    G - Copper
+    M - Green
+  Speakers:
+    L - Copper
+    R - Red -> Green
+    G - Green -> Red
+#128:
+  Jack:
+    L - Blue
+    R - Red
+    G - Copper
+    M - Green
+  Speakers:
+    L - Copper -> Red
+    R - Green
+    G - Red -> Copper
+#129:
+  Jack:
+    L - Blue
+    R - Red
+    G - Copper
+    M - Green
+  Speakers:
+    L - Red
+    R - Green -> Copper
+    G - Copper -> Green
+#130:
+  Jack:
+    L - Blue
+    R - Red
+    G - Copper
+    M - Green
+  Speakers:
+    L - Red -> Green
+    R - Copper
+    G - Green -> Red
+#131:
+  Jack:
+    L - Blue
+    R - Red
+    G - Copper
+    M - Green
+  Speakers:
+    L - Green
+    R - Copper -> Red
+    G - Red -> Copper
+#132:
+  Jack:
+    L - Blue
+    R - Red -> Green
+    G - Copper
+    M - Green -> Red
+  Speakers:
+    L - Green
+    R - Red
+    G - Copper
+#133:
+  Jack:
+    L - Blue
+    R - Green
+    G - Copper
+    M - Red
+  Speakers:
+    L - Green
+    R - Red -> Copper
+    G - Copper -> Red
+#134:
+  Jack:
+    L - Blue
+    R - Green
+    G - Copper
+    M - Red
+  Speakers:
+    L - Green -> Red
+    R - Copper
+    G - Red -> Green
+#135:
+  Jack:
+    L - Blue
+    R - Green
+    G - Copper
+    M - Red
+  Speakers:
+    L - Red
+    R - Copper -> Green
+    G - Green -> Copper
+#136:
+  Jack:
+    L - Blue
+    R - Green
+    G - Copper
+    M - Red
+  Speakers:
+    L - Red -> Copper
+    R - Green
+    G - Copper -> Red
+#137:
+  Jack:
+    L - Blue
+    R - Green
+    G - Copper
+    M - Red
+  Speakers:
+    L - Copper
+    R - Green -> Red
+    G - Red -> Green
+#138:
+  Jack:
+    L - Blue
+    R - Green
+    G - Copper -> Red
+    M - Red -> Copper
+  Speakers:
+    L - Copper
+    R - Red
+    G - Green
+#139:
+  Jack:
+    L - Blue
+    R - Green
+    G - Red
+    M - Copper
+  Speakers:
+    L - Copper
+    R - Red -> Green
+    G - Green -> Red
+#140:
+  Jack:
+    L - Blue
+    R - Green
+    G - Red
+    M - Copper
+  Speakers:
+    L - Copper -> Red
+    R - Green
+    G - Red -> Copper
+#141:
+  Jack:
+    L - Blue
+    R - Green
+    G - Red
+    M - Copper
+  Speakers:
+    L - Red
+    R - Green -> Copper
+    G - Copper -> Green
+#142:
+  Jack:
+    L - Blue
+    R - Green
+    G - Red
+    M - Copper
+  Speakers:
+    L - Red -> Green
+    R - Copper
+    G - Green -> Red
+#143:
+  Jack:
+    L - Blue
+    R - Green
+    G - Red
+    M - Copper
+  Speakers:
+    L - Green
+    R - Copper -> Red
+    G - Red -> Copper
+#144:
+  Jack:
+    L - Blue
+    R - Green
+    G - Red
+    M - Copper
+  Speakers:
+    L - Green
+    R - Red
+    G - Copper
