@@ -1,4 +1,18 @@
 # WICO (Wiring Combinations)
+![alt text](demo.gif)
+```
+#1:
+  Jack:
+    L - Green
+    R - Red
+    G - Copper
+    M - Blue
+  Speakers:
+    L - Green
+    R - Red -> Copper
+    G - Copper -> Red
+... (143 more combinations)
+```
 
 ### Table of Contents
 
